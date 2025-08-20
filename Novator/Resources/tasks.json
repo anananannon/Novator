@@ -1,0 +1,29 @@
+[
+    {
+        "id": "3e7f9a1b-2c4d-4e6f-8a9b-0c1d2e3f4a5b",
+        "category": "math",
+        "level": "beginner",
+        "question": "Сколько будет 5 + 7?",
+        "options": ["10", "11", "12", "13"],
+        "correctAnswer": "12",
+        "explanation": "Сложите 5 и 7: 5 + 7 = 12."
+    },
+    {
+        "id": "4f8g0b2c-3d5e-5f7g-9b0c-1d2e3f4g5h6i",
+        "category": "math",
+        "level": "intermediate",
+        "question": "Решите уравнение: 2x = 10",
+        "options": ["3", "4", "5", "6"],
+        "correctAnswer": "5",
+        "explanation": "Разделите обе стороны на 2: x = 10 / 2 = 5."
+    },
+    {
+        "id": "5g9h1c3d-4e6f-6g8h-0c1d-2e3f4g5h6i7j",
+        "category": "logic",
+        "level": "beginner",
+        "question": "Если сегодня понедельник, какой день будет завтра?",
+        "options": ["Вторник", "Среда", "Четверг", "Пятница"],
+        "correctAnswer": "Вторник",
+        "explanation": "Завтра после понедельника — вторник."
+    }
+]
