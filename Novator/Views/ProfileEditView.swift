@@ -1,6 +1,6 @@
 import SwiftUI
-import Foundation
 
+// MARK: - ProfileEditView
 struct ProfileEditView: View {
     @ObservedObject var profile: UserProfileViewModel
     @Environment(\.dismiss) var dismiss
@@ -8,70 +8,40 @@ struct ProfileEditView: View {
     @State private var lastName: String
     @State private var username: String
     @State private var showingAvatarPicker = false
-    
-    // Список доступных аватарок (SF Symbols)
-    private let availableAvatars = [
-        "person.circle",
-        "star.circle",
-        "heart.circle",
-        "flame.circle",
-        "bolt.circle"
-    ]
-    
-    // Проверка, активна ли кнопка "Сохранить"
+
+    private let availableAvatars = ["person.circle", "star.circle", "heart.circle", "flame.circle", "bolt.circle"]
+
+    // MARK: - Initialization
+    init(profile: UserProfileViewModel) {
+        self.profile = profile
+        self._firstName = State(wrappedValue: profile.profile.firstName)
+        self._lastName = State(wrappedValue: profile.profile.lastName)
+        self._username = State(wrappedValue: profile.profile.username)
+    }
+
+    // MARK: - Computed Properties
     private var isSaveButtonEnabled: Bool {
         !firstName.trimmingCharacters(in: .whitespaces).isEmpty &&
         !lastName.trimmingCharacters(in: .whitespaces).isEmpty &&
         !username.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: "@", with: "").isEmpty
     }
 
-    init(profile: UserProfileViewModel) {
-        self.profile = profile
-        self._firstName = State(initialValue: profile.profile.firstName)
-        self._lastName = State(initialValue: profile.profile.lastName)
-        self._username = State(initialValue: profile.profile.username)
-    }
-
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             List {
-                // Секция с аватаркой и кнопкой
+                AvatarSection(
+                    avatar: $profile.profile.avatar,
+                    showingAvatarPicker: $showingAvatarPicker,
+                    availableAvatars: availableAvatars
+                )
                 Section {
-                    VStack(spacing: 10) {
-                        // Аватарка
-                        Image(systemName: profile.profile.avatar)
-                            .font(.system(size: 120))
-                            .foregroundColor(Color("AppRed"))
-                            .clipShape(Circle())
-                            .padding(.top, 10)
-                            .frame(maxWidth: .infinity)
-
-                        // Кнопка "Изменить аватарку"
-                        Button(action: {
-                            showingAvatarPicker = true
-                        }) {
-                            Text("Изменить аватарку")
-                                .font(.system(.body, design: .rounded))
-                                .foregroundColor(Color("AppRed"))
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                    .listRowBackground(Color.clear)
+                    TextFieldView(title: "Имя", text: $firstName)
+                    TextFieldView(title: "Фамилия", text: $lastName)
                 }
-
-                // Секция для имени и фамилии (без заголовка)
-                Section {
-                    TextField("Имя", text: $firstName)
-                        .font(.system(.title3, design: .rounded))
-                    TextField("Фамилия", text: $lastName)
-                        .font(.system(.title3, design: .rounded))
-                }
-
-                // Секция для юзернейма
-                Section(header: Text("Юзернейм").font(.system(.subheadline, design: .rounded))) {
-                    TextField("Юзернейм", text: $username)
-                        .font(.system(.body, design: .rounded))
-                        .onChange(of: username) { oldValue, newValue in
+                Section(header: Text("Юзернейм").font(.subheadlineRounded)) {
+                    TextFieldView(title: "Юзернейм", text: $username)
+                        .onChange(of: username) { newValue in
                             if !newValue.hasPrefix("@") {
                                 username = "@" + newValue.replacingOccurrences(of: "@", with: "")
                             }
@@ -82,31 +52,70 @@ struct ProfileEditView: View {
             .navigationTitle("Редактировать профиль")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItemGroup(placement: .cancellationAction) {
-                    Button("Отмена") {
-                        dismiss()
-                    }
-                    .font(.system(.body, design: .rounded))
-                    .foregroundColor(Color("AppRed"))
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Отмена", action: { dismiss() })
+                        .font(.bodyRounded)
+                        .foregroundColor(Color("AppRed"))
                 }
-                ToolbarItemGroup(placement: .confirmationAction) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Сохранить") {
-                        profile.updateProfile(firstName: firstName, lastName: lastName, username: username, avatar: profile.profile.avatar)
+                        profile.updateProfile(
+                            firstName: firstName,
+                            lastName: lastName,
+                            username: username,
+                            avatar: profile.profile.avatar
+                        )
                         dismiss()
                     }
-                    .font(.system(.body, design: .rounded))
+                    .font(.bodyRounded)
                     .foregroundColor(isSaveButtonEnabled ? Color("AppRed") : .gray)
                     .disabled(!isSaveButtonEnabled)
                 }
-            }
-            .sheet(isPresented: $showingAvatarPicker) {
-                AvatarPickerView(selectedAvatar: $profile.profile.avatar, availableAvatars: availableAvatars)
             }
         }
     }
 }
 
-// Отдельное представление для выбора аватарки
+// MARK: - AvatarSection
+struct AvatarSection: View {
+    @Binding var avatar: String
+    @Binding var showingAvatarPicker: Bool
+    let availableAvatars: [String]
+
+    var body: some View {
+        Section {
+            HStack {
+                Spacer()
+                Image(systemName: avatar.isEmpty ? "person.circle" : avatar)
+                    .font(.system(size: 120))
+                    .foregroundColor(Color("AppRed"))
+                    .clipShape(Circle())
+                Spacer()
+            }
+            Button("Изменить аватарку") {
+                showingAvatarPicker = true
+            }
+            .font(.bodyRounded)
+            .foregroundColor(Color("AppRed"))
+            .sheet(isPresented: $showingAvatarPicker) {
+                AvatarPickerView(selectedAvatar: $avatar, availableAvatars: availableAvatars)
+            }
+        }
+    }
+}
+
+// MARK: - TextFieldView
+struct TextFieldView: View {
+    let title: String
+    @Binding var text: String
+
+    var body: some View {
+        TextField(title, text: $text)
+            .font(.title3Rounded)
+    }
+}
+
+// MARK: - AvatarPickerView
 struct AvatarPickerView: View {
     @Binding var selectedAvatar: String
     let availableAvatars: [String]
@@ -125,8 +134,7 @@ struct AvatarPickerView: View {
                                 .font(.system(size: 30))
                                 .foregroundColor(Color("AppRed"))
                             Text(avatar)
-                                .font(.system(.body, design: .rounded))
-                                .foregroundColor(.primary)
+                                .font(.bodyRounded)
                             Spacer()
                             if selectedAvatar == avatar {
                                 Image(systemName: "checkmark")
@@ -139,18 +147,24 @@ struct AvatarPickerView: View {
             .navigationTitle("Выбрать аватарку")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItemGroup(placement: .cancellationAction) {
-                    Button("Отмена") {
-                        dismiss()
-                    }
-                    .font(.system(.body, design: .rounded))
-                    .foregroundColor(Color("AppRed"))
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Отмена", action: { dismiss() })
+                        .font(.bodyRounded)
+                        .foregroundColor(Color("AppRed"))
                 }
             }
         }
     }
 }
 
+// MARK: - Font Extension
+extension Font {
+    static let bodyRounded = Font.system(.body, design: .rounded)
+    static let title3Rounded = Font.system(.title3, design: .rounded)
+    static let subheadlineRounded = Font.system(.subheadline, design: .rounded)
+}
+
+// MARK: - Preview
 struct ProfileEditView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileEditView(profile: UserProfileViewModel())
