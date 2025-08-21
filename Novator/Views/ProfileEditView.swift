@@ -35,11 +35,11 @@ struct ProfileEditView: View {
                     showingAvatarPicker: $showingAvatarPicker,
                     availableAvatars: availableAvatars
                 )
-                Section {
+                Section(footer: Text("Укажите имя которое хотите отоброжать в профиле")) {
                     TextFieldView(title: "Имя", text: $firstName, font: .bodyRounded)
                     TextFieldView(title: "Фамилия", text: $lastName, font: .bodyRounded)
                 }
-                Section(header: Text("Юзернейм").font(.subheadlineRounded)) {
+                Section(header: Text("Пользовательское имя").font(.subheadlineRounded), footer: Text("Имя пользователя нужно, что бы присвоить вашему аккаунту уникальность и что бы люди могли вас находить во вкладке (друзья)")) {
                     UsernameTextFieldView(text: $username)
                 }
             }
@@ -122,10 +122,10 @@ struct UsernameTextFieldView: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            Text("@")
+            Text("Имя пользователя      ")
                 .font(.bodyRounded)
-                .foregroundColor(.gray)
-            TextField("Юзернейм", text: $editablePart)
+                .foregroundStyle(.black)
+            TextField("", text: $editablePart)
                 .font(.bodyRounded)
                 .autocapitalization(.none)
                 .keyboardType(.asciiCapable)
