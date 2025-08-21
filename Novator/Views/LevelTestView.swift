@@ -71,6 +71,8 @@ struct LevelTestView: View {
                 }
             )
         }
+        .preferredColorScheme(profile.theme.colorScheme)
+
     }
 
     func checkAnswer() {

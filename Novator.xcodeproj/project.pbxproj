@@ -20,6 +20,7 @@
 		AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F042E54A0BE005592E3 /* ProfileView.swift */; };
 		AB9EEE082E577312002AECF7 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE072E577312002AECF7 /* AchievementView.swift */; };
 		AB9EEE0A2E5774DB002AECF7 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */; };
+		AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */; };
 		ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */; };
 		ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080182E54D73E007B9113 /* ProfileNavigation.swift */; };
 		ABE0801B2E54D874007B9113 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0801A2E54D874007B9113 /* Task.swift */; };
@@ -63,6 +64,7 @@
 		AB907F042E54A0BE005592E3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AB9EEE072E577312002AECF7 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
 		AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
+		AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		ABE080182E54D73E007B9113 /* ProfileNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigation.swift; sourceTree = "<group>"; };
 		ABE0801A2E54D874007B9113 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				ABE080172E54D68D007B9113 /* Views */,
 				ABE080162E54D66C007B9113 /* Models */,
 				AB907ED22E549B8C005592E3 /* NovatorApp.swift */,
+				AB9EEE0D2E57A9C4002AECF7 /*  ViewModel */,
 				AB907ED62E549B90005592E3 /* Assets.xcassets */,
 				AB907ED82E549B90005592E3 /* Preview Content */,
 				AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */,
@@ -157,13 +160,20 @@
 			path = NovatorUITests;
 			sourceTree = "<group>";
 		};
+		AB9EEE0D2E57A9C4002AECF7 /*  ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */,
+			);
+			path = " ViewModel";
+			sourceTree = "<group>";
+		};
 		ABE080162E54D66C007B9113 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				ABE080182E54D73E007B9113 /* ProfileNavigation.swift */,
 				ABE0801A2E54D874007B9113 /* Task.swift */,
 				ABE0801C2E54D898007B9113 /* UserProfile.swift */,
-				ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,6 +187,7 @@
 				AB907F042E54A0BE005592E3 /* ProfileView.swift */,
 				ABE080262E54DCD0007B9113 /* ProfileEditView.swift */,
 				AB9EEE072E577312002AECF7 /* AchievementView.swift */,
+				AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */,
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,

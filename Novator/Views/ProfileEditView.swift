@@ -68,6 +68,7 @@ struct ProfileEditView: View {
                 }
             }
         }
+        .preferredColorScheme(profile.theme.colorScheme)
     }
 }
 

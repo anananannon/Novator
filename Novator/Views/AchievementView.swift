@@ -31,6 +31,7 @@ struct AchievementsView: View {
             .navigationTitle("Достижения")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .preferredColorScheme(profile.theme.colorScheme)
     }
 }
 

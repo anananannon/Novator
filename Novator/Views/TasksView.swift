@@ -53,6 +53,7 @@ struct TasksView: View {
         .padding()
         .navigationTitle("Решение задач")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(profile.theme.colorScheme)
         .alert(isPresented: $showResult) {
             Alert(
                 title: Text(selectedAnswer == currentTask?.correctAnswer ? "Правильно!" : "Неправильно")
@@ -64,6 +65,8 @@ struct TasksView: View {
                     loadNextTask()
                 }
             )
+
+
         }
         .onAppear {
             loadNextTask()

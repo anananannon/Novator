@@ -88,6 +88,7 @@ struct ContentView: View {
                 }
         }
         .accentColor(Color("AppRed"))
+        .preferredColorScheme(userProfile.theme.colorScheme)
     }
 }
 
