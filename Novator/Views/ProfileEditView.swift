@@ -23,7 +23,7 @@ struct ProfileEditView: View {
     private var isSaveButtonEnabled: Bool {
         !firstName.trimmingCharacters(in: .whitespaces).isEmpty &&
         !lastName.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !username.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: "@", with: "").isEmpty
+        username.trimmingCharacters(in: .whitespaces).dropFirst().count >= 3
     }
 
     // MARK: - Body
@@ -36,16 +36,11 @@ struct ProfileEditView: View {
                     availableAvatars: availableAvatars
                 )
                 Section {
-                    TextFieldView(title: "Имя", text: $firstName)
-                    TextFieldView(title: "Фамилия", text: $lastName)
+                    TextFieldView(title: "Имя", text: $firstName, font: .bodyRounded)
+                    TextFieldView(title: "Фамилия", text: $lastName, font: .bodyRounded)
                 }
                 Section(header: Text("Юзернейм").font(.subheadlineRounded)) {
-                    TextFieldView(title: "Юзернейм", text: $username)
-                        .onChange(of: username) { newValue in
-                            if !newValue.hasPrefix("@") {
-                                username = "@" + newValue.replacingOccurrences(of: "@", with: "")
-                            }
-                        }
+                    UsernameTextFieldView(text: $username)
                 }
             }
             .listStyle(.insetGrouped)
@@ -89,7 +84,6 @@ struct AvatarSection: View {
                 Image(systemName: avatar.isEmpty ? "person.circle" : avatar)
                     .font(.system(size: 120))
                     .foregroundColor(Color("AppRed"))
-                    .clipShape(Circle())
                 Spacer()
             }
             Button("Изменить аватарку") {
@@ -108,10 +102,38 @@ struct AvatarSection: View {
 struct TextFieldView: View {
     let title: String
     @Binding var text: String
+    let font: Font
 
     var body: some View {
         TextField(title, text: $text)
-            .font(.title3Rounded)
+            .font(font)
+    }
+}
+
+// MARK: - UsernameTextFieldView
+struct UsernameTextFieldView: View {
+    @Binding var text: String
+    @State private var editablePart: String
+
+    init(text: Binding<String>) {
+        self._text = text
+        self._editablePart = State(wrappedValue: text.wrappedValue.dropFirst().replacingOccurrences(of: "@", with: ""))
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            Text("@")
+                .font(.bodyRounded)
+                .foregroundColor(.gray)
+            TextField("Юзернейм", text: $editablePart)
+                .font(.bodyRounded)
+                .textCase(.lowercase) // Forces lowercase input
+                .onChange(of: editablePart) { newValue in
+                    let cleanValue = newValue.replacingOccurrences(of: "@", with: "").trimmingCharacters(in: .whitespaces).lowercased()
+                    editablePart = cleanValue
+                    text = "@" + cleanValue
+                }
+        }
     }
 }
 
@@ -125,10 +147,10 @@ struct AvatarPickerView: View {
         NavigationStack {
             List {
                 ForEach(availableAvatars, id: \.self) { avatar in
-                    Button(action: {
+                    Button {
                         selectedAvatar = avatar
                         dismiss()
-                    }) {
+                    } label: {
                         HStack {
                             Image(systemName: avatar)
                                 .font(.system(size: 30))
@@ -160,7 +182,6 @@ struct AvatarPickerView: View {
 // MARK: - Font Extension
 extension Font {
     static let bodyRounded = Font.system(.body, design: .rounded)
-    static let title3Rounded = Font.system(.title3, design: .rounded)
     static let subheadlineRounded = Font.system(.subheadline, design: .rounded)
 }
 
