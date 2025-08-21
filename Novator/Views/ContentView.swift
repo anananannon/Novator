@@ -75,6 +75,12 @@ struct ContentView: View {
                 Label("Рейтинг", systemImage: "chart.bar.fill")
             }
 
+            // Вкладка "Достижения"
+            AchievementsView(profile: userProfile)
+                .tabItem {
+                    Label("Достижения", systemImage: "trophy.fill")
+                }
+
             // Вкладка "Профиль"
             ProfileView(profile: userProfile)
                 .tabItem {
