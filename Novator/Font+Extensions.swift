@@ -1,8 +1,7 @@
-//
-//  Font+Extensions.swift
-//  Novator
-//
-//  Created by j on 21.08.2025.
-//
+import SwiftUI
 
-import Foundation
+// MARK: - Font Extension
+extension Font {
+    static let bodyRounded = Font.system(.body, design: .rounded)
+    static let subheadlineRounded = Font.system(.subheadline, design: .rounded)
+}
