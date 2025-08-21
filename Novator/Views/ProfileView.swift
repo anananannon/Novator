@@ -18,12 +18,12 @@ struct ProfileView: View {
                         
                         Spacer()
                         
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: 2) {
                             Text(profile.profile.fullName)
-                                .font(.system(size: 20, weight: .medium, design: .rounded))
+                                .font(.system(size: 21, weight: .medium, design: .rounded))
                                 .foregroundColor(Color("AppRed"))
                             Text(profile.profile.username)
-                                .font(.system(.subheadline, design: .rounded))
+                                .font(.system(size: 13, design: .rounded))
                                 .foregroundColor(.gray)
                         }
                         
@@ -37,7 +37,7 @@ struct ProfileView: View {
                     }
                     .padding(.vertical, 8)
                 }
-                .buttonStyle(PlainButtonStyle())
+
                 
                 // Секции профиля
                 Section {
@@ -75,6 +75,7 @@ struct ProfileView: View {
                 .frame(width: 20, alignment: .leading)
             Text(value)
                 .font(.system(.subheadline, design: .rounded))
+                .fontWeight(.semibold)
                 .foregroundColor(.primary)
         }
     }
