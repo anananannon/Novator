@@ -127,9 +127,10 @@ struct UsernameTextFieldView: View {
                 .foregroundColor(.gray)
             TextField("Юзернейм", text: $editablePart)
                 .font(.bodyRounded)
-                .textCase(.lowercase) // Forces lowercase input
+                .autocapitalization(.none)
+                .keyboardType(.asciiCapable)
                 .onChange(of: editablePart) { newValue in
-                    let cleanValue = newValue.replacingOccurrences(of: "@", with: "").trimmingCharacters(in: .whitespaces).lowercased()
+                    let cleanValue = newValue.replacingOccurrences(of: "@", with: "").trimmingCharacters(in: .whitespaces)
                     editablePart = cleanValue
                     text = "@" + cleanValue
                 }
@@ -177,12 +178,6 @@ struct AvatarPickerView: View {
             }
         }
     }
-}
-
-// MARK: - Font Extension
-extension Font {
-    static let bodyRounded = Font.system(.body, design: .rounded)
-    static let subheadlineRounded = Font.system(.subheadline, design: .rounded)
 }
 
 // MARK: - Preview
