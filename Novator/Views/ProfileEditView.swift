@@ -86,13 +86,29 @@ struct AvatarSection: View {
                     .foregroundColor(Color("AppRed"))
                 Spacer()
             }
-            Button("Изменить аватарку") {
-                showingAvatarPicker = true
-            }
-            .font(.bodyRounded)
-            .foregroundColor(Color("AppRed"))
-            .sheet(isPresented: $showingAvatarPicker) {
-                AvatarPickerView(selectedAvatar: $avatar, availableAvatars: availableAvatars)
+            Menu {
+                ForEach(availableAvatars, id: \.self) { avatarOption in
+                    Button {
+                        avatar = avatarOption
+                    } label: {
+                        HStack {
+                            Image(systemName: avatarOption)
+                                .font(.system(size: 30))
+                                .foregroundColor(Color("AppRed"))
+                            Text(avatarOption)
+                                .font(.bodyRounded)
+                            if avatar == avatarOption {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(Color("AppRed"))
+                            }
+                        }
+                    }
+                }
+            } label: {
+                Text("Изменить аватарку")
+                    .font(.bodyRounded)
+                    .foregroundColor(Color("AppRed"))
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
     }
@@ -134,48 +150,6 @@ struct UsernameTextFieldView: View {
                     editablePart = cleanValue
                     text = "@" + cleanValue
                 }
-        }
-    }
-}
-
-// MARK: - AvatarPickerView
-struct AvatarPickerView: View {
-    @Binding var selectedAvatar: String
-    let availableAvatars: [String]
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        NavigationStack {
-            List {
-                ForEach(availableAvatars, id: \.self) { avatar in
-                    Button {
-                        selectedAvatar = avatar
-                        dismiss()
-                    } label: {
-                        HStack {
-                            Image(systemName: avatar)
-                                .font(.system(size: 30))
-                                .foregroundColor(Color("AppRed"))
-                            Text(avatar)
-                                .font(.bodyRounded)
-                            Spacer()
-                            if selectedAvatar == avatar {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color("AppRed"))
-                            }
-                        }
-                    }
-                }
-            }
-            .navigationTitle("Выбрать аватарку")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Отмена", action: { dismiss() })
-                        .font(.bodyRounded)
-                        .foregroundColor(Color("AppRed"))
-                }
-            }
         }
     }
 }
