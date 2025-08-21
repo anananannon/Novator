@@ -41,19 +41,19 @@ struct ProfileView: View {
                 // Секции профиля
                 Section {
                     ForEach(ProfileNavigation.section1) { item in
-                        sectionView(icon: item.imageName, size: item.imageSize, title: item.title, link: item.link, profile: profile)
+                        sectionView(icon: item.imageName, size: item.imageSize, title: item.title, destinationType: item.destinationType, profile: profile)
                     }
                 }
                 
                 Section {
                     ForEach(ProfileNavigation.section2) { item in
-                        sectionView(icon: item.imageName, size: item.imageSize, title: item.title, link: item.link, profile: profile)
+                        sectionView(icon: item.imageName, size: item.imageSize, title: item.title, destinationType: item.destinationType, profile: profile)
                     }
                 }
                 
                 Section {
                     ForEach(ProfileNavigation.section3) { item in
-                        sectionView(icon: item.imageName, size: item.imageSize, title: item.title, link: item.link, profile: profile)
+                        sectionView(icon: item.imageName, size: item.imageSize, title: item.title, destinationType: item.destinationType, profile: profile)
                     }
                 }
             }
@@ -81,8 +81,8 @@ struct ProfileView: View {
     }
     
     @ViewBuilder
-    private func sectionView(icon: String, size: CGFloat, title: String, link: AnyView?, profile: UserProfileViewModel) -> some View {
-        NavigationLink(destination: link ?? AnyView(Text("\(title) View"))) {
+    private func sectionView(icon: String, size: CGFloat, title: String, destinationType: ProfileNavigationItem.DestinationType, profile: UserProfileViewModel) -> some View {
+        NavigationLink(destination: destinationView(for: destinationType, profile: profile)) {
             HStack(spacing: 12) {
                 Image(systemName: icon)
                     .font(.system(size: size))
@@ -94,10 +94,43 @@ struct ProfileView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private func destinationView(for destinationType: ProfileNavigationItem.DestinationType, profile: UserProfileViewModel) -> some View {
+        switch destinationType {
+        case .settings:
+            SettingsView(profile: profile)
+        case .statistics, .activity, .friends, .chats, .privacy, .connectedDevices, .downloadedFiles:
+            Text("\(destinationType.title) View")
+        }
+    }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView(profile: UserProfileViewModel())
+    }
+}
+
+extension ProfileNavigationItem.DestinationType {
+    var title: String {
+        switch self {
+        case .settings:
+            return "Настройки"
+        case .statistics:
+            return "Статистика"
+        case .activity:
+            return "Активность"
+        case .friends:
+            return "Друзья"
+        case .chats:
+            return "Чаты"
+        case .privacy:
+            return "Конфиденциальность"
+        case .connectedDevices:
+            return "Подключенные устройства"
+        case .downloadedFiles:
+            return "Скачанные файлы"
+        }
     }
 }

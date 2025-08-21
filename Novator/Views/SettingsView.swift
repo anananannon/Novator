@@ -2,8 +2,11 @@ import SwiftUI
 
 // MARK: - SettingsView
 struct SettingsView: View {
-    @ObservedObject var profile: UserProfileViewModel
-    @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel: SettingsViewModel
+
+    init(profile: UserProfileViewModel) {
+        self._viewModel = StateObject(wrappedValue: SettingsViewModel(profile: profile))
+    }
 
     // MARK: - Body
     var body: some View {
@@ -13,12 +16,15 @@ struct SettingsView: View {
                     Menu {
                         ForEach(UserProfileViewModel.Theme.allCases, id: \.self) { theme in
                             Button {
-                                profile.theme = theme
+                                viewModel.updateTheme(theme)
                             } label: {
                                 HStack {
+                                    Image(systemName: theme == .light ? "sun.max.fill" : theme == .dark ? "moon.fill" : "gearshape.fill")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color("AppRed"))
                                     Text(theme == .light ? "Светлая" : theme == .dark ? "Тёмная" : "Системная")
                                         .font(.bodyRounded)
-                                    if profile.theme == theme {
+                                    if viewModel.selectedTheme == theme {
                                         Image(systemName: "checkmark")
                                             .foregroundColor(Color("AppRed"))
                                     }
@@ -27,13 +33,27 @@ struct SettingsView: View {
                         }
                     } label: {
                         HStack {
+                            Image(systemName: "paintpalette.fill")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color("AppRed"))
                             Text("Тема приложения")
                                 .font(.bodyRounded)
                                 .foregroundColor(.primary)
                             Spacer()
-                            Text(profile.theme == .light ? "Светлая" : profile.theme == .dark ? "Тёмная" : "Системная")
+                            Text(viewModel.selectedTheme == .light ? "Светлая" : viewModel.selectedTheme == .dark ? "Тёмная" : "Системная")
                                 .font(.bodyRounded)
                                 .foregroundColor(.gray)
+                        }
+                    }
+
+                    Toggle(isOn: $viewModel.notificationsEnabled) {
+                        HStack {
+                            Image(systemName: "bell.fill")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color("AppRed"))
+                            Text("Уведомления")
+                                .font(.bodyRounded)
+                                .foregroundColor(.primary)
                         }
                     }
                 }
@@ -42,7 +62,7 @@ struct SettingsView: View {
             .navigationTitle("Настройки")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .preferredColorScheme(profile.theme.colorScheme)
+        .preferredColorScheme(viewModel.selectedTheme.colorScheme)
     }
 }
 

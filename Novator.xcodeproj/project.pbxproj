@@ -21,6 +21,7 @@
 		AB9EEE082E577312002AECF7 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE072E577312002AECF7 /* AchievementView.swift */; };
 		AB9EEE0A2E5774DB002AECF7 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */; };
 		AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */; };
+		AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */; };
 		ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */; };
 		ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080182E54D73E007B9113 /* ProfileNavigation.swift */; };
 		ABE0801B2E54D874007B9113 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0801A2E54D874007B9113 /* Task.swift */; };
@@ -65,6 +66,7 @@
 		AB9EEE072E577312002AECF7 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
 		AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
 		AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		ABE080182E54D73E007B9113 /* ProfileNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigation.swift; sourceTree = "<group>"; };
 		ABE0801A2E54D874007B9113 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */,
+				AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */,
 			);
 			path = " ViewModel";
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				AB907F032E549FA2005592E3 /* TasksView.swift in Sources */,
 				ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */,
 				ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */,
+				AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
