@@ -18,7 +18,6 @@ struct TasksView: View {
             
             HStack(spacing: 20) {
                 statView(icon: "flame.fill", value: "\(viewModel.profile.profile.streak)")
-                statView(icon: "star.fill", value: "\(viewModel.profile.profile.points)")
             }
             .padding()
             
@@ -71,11 +70,15 @@ struct TasksView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle("Решение задач")
         .navigationBarTitleDisplayMode(.inline)
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear {
             print("TasksView: Appeared, level: \(viewModel.profile.profile.level), current task: \(viewModel.currentTask?.question ?? "none")")
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                statView(icon: "star.fill", value: "\(viewModel.profile.profile.points)")
+            }
         }
     }
     
