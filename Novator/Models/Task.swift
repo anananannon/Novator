@@ -8,4 +8,6 @@ struct Task: Codable, Identifiable {
     let options: [String]?
     let correctAnswer: String
     let explanation: String
+    let points: Int
+    let isLogicalTrick: Bool
 }

@@ -2,40 +2,60 @@ import SwiftUI
 import Foundation
 
 struct TasksView: View {
-    @ObservedObject var profile: UserProfileViewModel
+    @StateObject private var viewModel: TasksViewModel
     @Binding var navigationPath: NavigationPath
-    @State private var currentTask: Task?
-    @State private var selectedAnswer: String?
-    @State private var showResult = false
-    private let tasks = TaskManager.loadTasks()
-
+    
+    init(profile: UserProfileViewModel, navigationPath: Binding<NavigationPath>) {
+        self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
+        self._navigationPath = navigationPath
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
-            if let task = currentTask {
-                Text(task.question)
-                    .font(.system(.title2, design: .rounded))
-                    .foregroundColor(Color("AppRed"))
-                    .padding()
-
-                ForEach(task.options ?? [], id: \.self) { option in
-                    Button(action: {
-                        selectedAnswer = option
-                        checkAnswer()
-                    }) {
-                        Text(option)
-                            .font(.system(.body, design: .rounded))
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(selectedAnswer == option ? Color("AppRed") : Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
+            Text("Ваш уровень: \(viewModel.profile.profile.level.capitalized)")
+                .font(.system(.title2, design: .rounded))
+                .foregroundColor(Color("AppRed"))
+            
+            HStack(spacing: 20) {
+                statView(icon: "flame.fill", value: "\(viewModel.profile.profile.streak)")
+                statView(icon: "star.fill", value: "\(viewModel.profile.profile.points)")
+            }
+            .padding()
+            
+            Text("Программа обучения: Математика и логика")
+                .font(.system(.subheadline, design: .rounded))
+                .foregroundColor(.gray)
+            
+            if let task = viewModel.currentTask {
+                NavigationLink(destination: TaskDetailView(viewModel: viewModel)) {
+                    Text("Решать задачи (\(task.level.capitalized))")
+                        .font(.system(.title2, design: .rounded))
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color("AppRed"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
             } else {
-                Text("Нет доступных задач для вашего уровня (\(profile.profile.level))")
+                Text("Нет доступных задач для уровня \(viewModel.profile.profile.level.capitalized)")
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(Color("AppRed"))
-                    .padding()
+                Text("Пройдите тест уровня или сбросьте прогресс")
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundColor(.gray)
+                Button(action: {
+                    viewModel.profile.profile.completedTasks = []
+                    viewModel.profile.saveProfile()
+                    viewModel.program = TaskManager.createLearningProgram(for: viewModel.profile.profile.level, completedTasks: [])
+                    print("TasksView: Progress reset, tasks reloaded for level \(viewModel.profile.profile.level)")
+                }) {
+                    Text("Сбросить прогресс")
+                        .font(.system(.subheadline, design: .rounded))
+                        .padding()
+                        .background(Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
                 Button(action: {
                     navigationPath = NavigationPath()
                 }) {
@@ -47,48 +67,86 @@ struct TasksView: View {
                         .cornerRadius(10)
                 }
             }
-
+            
             Spacer()
         }
         .padding()
         .navigationTitle("Решение задач")
         .navigationBarTitleDisplayMode(.inline)
-        .preferredColorScheme(profile.theme.colorScheme)
-        .alert(isPresented: $showResult) {
+        .preferredColorScheme(viewModel.profile.theme.colorScheme)
+        .onAppear {
+            print("TasksView: Appeared, level: \(viewModel.profile.profile.level), current task: \(viewModel.currentTask?.question ?? "none")")
+        }
+    }
+    
+    @ViewBuilder
+    private func statView(icon: String, value: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.system(size: 14))
+                .foregroundColor(Color("AppRed"))
+                .frame(width: 20, alignment: .leading)
+            Text(value)
+                .font(.system(.subheadline, design: .rounded))
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+        }
+    }
+}
+
+struct TaskDetailView: View {
+    @ObservedObject var viewModel: TasksViewModel
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            if let task = viewModel.currentTask {
+                Text(task.isLogicalTrick ? "Логическая задача" : "Математическая задача")
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundColor(.gray)
+                
+                Text(task.question)
+                    .font(.system(.title2, design: .rounded))
+                    .foregroundColor(Color("AppRed"))
+                    .padding()
+                
+                ForEach(task.options ?? [], id: \.self) { option in
+                    Button(action: {
+                        viewModel.selectedAnswer = option
+                        viewModel.checkAnswer()
+                    }) {
+                        Text(option)
+                            .font(.system(.body, design: .rounded))
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                }
+                
+                Spacer()
+            } else {
+                Text("Задача недоступна")
+                    .font(.system(.title2, design: .rounded))
+                    .foregroundColor(Color("AppRed"))
+            }
+        }
+        .padding()
+        .navigationTitle("Задача")
+        .navigationBarTitleDisplayMode(.inline)
+        .alert(isPresented: $viewModel.showResult) {
             Alert(
-                title: Text(selectedAnswer == currentTask?.correctAnswer ? "Правильно!" : "Неправильно")
-                    .font(.system(.headline, design: .rounded)),
-                message: Text(selectedAnswer == currentTask?.correctAnswer ? "Отличная работа! +10 очков" : currentTask?.explanation ?? "")
-                    .font(.system(.body, design: .rounded)),
-                dismissButton: .default(Text("Далее").font(.system(.body, design: .rounded))) {
-                    profile.completeTask(currentTask?.id ?? UUID())
-                    loadNextTask()
+                title: Text(viewModel.isCorrect ? "Правильно!" : "Неправильно"),
+                message: Text(viewModel.isCorrect ? "Отличная работа! +\((viewModel.currentTask?.points ?? 0)) очков" : viewModel.currentTask?.explanation ?? "Попробуйте снова"),
+                dismissButton: .default(Text("Далее")) {
+                    viewModel.loadNextTask()
                 }
             )
-
-
         }
+        .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear {
-            loadNextTask()
+            print("TaskDetailView: Appeared, current task: \(viewModel.currentTask?.question ?? "none")")
         }
-    }
-
-    private func loadNextTask() {
-        let availableTasks = tasks.filter { $0.level == profile.profile.level && !profile.profile.completedTasks.contains($0.id) }
-        currentTask = availableTasks.randomElement()
-        selectedAnswer = nil
-        if availableTasks.isEmpty {
-            navigationPath = NavigationPath()
-        }
-    }
-
-    private func checkAnswer() {
-        guard let task = currentTask, let answer = selectedAnswer else { return }
-        if answer == task.correctAnswer {
-            profile.addPoints(10)
-            AchievementManager.checkAchievements(for: profile)
-        }
-        showResult = true
     }
 }
 

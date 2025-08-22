@@ -7,13 +7,14 @@ struct LevelTestView: View {
     @State private var currentQuestionIndex = 0
     @State private var selectedAnswer: String?
     @State private var showResult = false
-
+    @State private var correctAnswers = 0
+    
     let testTasks = [
-        Task(id: UUID(), category: "math", level: "beginner", question: "2 + 3 = ?", options: ["5", "6", "4", "7"], correctAnswer: "5", explanation: "Сложите 2 и 3, чтобы получить 5."),
-        Task(id: UUID(), category: "math", level: "intermediate", question: "Решите: x + 4 = 10", options: ["6", "5", "7", "8"], correctAnswer: "6", explanation: "Вычтите 4 из 10: x = 10 - 4 = 6."),
-        Task(id: UUID(), category: "logic", level: "advanced", question: "Если все кошки мурлыкают, а Тигр - кошка, то что делает Тигр?", options: ["Мурлыкает", "Лает", "Крякает", "Рычит"], correctAnswer: "Мурлыкает", explanation: "По условию, все кошки мурлыкают, значит, Тигр мурлыкает.")
+        Task(id: UUID(), category: "math", level: "beginner", question: "2 + 3 = ?", options: ["5", "6", "4", "7"], correctAnswer: "5", explanation: "Сложите 2 и 3, чтобы получить 5.", points: 10, isLogicalTrick: false),
+        Task(id: UUID(), category: "math", level: "intermediate", question: "Решите: x + 4 = 10", options: ["6", "5", "7", "8"], correctAnswer: "6", explanation: "Вычтите 4 из 10: x = 10 - 4 = 6.", points: 20, isLogicalTrick: false),
+        Task(id: UUID(), category: "logic", level: "advanced", question: "Если все кошки мурлыкают, а Тигр - кошка, то что делает Тигр?", options: ["Мурлыкает", "Лает", "Крякает", "Рычит"], correctAnswer: "Мурлыкает", explanation: "По условию, все кошки мурлыкают, значит, Тигр мурлыкает.", points: 50, isLogicalTrick: true)
     ]
-
+    
     var body: some View {
         VStack(spacing: 20) {
             if currentQuestionIndex < testTasks.count {
@@ -21,7 +22,7 @@ struct LevelTestView: View {
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(Color("AppRed"))
                     .padding()
-
+                
                 ForEach(testTasks[currentQuestionIndex].options ?? [], id: \.self) { option in
                     Button(action: {
                         selectedAnswer = option
@@ -37,7 +38,7 @@ struct LevelTestView: View {
                     }
                 }
             } else {
-                Text("Тест завершен! Ваш уровень: \(profile.profile.level)")
+                Text("Тест завершен! Ваш уровень: \(profile.profile.level.capitalized)")
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(Color("AppRed"))
                     .padding()
@@ -58,29 +59,39 @@ struct LevelTestView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert(isPresented: $showResult) {
             Alert(
-                title: Text("Результат")
-                    .font(.system(.headline, design: .rounded)),
-                message: Text(selectedAnswer == testTasks[currentQuestionIndex].correctAnswer ? "Правильно!" : "Неправильно. \(testTasks[currentQuestionIndex].explanation)")
-                    .font(.system(.body, design: .rounded)),
-                dismissButton: .default(Text("Далее").font(.system(.body, design: .rounded))) {
+                title: Text("Результат"),
+                message: Text(selectedAnswer == testTasks[currentQuestionIndex].correctAnswer ? "Правильно!" : "Неправильно. \(testTasks[currentQuestionIndex].explanation)"),
+                dismissButton: .default(Text("Далее")) {
                     currentQuestionIndex += 1
                     selectedAnswer = nil
                     if currentQuestionIndex >= testTasks.count {
-                        profile.updateLevel(currentQuestionIndex > 1 ? "intermediate" : "beginner")
+                        let newLevel = correctAnswers >= 2 ? "advanced" : correctAnswers == 1 ? "intermediate" : "beginner"
+                        profile.updateLevel(newLevel)
+                        profile.profile.completedTasks = [] // Сброс задач для нового уровня
+                        profile.saveProfile()
+                        print("LevelTestView: Level updated to \(newLevel), completed tasks reset")
                     }
                 }
             )
         }
+        .onAppear {
+            currentQuestionIndex = 0
+            correctAnswers = 0
+            selectedAnswer = nil
+            showResult = false
+            print("LevelTestView: Test reset, current level: \(profile.profile.level)")
+        }
         .preferredColorScheme(profile.theme.colorScheme)
-
     }
-
-    func checkAnswer() {
-        if selectedAnswer != nil {
+    
+    private func checkAnswer() {
+        if let answer = selectedAnswer {
             showResult = true
-            if selectedAnswer == testTasks[currentQuestionIndex].correctAnswer {
-                profile.addPoints(10)
+            if answer == testTasks[currentQuestionIndex].correctAnswer {
+                correctAnswers += 1
+                profile.addPoints(testTasks[currentQuestionIndex].points)
                 AchievementManager.checkAchievements(for: profile)
+                print("LevelTestView: Correct answer, points: \(profile.profile.points), correct count: \(correctAnswers)")
             }
         }
     }

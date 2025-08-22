@@ -5,7 +5,6 @@ class UserProfileViewModel: ObservableObject {
     @Published var profile: UserProfile
     @AppStorage("appTheme") var theme: Theme = .system
 
-    // MARK: - Theme
     enum Theme: String, CaseIterable {
         case light
         case dark

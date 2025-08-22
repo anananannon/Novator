@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
 		AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED42E549B8C005592E3 /* ContentView.swift */; };
 		AB907ED72E549B90005592E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB907ED62E549B90005592E3 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB907ED22E549B8C005592E3 /* NovatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NovatorApp.swift; sourceTree = "<group>"; };
 		AB907ED42E549B8C005592E3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,13 +126,13 @@
 		AB907ED12E549B8C005592E3 /* Novator */ = {
 			isa = PBXGroup;
 			children = (
-				ABE080252E54D9AB007B9113 /* Resources */,
-				ABE080242E54D988007B9113 /* Managers */,
-				ABE080172E54D68D007B9113 /* Views */,
 				ABE080162E54D66C007B9113 /* Models */,
+				ABE080172E54D68D007B9113 /* Views */,
+				AB9EEE0D2E57A9C4002AECF7 /* ViewModel */,
+				ABE080242E54D988007B9113 /* Managers */,
 				AB907ED22E549B8C005592E3 /* NovatorApp.swift */,
-				AB9EEE0D2E57A9C4002AECF7 /*  ViewModel */,
 				AB907ED62E549B90005592E3 /* Assets.xcassets */,
+				ABE080252E54D9AB007B9113 /* Resources */,
 				AB907ED82E549B90005592E3 /* Preview Content */,
 				AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */,
 			);
@@ -162,13 +164,14 @@
 			path = NovatorUITests;
 			sourceTree = "<group>";
 		};
-		AB9EEE0D2E57A9C4002AECF7 /*  ViewModel */ = {
+		AB9EEE0D2E57A9C4002AECF7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */,
 				AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */,
+				AB81A1582E5873200000E1BD /* TasksViewModel.swift */,
 			);
-			path = " ViewModel";
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		ABE080162E54D66C007B9113 /* Models */ = {
@@ -344,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */,
+				AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */,
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
