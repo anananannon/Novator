@@ -36,10 +36,10 @@ struct ProfileEditView: View {
                     availableAvatars: availableAvatars
                 )
                 Section(footer: Text("Укажите имя которое хотите отоброжать в профиле")) {
-                    TextFieldView(title: "Имя", text: $firstName, font: .bodyRounded)
-                    TextFieldView(title: "Фамилия", text: $lastName, font: .bodyRounded)
+                    TextFieldView(title: "Имя", text: $firstName, font: .body)
+                    TextFieldView(title: "Фамилия", text: $lastName, font: .body)
                 }
-                Section(header: Text("Пользовательское имя").font(.subheadlineRounded), footer: Text("Имя пользователя нужно, что бы присвоить вашему аккаунту уникальность и что бы люди могли вас находить во вкладке (друзья)")) {
+                Section(header: Text("Пользовательское имя").font(.subheadline), footer: Text("Имя пользователя нужно, что бы присвоить вашему аккаунту уникальность и что бы люди могли вас находить во вкладке (друзья)")) {
                     UsernameTextFieldView(text: $username)
                 }
             }
@@ -49,7 +49,7 @@ struct ProfileEditView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Отмена", action: { dismiss() })
-                        .font(.bodyRounded)
+                        .font(.body)
                         .foregroundColor(Color("AppRed"))
                 }
                 ToolbarItem(placement: .confirmationAction) {
@@ -62,7 +62,7 @@ struct ProfileEditView: View {
                         )
                         dismiss()
                     }
-                    .font(.bodyRounded)
+                    .font(.body)
                     .foregroundColor(isSaveButtonEnabled ? Color("AppRed") : .gray)
                     .disabled(!isSaveButtonEnabled)
                 }
@@ -97,7 +97,7 @@ struct AvatarSection: View {
                                 .font(.system(size: 30))
                                 .foregroundColor(Color("AppRed"))
                             Text(avatarOption)
-                                .font(.bodyRounded)
+                                .font(.body)
                             if avatar == avatarOption {
                                 Image(systemName: "checkmark")
                                     .foregroundColor(Color("AppRed"))
@@ -107,7 +107,7 @@ struct AvatarSection: View {
                 }
             } label: {
                 Text("Изменить аватарку")
-                    .font(.bodyRounded)
+                    .font(.body)
                     .foregroundColor(Color("AppRed"))
                     .frame(maxWidth: .infinity, alignment: .center)
             }
@@ -140,10 +140,10 @@ struct UsernameTextFieldView: View {
     var body: some View {
         HStack(spacing: 0) {
             Text("Имя пользователя      ")
-                .font(.bodyRounded)
+                .font(.body)
                 .foregroundStyle(.black)
             TextField("", text: $editablePart)
-                .font(.bodyRounded)
+                .font(.body)
                 .autocapitalization(.none)
                 .keyboardType(.asciiCapable)
                 .onChange(of: editablePart) { newValue in

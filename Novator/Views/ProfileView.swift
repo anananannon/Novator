@@ -20,10 +20,10 @@ struct ProfileView: View {
                         
                         VStack(alignment: .leading, spacing: 2) {
                             Text(profile.profile.fullName)
-                                .font(.system(size: 21, weight: .medium, design: .rounded))
+                                .font(.system(size: 21, weight: .medium))
                                 .foregroundColor(Color("AppRed"))
                             Text(profile.profile.username)
-                                .font(.system(size: 13, design: .rounded))
+                                .font(.system(size: 13))
                                 .foregroundColor(.gray)
                         }
                         
@@ -89,7 +89,7 @@ struct ProfileView: View {
                     .foregroundColor(Color("AppRed"))
                     .frame(width: 28, alignment: .leading)
                 Text(title)
-                    .font(.system(.body, design: .rounded))
+                    .font(.system(.body))
                     .foregroundColor(.primary)
             }
         }

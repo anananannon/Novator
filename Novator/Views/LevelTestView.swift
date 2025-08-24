@@ -39,14 +39,14 @@ struct LevelTestView: View {
                 }
             } else {
                 Text("Тест завершен! Ваш уровень: \(profile.profile.level.capitalized)")
-                    .font(.system(.title2, design: .rounded))
+                    .font(.system(.title2))
                     .foregroundColor(Color("AppRed"))
                     .padding()
                 Button(action: {
                     navigationPath = NavigationPath()
                 }) {
                     Text("Вернуться в меню")
-                        .font(.system(.title2, design: .rounded))
+                        .font(.system(.title2))
                         .padding()
                         .background(Color("AppRed"))
                         .foregroundColor(.white)

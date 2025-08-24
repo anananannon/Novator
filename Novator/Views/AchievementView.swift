@@ -16,10 +16,10 @@ struct AchievementsView: View {
                                 .foregroundColor(Color("AppRed"))
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(achievement.name)
-                                    .font(.bodyRounded)
+                                    .font(.body)
                                     .foregroundColor(.primary)
                                 Text(achievement.description)
-                                    .font(.subheadlineRounded)
+                                    .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
                             Spacer()
