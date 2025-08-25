@@ -63,17 +63,7 @@ struct ContentView: View {
             .tag(0)
 
             // Вкладка "Рейтинг"
-            VStack {
-                Text("Рейтинг")
-                    .font(.system(.largeTitle))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color("AppRed"))
-                    .padding()
-                Text("Рейтинг пока в разработке")
-                    .font(.system(.title2))
-                    .foregroundColor(.gray)
-                Spacer()
-            }
+            RatingView(profile: userProfile)
             .tabItem {
                 Label("Рейтинг", systemImage: "chart.bar.fill")
             }.tag(1)
