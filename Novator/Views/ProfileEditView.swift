@@ -22,7 +22,6 @@ struct ProfileEditView: View {
     // MARK: - Computed Properties
     private var isSaveButtonEnabled: Bool {
         !firstName.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !lastName.trimmingCharacters(in: .whitespaces).isEmpty &&
         username.trimmingCharacters(in: .whitespaces).dropFirst().count >= 3
     }
 
