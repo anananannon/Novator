@@ -104,15 +104,21 @@ struct TaskDetailView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            
+            Spacer()
             if let task = viewModel.currentTask {
                 Text(task.isLogicalTrick ? "Логическая задача" : "Математическая задача")
-                    .font(.system(.subheadline, design: .rounded))
+                    .font(.system(.subheadline))
                     .foregroundColor(.gray)
                 
+                
                 Text(task.question)
-                    .font(.system(.title2, design: .rounded))
+                    .font(.system(.title2))
                     .foregroundColor(Color("AppRed"))
                     .padding()
+                    .background(RoundedRectangle(cornerRadius: 15).stroke(Color.primary, lineWidth: 2))
+                
+                Spacer()
                 
                 ForEach(task.options ?? [], id: \.self) { option in
                     Button(action: {
@@ -120,7 +126,7 @@ struct TaskDetailView: View {
                         viewModel.checkAnswer()
                     }) {
                         Text(option)
-                            .font(.system(.body, design: .rounded))
+                            .font(.system(.body))
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color.gray)
@@ -129,11 +135,12 @@ struct TaskDetailView: View {
                     }
                 }
                 
-                Spacer()
             } else {
-                Text("Задача недоступна")
-                    .font(.system(.title2, design: .rounded))
+                Text("Задачи скоро добавлю")
+                    .font(.system(.title2))
                     .foregroundColor(Color("AppRed"))
+                
+                Spacer()
             }
         }
         .padding()

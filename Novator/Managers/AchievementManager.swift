@@ -11,12 +11,12 @@ struct AchievementManager {
         Achievement(id: UUID(), name: "Новичок", description: "Решите 1 задачу"),
         Achievement(id: UUID(), name: "Ученик", description: "Решите 5 задач"),
         Achievement(id: UUID(), name: "Мастер", description: "Достигните 50 очков"),
+        Achievement(id: UUID(), name: "L", description: "Решите 10 задач"),
         Achievement(id: UUID(), name: "Лоулайт", description: "Достигните 10.000 очков"),
         Achievement(id: UUID(), name: "Гений", description: "Достигните 13.000 очков"),
         Achievement(id: UUID(), name: "The Beatles", description: "Достигните 22.222 очков"),
-        Achievement(id: UUID(), name: "genesius", description: "Достигните 30.000 очков"),
-        Achievement(id: UUID(), name: "L", description: "Решите 10 задач"),
         Achievement(id: UUID(), name: "Топ", description: "Решите 100 задач"),
+        Achievement(id: UUID(), name: "genesius", description: "Достигните 30.000 очков"),
         Achievement(id: UUID(), name: "God", description: "Достигните 40000 очков")
     ]
 
@@ -39,6 +39,11 @@ struct AchievementManager {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
+                case "L":
+                    if profile.profile.completedTasks.count >= 10 {
+                        profile.profile.achievements.append(achievement.name)
+                        profile.saveProfile()
+                    }
                 case "Лоулайт":
                     if profile.profile.points >= 10000 {
                         profile.profile.achievements.append(achievement.name)
@@ -54,18 +59,13 @@ struct AchievementManager {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
-                case "genesius":
-                    if profile.profile.points >= 30000 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "L":
-                    if profile.profile.completedTasks.count >= 10 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
                 case "Топ":
                     if profile.profile.completedTasks.count >= 100 {
+                        profile.profile.achievements.append(achievement.name)
+                        profile.saveProfile()
+                    }
+                case "genesius":
+                    if profile.profile.points >= 30000 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
