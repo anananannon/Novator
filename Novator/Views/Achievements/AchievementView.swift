@@ -19,16 +19,17 @@ struct AchievementsView: View {
 private extension AchievementsView {
     var content: some View {
         List {
-            Section(header: sectionHeader("Достижения")) {
+            Section() {
                 ForEach(AchievementManager.achievements) { achievement in
                     AchievementRow(
                         achievement: achievement,
                         isUnlocked: profile.profile.achievements.contains(achievement.name)
                     )
+                    .listRowSeparator(.hidden)
                 }
             }
         }
-        .listStyle(.insetGrouped)
+        .listStyle(.inset)
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
+		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
 		AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED42E549B8C005592E3 /* ContentView.swift */; };
 		AB907ED72E549B90005592E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB907ED62E549B90005592E3 /* Assets.xcassets */; };
@@ -24,6 +25,8 @@
 		AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */; };
 		AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */; };
 		ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */; };
+		ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */; };
+		ABC0ECA52E5DBD7E00534E0A /* AchievementRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC0ECA42E5DBD7E00534E0A /* AchievementRow.swift */; };
 		ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080182E54D73E007B9113 /* ProfileNavigation.swift */; };
 		ABE0801B2E54D874007B9113 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0801A2E54D874007B9113 /* Task.swift */; };
 		ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0801C2E54D898007B9113 /* UserProfile.swift */; };
@@ -51,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
+		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB907ED22E549B8C005592E3 /* NovatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NovatorApp.swift; sourceTree = "<group>"; };
 		AB907ED42E549B8C005592E3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 		AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
+		ABC0ECA42E5DBD7E00534E0A /* AchievementRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementRow.swift; sourceTree = "<group>"; };
 		ABE080182E54D73E007B9113 /* ProfileNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigation.swift; sourceTree = "<group>"; };
 		ABE0801A2E54D874007B9113 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ABE0801C2E54D898007B9113 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -174,6 +180,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		ABC0ECA32E5DBD5400534E0A /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				AB9EEE072E577312002AECF7 /* AchievementView.swift */,
+				ABC0ECA42E5DBD7E00534E0A /* AchievementRow.swift */,
+			);
+			path = Achievements;
+			sourceTree = "<group>";
+		};
 		ABE080162E54D66C007B9113 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,13 +202,15 @@
 		ABE080172E54D68D007B9113 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				AB907ED42E549B8C005592E3 /* ContentView.swift */,
 				AB907F002E549F78005592E3 /* LevelTestView.swift */,
 				AB907F022E549FA2005592E3 /* TasksView.swift */,
 				AB907F042E54A0BE005592E3 /* ProfileView.swift */,
 				ABE080262E54DCD0007B9113 /* ProfileEditView.swift */,
-				AB9EEE072E577312002AECF7 /* AchievementView.swift */,
 				AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */,
+				AB8899912E5C9BBE00502FFF /* RatingView.swift */,
+				ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,14 +363,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABC0ECA52E5DBD7E00534E0A /* AchievementRow.swift in Sources */,
 				AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */,
 				AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */,
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
+				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
 				AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */,
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,
+				ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */,
 				ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */,
 				AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */,
 				AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */,
@@ -532,8 +552,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -561,8 +582,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

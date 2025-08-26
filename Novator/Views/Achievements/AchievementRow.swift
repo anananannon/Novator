@@ -12,7 +12,8 @@ struct AchievementRow: View {
             details
             Spacer()
         }
-//        .padding(.vertical, 4)
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 20).stroke(Color("AppRed"), lineWidth: 1))
     }
 }
 
@@ -20,7 +21,7 @@ struct AchievementRow: View {
 private extension AchievementRow {
     var icon: some View {
         Image(systemName: isUnlocked ? "checkmark.circle.fill" : "circle")
-            .font(.system(size: 24))
+            .font(.system(size: 34))
             .foregroundColor(Color("AppRed"))
     }
 
