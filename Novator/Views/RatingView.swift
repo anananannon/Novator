@@ -6,9 +6,9 @@ struct RatingView: View {
 
     // В реальном приложении этот список можно будет подтягивать из сервера или локальной базы
     @State private var users: [UserProfile] = [
-        UserProfile(firstName: "Алексей", lastName: "Иванов", username: "@alex", avatar: "person.circle", level: "beginner", points: 150, streak: 5, friendsCount: 10, completedTasks: [], achievements: []),
-        UserProfile(firstName: "Мария", lastName: "Петрова", username: "@maria", avatar: "star.circle", level: "intermediate", points: 120, streak: 3, friendsCount: 8, completedTasks: [], achievements: []),
-        UserProfile(firstName: "Иван", lastName: "Сидоров", username: "@ivan", avatar: "heart.circle", level: "advanced", points: 90, streak: 7, friendsCount: 12, completedTasks: [], achievements: [])
+        UserProfile(firstName: "Павел", lastName: "Дуров", username: "@monk", avatar: "person.circle", level: "advancrd", points: 120041, streak: 5, friendsCount: 10, completedTasks: [], achievements: []),
+        UserProfile(firstName: "Илон", lastName: "Маск", username: "@elonmusk", avatar: "star.circle", level: "intermediate", points: 22709, streak: 3, friendsCount: 8, completedTasks: [], achievements: []),
+        UserProfile(firstName: "Иван", lastName: "Сидоров", username: "@ivan", avatar: "heart.circle", level: "beginner", points: 910, streak: 7, friendsCount: 12, completedTasks: [], achievements: [])
     ]
 
     // MARK: - Body
@@ -24,10 +24,10 @@ struct RatingView: View {
                         RatingRowView(rank: index + 1, user: sortedUsers[index])
                     }
                 }
+                .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
                 .padding()
             }
         }
-        .padding()
     }
 
     // MARK: - Computed Properties
@@ -82,7 +82,7 @@ struct RatingRowView: View {
         }
         .frame(maxWidth: 340, maxHeight: 50)
         .padding(.vertical, 10)
-        .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
+//        .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
     }
 }
 
