@@ -5,11 +5,13 @@ import Foundation
 struct TasksView: View {
     @StateObject private var viewModel: TasksViewModel
     @Binding var navigationPath: NavigationPath
+    @Binding var selectedTab: Int
 
     // MARK: - Initialization
-    init(profile: UserProfileViewModel, navigationPath: Binding<NavigationPath>) {
+    init(profile: UserProfileViewModel, navigationPath: Binding<NavigationPath>, selectedTab: Binding<Int>) {
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
         self._navigationPath = navigationPath
+        self._selectedTab = selectedTab
     }
 
     // MARK: - Body
@@ -30,7 +32,7 @@ struct TasksView: View {
 
 // MARK: - Subviews & Components
 private extension TasksView {
-
+    
     // MARK: Header
     var header: some View {
         Text("Урок 1")
@@ -236,6 +238,6 @@ private extension TaskDetailView {
 // MARK: - Preview
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()))
+        TasksView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()), selectedTab: .constant(0))
     }
 }

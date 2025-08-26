@@ -10,7 +10,7 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // Учеба
-            StudyView(profile: userProfile, navigationPath: $navigationPath)
+            StudyView(profile: userProfile, navigationPath: $navigationPath, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Учеба", systemImage: "book.fill")
                 }

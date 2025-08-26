@@ -10,6 +10,7 @@ enum StudyDestination: String, Hashable {
 struct StudyView: View {
     @ObservedObject var profile: UserProfileViewModel
     @Binding var navigationPath: NavigationPath
+    @Binding var selectedTab: Int
 
     // MARK: - Body
     var body: some View {
@@ -69,7 +70,7 @@ private extension StudyView {
         case .levelTest:
             LevelTestView(profile: profile, navigationPath: $navigationPath)
         case .tasks:
-            TasksView(profile: profile, navigationPath: $navigationPath)
+            TasksView(profile: profile, navigationPath: $navigationPath, selectedTab: $selectedTab)
         }
     }
 }
@@ -77,6 +78,6 @@ private extension StudyView {
 // MARK: - Preview
 struct StudyView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()))
+        StudyView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()), selectedTab: .constant(0))
     }
 }
