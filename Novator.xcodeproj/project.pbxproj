@@ -189,6 +189,15 @@
 			path = Achievements;
 			sourceTree = "<group>";
 		};
+		ABC0ECA62E5DE38600534E0A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AB907F042E54A0BE005592E3 /* ProfileView.swift */,
+				ABE080262E54DCD0007B9113 /* ProfileEditView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		ABE080162E54D66C007B9113 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,12 +211,11 @@
 		ABE080172E54D68D007B9113 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				AB907ED42E549B8C005592E3 /* ContentView.swift */,
+				ABC0ECA62E5DE38600534E0A /* Profile */,
+				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				AB907F002E549F78005592E3 /* LevelTestView.swift */,
 				AB907F022E549FA2005592E3 /* TasksView.swift */,
-				AB907F042E54A0BE005592E3 /* ProfileView.swift */,
-				ABE080262E54DCD0007B9113 /* ProfileEditView.swift */,
 				AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */,
 				AB8899912E5C9BBE00502FFF /* RatingView.swift */,
 				ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */,

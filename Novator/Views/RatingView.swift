@@ -1,23 +1,94 @@
 import SwiftUI
 
+// MARK: - RatingView
 struct RatingView: View {
     @ObservedObject var profile: UserProfileViewModel
-    
+
+    // В реальном приложении этот список можно будет подтягивать из сервера или локальной базы
+    @State private var users: [UserProfile] = [
+        UserProfile(firstName: "Алексей", lastName: "Иванов", username: "@alex", avatar: "person.circle", level: "beginner", points: 150, streak: 5, friendsCount: 10, completedTasks: [], achievements: []),
+        UserProfile(firstName: "Мария", lastName: "Петрова", username: "@maria", avatar: "star.circle", level: "intermediate", points: 120, streak: 3, friendsCount: 8, completedTasks: [], achievements: []),
+        UserProfile(firstName: "Иван", lastName: "Сидоров", username: "@ivan", avatar: "heart.circle", level: "advanced", points: 90, streak: 7, friendsCount: 12, completedTasks: [], achievements: [])
+    ]
+
+    // MARK: - Body
     var body: some View {
         VStack {
-            Text("Рейтинг")
-                .font(.system(.largeTitle))
-                .fontWeight(.bold)
-                .foregroundColor(Color("AppRed"))
+            ratingHeader
+            Text("По количеству очков")
+                .font(.subheadline)
+            
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(sortedUsers.indices, id: \.self) { index in
+                        RatingRowView(rank: index + 1, user: sortedUsers[index])
+                    }
+                }
                 .padding()
-            Text("Рейтинг пока в разработке")
-                .font(.system(.title2))
-                .foregroundColor(.gray)
-            Spacer()
+            }
         }
+        .padding()
+    }
+
+    // MARK: - Computed Properties
+    private var sortedUsers: [UserProfile] {
+        ([profile.profile] + users).sorted { $0.points > $1.points }
+    }
+
+    // MARK: - Header
+    private var ratingHeader: some View {
+        Text("Рейтинг")
+            .font(.system(.largeTitle, design: .rounded))
+            .fontWeight(.bold)
+            .foregroundColor(Color("AppRed"))
+            .padding()
     }
 }
 
-#Preview {
-    RatingView(profile: UserProfileViewModel())
+// MARK: - RatingRowView
+struct RatingRowView: View {
+    let rank: Int
+    let user: UserProfile
+
+    var body: some View {
+        HStack {
+            Text("#\(rank)")
+                .font(.title2)
+                .foregroundColor(.gray)
+                .padding(.leading, 10)
+            
+            Divider()
+            
+            Image(systemName: user.avatar)
+                .font(.system(size: 40))
+                .foregroundColor(Color("AppRed"))
+            
+            VStack(alignment: .leading) {
+                Text(user.fullName)
+                    .font(.system(size: 20))
+                    .fontWeight(.medium)
+                Text(user.username)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            Spacer()
+            
+            HStack(spacing: 4) {
+                Image(systemName: "star.fill")
+                    .foregroundColor(Color("AppRed"))
+                Text("\(user.points)")
+            }
+            .padding(.trailing, 15)
+        }
+        .frame(maxWidth: 340, maxHeight: 50)
+        .padding(.vertical, 10)
+        .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
+    }
+}
+
+// MARK: - Preview
+struct RatingView_Previews: PreviewProvider {
+    static var previews: some View {
+        RatingView(profile: UserProfileViewModel())
+    }
 }
