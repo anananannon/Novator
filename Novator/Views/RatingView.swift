@@ -3,6 +3,8 @@ import SwiftUI
 // MARK: - RatingView
 struct RatingView: View {
     @ObservedObject var profile: UserProfileViewModel
+    @State var onlyFriend: Bool = false
+    @State private var pickerMode: Int = 0
 
     // В реальном приложении этот список можно будет подтягивать из сервера или локальной базы
     @State private var users: [UserProfile] = [
@@ -10,29 +12,35 @@ struct RatingView: View {
         UserProfile(firstName: "Илон", lastName: "Маск", username: "@elonmusk", avatar: "star.circle", level: "intermediate", points: 22709, streak: 3, friendsCount: 8, completedTasks: [], achievements: []),
         UserProfile(firstName: "Иван", lastName: "Сидоров", username: "@ivan", avatar: "heart.circle", level: "beginner", points: 910, streak: 7, friendsCount: 12, completedTasks: [], achievements: [])
     ]
+    
+    @State private var friends: [UserProfile] = []
 
     // MARK: - Body
     var body: some View {
-        VStack {
-            ratingHeader
-            Text("По количеству очков")
-                .font(.subheadline)
-            
-            ScrollView {
-                VStack(spacing: 12) {
-                    ForEach(sortedUsers.indices, id: \.self) { index in
-                        RatingRowView(rank: index + 1, user: sortedUsers[index])
+        NavigationStack {
+            content
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Picker("HzChe", selection: $pickerMode) {
+                            Text("Общий").tag(0)
+                            Text("Друзья").tag(1)
+                        }
+                        .padding()
+                        .pickerStyle(.segmented)
                     }
                 }
-                .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
-                .padding()
-            }
+                .animation(.spring(Spring(mass: 0.001, stiffness: 0.886, damping: 1)), value: pickerMode)
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 
     // MARK: - Computed Properties
     private var sortedUsers: [UserProfile] {
         ([profile.profile] + users).sorted { $0.points > $1.points }
+    }
+    
+    private var sortedFriends: [UserProfile] {
+        ([profile.profile] + friends).sorted { $0.points > $1.points }
     }
 
     // MARK: - Header
@@ -42,6 +50,30 @@ struct RatingView: View {
             .fontWeight(.bold)
             .foregroundColor(Color("AppRed"))
             .padding()
+    }
+}
+
+// MARK: - Content Body
+private extension RatingView {
+    var content: some View {
+        VStack {
+            Text(pickerMode == 0 ? "По количеству очков" : "Среди друзей")
+                .font(.subheadline)
+                .padding()
+            
+            ScrollView {
+                VStack(spacing: 12) {
+                    // Выбираем список в зависимости от вкладки
+                    let displayedUsers = pickerMode == 0 ? sortedUsers : sortedFriends
+                    
+                    ForEach(displayedUsers.indices, id: \.self) { index in
+                        RatingRowView(rank: index + 1, user: displayedUsers[index])
+                    }
+                }
+//                .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
+                .padding()
+            }
+        }
     }
 }
 
@@ -81,7 +113,6 @@ struct RatingRowView: View {
         }
         .frame(maxWidth: 340, maxHeight: 50)
         .padding(.vertical, 10)
-//        .background(RoundedRectangle(cornerRadius: 15).stroke(Color("AppRed"), lineWidth: 1))
     }
 }
 
