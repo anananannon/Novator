@@ -9,40 +9,21 @@ enum StudyDestination: String, Hashable {
 // MARK: - StudyView
 struct StudyView: View {
     @ObservedObject var profile: UserProfileViewModel
+    @State private var showPopover = false
     @Binding var navigationPath: NavigationPath
     @Binding var selectedTab: Int
     
-    @State private var showPopup = false
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            ZStack {
-                content
-                
-                if showPopup {
-                    PopupOverlay {
-//                        withAnimation {
-                            showPopup = false
-//                        }
-                    }
+            content
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(for: StudyDestination.self) { destination in
+                    navigationDestination(for: destination)
                 }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        withAnimation {
-                            showPopup.toggle()
-                        }
-                    }) {
-                        statView(icon: "star.fill", value: "\(profile.profile.points)")
-                    }
-                }
-            }
-            .navigationDestination(for: StudyDestination.self) { destination in
-                navigationDestination(for: destination)
-            }
+                .toolbar{ toolbarContent }
         }
+        .preferredColorScheme(profile.theme.colorScheme)
     }
 }
 
@@ -51,53 +32,10 @@ private extension StudyView {
     var content: some View {
         VStack(spacing: 20) {
             Spacer()
-            
+                
             NavigationLink(value: StudyDestination.tasks) {
                 PrimaryButton(title: "Решать задачи")
             }
-        }
-        .padding()
-    }
-}
-
-// MARK: - Popup Overlay
-struct PopupOverlay: View {
-    var onDismiss: () -> Void
-    
-    var body: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-                .onTapGesture { onDismiss() }
-            
-            PopupContent {
-                onDismiss()
-            }
-            .frame(maxWidth: 290)
-            .background(.thinMaterial)
-            .cornerRadius(20)
-            .shadow(radius: 5)
-            
-
-            .zIndex(1)
-        }
-    }
-}
-
-// MARK: - Содержимое Popup
-struct PopupContent: View {
-    var onClose: () -> Void
-    
-    var body: some View {
-        VStack() {
-            Image(systemName: "star.fill")
-                .font(.system(size: 45))
-                .foregroundStyle(Color("AppRed"))
-                .padding(.all, 9)
-            
-            Text("Очки опыта показывают, на каком уровне владения вы сейчас находитесь, с помощью них вы можете повысить свой рейтинг, а так же можете разблокировать уникальные фишки! Подробнее вы можете узнать во вкладке 'unical features'")
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 5)
         }
         .padding()
     }
@@ -119,7 +57,7 @@ struct statView: View {
         }
         .padding(.vertical, 6)
         .padding(.horizontal, 10)
-        .background(.thinMaterial, in: Capsule())
+        .background(.bar, in: Capsule())
     }
 }
 
@@ -136,6 +74,31 @@ struct PrimaryButton: View {
             .cornerRadius(12)
     }
 }
+
+
+// MARK: - SubViews
+private extension StudyView {
+    
+    //MARK: - ToolBarContent
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                showPopover.toggle()
+            } label: {
+                statView(icon: "star.fill", value: "\(profile.profile.points)")
+            }
+            .popover(isPresented: $showPopover, attachmentAnchor: .point(.bottom), arrowEdge: .bottom, content: {
+                Text("С помощью очков опыта вы можете повысить свой рейтинг и открыть уникальные фишки.")
+                    .padding()
+                    .foregroundStyle(Color("AppRed"))
+                    .frame(maxWidth: 250, minHeight: 90)
+                    .presentationCompactAdaptation(.popover)
+            })
+        }
+    }
+    
+}
+
 
 // MARK: - Navigation Destinations
 private extension StudyView {
