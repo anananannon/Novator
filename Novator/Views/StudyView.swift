@@ -21,9 +21,9 @@ struct StudyView: View {
                 
                 if showPopup {
                     PopupOverlay {
-                        withAnimation {
+//                        withAnimation {
                             showPopup = false
-                        }
+//                        }
                     }
                 }
             }
@@ -55,8 +55,6 @@ private extension StudyView {
             NavigationLink(value: StudyDestination.tasks) {
                 PrimaryButton(title: "Решать задачи")
             }
-            
-            Spacer()
         }
         .padding()
     }
@@ -75,11 +73,12 @@ struct PopupOverlay: View {
             PopupContent {
                 onDismiss()
             }
-            .frame(width: 300, height: 200)
-            .background(.ultraThinMaterial)
+            .frame(maxWidth: 290)
+            .background(.thinMaterial)
             .cornerRadius(20)
-            .shadow(radius: 10)
-            .transition(.scale)
+            .shadow(radius: 5)
+            
+
             .zIndex(1)
         }
     }
@@ -90,19 +89,15 @@ struct PopupContent: View {
     var onClose: () -> Void
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Всплывающее окно")
-                .font(.title2)
-                .bold()
-            Text("Здесь можно разместить любую информацию")
+        VStack() {
+            Image(systemName: "star.fill")
+                .font(.system(size: 45))
+                .foregroundStyle(Color("AppRed"))
+                .padding(.all, 9)
+            
+            Text("Очки опыта показывают, на каком уровне владения вы сейчас находитесь, с помощью них вы можете повысить свой рейтинг, а так же можете разблокировать уникальные фишки! Подробнее вы можете узнать во вкладке 'unical features'")
                 .multilineTextAlignment(.center)
-            Button("Закрыть") {
-                onClose()
-            }
-            .padding()
-            .background(Color("AppRed"))
-            .foregroundColor(.white)
-            .cornerRadius(12)
+                .padding(.bottom, 5)
         }
         .padding()
     }
