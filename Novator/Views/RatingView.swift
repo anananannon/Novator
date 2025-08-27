@@ -65,8 +65,7 @@ struct RatingRowView: View {
             
             VStack(alignment: .leading) {
                 Text(user.fullName)
-                    .font(.system(size: 20))
-                    .fontWeight(.medium)
+                    .font(.system(.title3))
                 Text(user.username)
                     .font(.subheadline)
                     .foregroundColor(.gray)

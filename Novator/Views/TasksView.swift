@@ -126,7 +126,20 @@ struct TaskDetailView: View {
     // MARK: Body
     var body: some View {
         VStack(spacing: 20) {
+            
+            // Прогресс по заданиям
+            ProgressBarView(progress: viewModel.progress)
+
+            HStack {
+                Spacer()
+                Text("Скоро добавлю возможность использования доски")
+                    .font(.system(size: 8))
+                    .frame(maxWidth: 90, maxHeight: 70)
+                    .foregroundStyle(Color("AppRed"))
+            }
+            
             Spacer()
+            
             if let task = viewModel.currentTask {
                 taskHeader(task: task)
                 taskQuestion(task: task)
@@ -150,6 +163,20 @@ struct TaskDetailView: View {
 // MARK: - TaskDetailView Subviews
 private extension TaskDetailView {
 
+    // MARK: - ProgressBarView
+    struct ProgressBarView: View {
+        let progress: Double
+        var color: Color = Color("AppRed")
+        
+        var body: some View {
+            ProgressView(value: progress)
+                .tint(color)
+                .padding(.horizontal)
+                .animation(.easeIn(duration: 0.3), value: progress)
+        }
+    }
+    
+    
     var taskToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Button {
@@ -228,6 +255,14 @@ private extension TaskDetailView {
 
     func logAppear() {
         print("TaskDetailView: Appeared, current task: \(viewModel.currentTask?.question ?? "none")")
+    }
+}
+
+// MARK: - Extension для прогресса
+extension TasksViewModel {
+    var progress: Double {
+        guard let program = program, !program.tasks.isEmpty else { return 0 }
+        return Double(program.currentIndex) / Double(program.tasks.count)
     }
 }
 

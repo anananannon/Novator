@@ -8,69 +8,39 @@ struct Achievement: Codable, Identifiable {
 
 struct AchievementManager {
     static let achievements: [Achievement] = [
-        Achievement(id: UUID(), name: "Новичок", description: "Решите 1 задачу"),
         Achievement(id: UUID(), name: "Ученик", description: "Решите 5 задач"),
-        Achievement(id: UUID(), name: "Мастер", description: "Достигните 50 очков"),
-        Achievement(id: UUID(), name: "L", description: "Решите 10 задач"),
-        Achievement(id: UUID(), name: "Лоулайт", description: "Достигните 10.000 очков"),
-        Achievement(id: UUID(), name: "Гений", description: "Достигните 13.000 очков"),
-        Achievement(id: UUID(), name: "The Beatles", description: "Достигните 22.222 очков"),
-        Achievement(id: UUID(), name: "Топ", description: "Решите 100 задач"),
-        Achievement(id: UUID(), name: "genesius", description: "Достигните 30.000 очков"),
-        Achievement(id: UUID(), name: "God", description: "Достигните 40000 очков")
+        Achievement(id: UUID(), name: "Накопитель", description: "Достигните 100 очков"),
+        Achievement(id: UUID(), name: "5 класс", description: "Достигните 300 очков"),
+        Achievement(id: UUID(), name: "Мастер", description: "Достигните 1.000 очков"),
+        Achievement(id: UUID(), name: "Эйнштейн", description: "Решите 100 задач")
     ]
 
     static func checkAchievements(for profile: UserProfileViewModel) {
         for achievement in achievements {
             if !profile.profile.achievements.contains(achievement.name) {
                 switch achievement.name {
-                case "Новичок":
-                    if profile.profile.completedTasks.count >= 1 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
                 case "Ученик":
                     if profile.profile.completedTasks.count >= 5 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
+                case "Накопитель":
+                    if profile.profile.points >= 100 {
+                        profile.profile.achievements.append(achievement.name)
+                        profile.saveProfile()
+                    }
+                case "5 класс":
+                    if profile.profile.points >= 300 {
+                        profile.profile.achievements.append(achievement.name)
+                        profile.saveProfile()
+                    }
                 case "Мастер":
-                    if profile.profile.points >= 50 {
+                    if profile.profile.points >= 1000 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
-                case "L":
-                    if profile.profile.completedTasks.count >= 10 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "Лоулайт":
-                    if profile.profile.points >= 10000 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "Гений":
-                    if profile.profile.points >= 13000 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "The Beatles":
-                    if profile.profile.points >= 22222 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "Топ":
+                case "Эйнштейн":
                     if profile.profile.completedTasks.count >= 100 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "genesius":
-                    if profile.profile.points >= 30000 {
-                        profile.profile.achievements.append(achievement.name)
-                        profile.saveProfile()
-                    }
-                case "God":
-                    if profile.profile.points >= 40000 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }

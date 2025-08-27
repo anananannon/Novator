@@ -14,6 +14,7 @@ struct AchievementRow: View {
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 20).stroke(Color("AppRed"), lineWidth: 1))
+        .opacity(isUnlocked ? 1 : 0.5)
     }
 }
 

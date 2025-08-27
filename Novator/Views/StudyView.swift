@@ -11,50 +11,127 @@ struct StudyView: View {
     @ObservedObject var profile: UserProfileViewModel
     @Binding var navigationPath: NavigationPath
     @Binding var selectedTab: Int
-
-    // MARK: - Body
+    
+    @State private var showPopup = false
+    
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            content
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationDestination(for: StudyDestination.self, destination: navigationDestination)
+            ZStack {
+                content
+                
+                if showPopup {
+                    PopupOverlay {
+                        withAnimation {
+                            showPopup = false
+                        }
+                    }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        withAnimation {
+                            showPopup.toggle()
+                        }
+                    }) {
+                        statView(icon: "star.fill", value: "\(profile.profile.points)")
+                    }
+                }
+            }
+            .navigationDestination(for: StudyDestination.self) { destination in
+                navigationDestination(for: destination)
+            }
         }
     }
 }
 
-// MARK: - Content
+// MARK: - Основной контент
 private extension StudyView {
     var content: some View {
         VStack(spacing: 20) {
-            header
-
             Spacer()
-
-            NavigationLink(value: StudyDestination.levelTest) {
-                primaryButton(title: "Пройти тест уровня")
-            }
-
+            
             NavigationLink(value: StudyDestination.tasks) {
-                primaryButton(title: "Решать задачи")
+                PrimaryButton(title: "Решать задачи")
             }
-
+            
             Spacer()
         }
         .padding()
     }
 }
 
-// MARK: - Subviews
-private extension StudyView {
-    var header: some View {
-        Text("Учеба")
-            .font(.system(.largeTitle))
-            .fontWeight(.bold)
-            .foregroundColor(Color("AppRed"))
-            .padding()
+// MARK: - Popup Overlay
+struct PopupOverlay: View {
+    var onDismiss: () -> Void
+    
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+                .onTapGesture { onDismiss() }
+            
+            PopupContent {
+                onDismiss()
+            }
+            .frame(width: 300, height: 200)
+            .background(.ultraThinMaterial)
+            .cornerRadius(20)
+            .shadow(radius: 10)
+            .transition(.scale)
+            .zIndex(1)
+        }
     }
+}
 
-    func primaryButton(title: String) -> some View {
+// MARK: - Содержимое Popup
+struct PopupContent: View {
+    var onClose: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Всплывающее окно")
+                .font(.title2)
+                .bold()
+            Text("Здесь можно разместить любую информацию")
+                .multilineTextAlignment(.center)
+            Button("Закрыть") {
+                onClose()
+            }
+            .padding()
+            .background(Color("AppRed"))
+            .foregroundColor(.white)
+            .cornerRadius(12)
+        }
+        .padding()
+    }
+}
+
+// MARK: - Статистика и кнопки
+struct statView: View {
+    let icon: String
+    let value: String
+    
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon)
+                .imageScale(.small)
+                .foregroundColor(Color("AppRed"))
+            Text(value)
+                .font(.system(.subheadline, design: .rounded).weight(.semibold))
+                .foregroundColor(.primary)
+        }
+        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .background(.thinMaterial, in: Capsule())
+    }
+}
+
+struct PrimaryButton: View {
+    let title: String
+    
+    var body: some View {
         Text(title)
             .font(.system(.title2))
             .padding()
@@ -63,7 +140,10 @@ private extension StudyView {
             .foregroundColor(.white)
             .cornerRadius(12)
     }
+}
 
+// MARK: - Navigation Destinations
+private extension StudyView {
     @ViewBuilder
     func navigationDestination(for destination: StudyDestination) -> some View {
         switch destination {
@@ -78,6 +158,10 @@ private extension StudyView {
 // MARK: - Preview
 struct StudyView_Previews: PreviewProvider {
     static var previews: some View {
-        StudyView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()), selectedTab: .constant(0))
+        StudyView(
+            profile: UserProfileViewModel(),
+            navigationPath: .constant(NavigationPath()),
+            selectedTab: .constant(0)
+        )
     }
 }
