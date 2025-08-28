@@ -23,7 +23,7 @@ class TasksViewModel: ObservableObject {
     func checkAnswer() {
         guard let task = currentTask, let answer = selectedAnswer else { return }
         isCorrect = answer == task.correctAnswer
-        showResult = true
+        showResult = true // показывать результат в alerts
         if isCorrect {
             profile.addPoints(task.points)
             profile.completeTask(task.id)

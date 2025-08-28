@@ -32,18 +32,12 @@ struct TaskDetailView: View {
                     .frame(maxWidth: .infinity)
             }
             
-            HStack {
-                Spacer()
-                Text("Скоро добавлю возможность использования доски")
-                    .font(.system(size: 8))
-                    .frame(maxWidth: 90, maxHeight: 70)
-                    .foregroundStyle(Color("AppRed"))
-            }
+            
             
             Spacer()
             
             if let task = viewModel.currentTask {
-                taskHeader(task: task)
+//                taskHeader(task: task)
                 taskQuestion(task: task)
                 Spacer()
                 taskOptions(task: task)
@@ -54,7 +48,7 @@ struct TaskDetailView: View {
         .padding()
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .alert(isPresented: $viewModel.showResult) { taskAlert }
+        .alert(isPresented: $viewModel.showResult) { taskAlert } // что бы убрать алерт и сделать кнопку continue //показывает результат в showResult in TasksViewModel
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear { logAppear() }
     }
@@ -86,7 +80,6 @@ private extension TaskDetailView {
             .font(.system(.title2))
             .foregroundColor(Color("AppRed"))
             .padding()
-            .background(RoundedRectangle(cornerRadius: 15).stroke(Color.primary, lineWidth: 2))
     }
 
     @ViewBuilder
