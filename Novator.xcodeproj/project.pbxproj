@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F02E609C4200942C3E /* StudyDestination.swift */; };
+		AB35A8F32E609C5400942C3E /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F22E609C5400942C3E /* StatView.swift */; };
+		AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F42E609C6900942C3E /* PrimaryButton.swift */; };
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
 		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
@@ -18,7 +21,7 @@
 		AB907EF02E549B90005592E3 /* NovatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907EEF2E549B90005592E3 /* NovatorUITestsLaunchTests.swift */; };
 		AB907EFD2E549C8A005592E3 /* tasks.json in Resources */ = {isa = PBXBuildFile; fileRef = AB907EFC2E549C8A005592E3 /* tasks.json */; };
 		AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F002E549F78005592E3 /* LevelTestView.swift */; };
-		AB907F032E549FA2005592E3 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F022E549FA2005592E3 /* TasksView.swift */; };
+		AB907F032E549FA2005592E3 /* TasksDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F022E549FA2005592E3 /* TasksDetailView.swift */; };
 		AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F042E54A0BE005592E3 /* ProfileView.swift */; };
 		AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB96B2A62E6068A900E65362 /* RatingViewModel.swift */; };
 		AB9EEE082E577312002AECF7 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE072E577312002AECF7 /* AchievementView.swift */; };
@@ -54,6 +57,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB35A8F02E609C4200942C3E /* StudyDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDestination.swift; sourceTree = "<group>"; };
+		AB35A8F22E609C5400942C3E /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
+		AB35A8F42E609C6900942C3E /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +74,7 @@
 		AB907EEF2E549B90005592E3 /* NovatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NovatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AB907EFC2E549C8A005592E3 /* tasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tasks.json; sourceTree = "<group>"; };
 		AB907F002E549F78005592E3 /* LevelTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTestView.swift; sourceTree = "<group>"; };
-		AB907F022E549FA2005592E3 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		AB907F022E549FA2005592E3 /* TasksDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDetailView.swift; sourceTree = "<group>"; };
 		AB907F042E54A0BE005592E3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AB96B2A62E6068A900E65362 /* RatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewModel.swift; sourceTree = "<group>"; };
 		AB9EEE072E577312002AECF7 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
@@ -111,6 +117,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB35A8EE2E609BC900942C3E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AB35A8F22E609C5400942C3E /* StatView.swift */,
+				AB35A8F42E609C6900942C3E /* PrimaryButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AB35A8EF2E609C0700942C3E /* Study */ = {
+			isa = PBXGroup;
+			children = (
+				ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */,
+				AB907F022E549FA2005592E3 /* TasksDetailView.swift */,
+				AB35A8F02E609C4200942C3E /* StudyDestination.swift */,
+			);
+			path = Study;
+			sourceTree = "<group>";
+		};
 		AB907EC62E549B8C005592E3 = {
 			isa = PBXGroup;
 			children = (
@@ -214,14 +239,14 @@
 		ABE080172E54D68D007B9113 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB35A8EF2E609C0700942C3E /* Study */,
+				AB35A8EE2E609BC900942C3E /* Components */,
 				AB907ED42E549B8C005592E3 /* ContentView.swift */,
 				ABC0ECA62E5DE38600534E0A /* Profile */,
 				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				AB907F002E549F78005592E3 /* LevelTestView.swift */,
-				AB907F022E549FA2005592E3 /* TasksView.swift */,
 				AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */,
 				AB8899912E5C9BBE00502FFF /* RatingView.swift */,
-				ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -380,18 +405,21 @@
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
 				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,
+				AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
 				AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */,
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
+				AB35A8F32E609C5400942C3E /* StatView.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,
 				ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */,
 				ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */,
 				AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */,
 				AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */,
 				AB9EEE082E577312002AECF7 /* AchievementView.swift in Sources */,
+				AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */,
 				AB9EEE0A2E5774DB002AECF7 /* Font+Extensions.swift in Sources */,
-				AB907F032E549FA2005592E3 /* TasksView.swift in Sources */,
+				AB907F032E549FA2005592E3 /* TasksDetailView.swift in Sources */,
 				ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */,
 				ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */,
 				AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */,
