@@ -20,6 +20,7 @@
 		AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F002E549F78005592E3 /* LevelTestView.swift */; };
 		AB907F032E549FA2005592E3 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F022E549FA2005592E3 /* TasksView.swift */; };
 		AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907F042E54A0BE005592E3 /* ProfileView.swift */; };
+		AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB96B2A62E6068A900E65362 /* RatingViewModel.swift */; };
 		AB9EEE082E577312002AECF7 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE072E577312002AECF7 /* AchievementView.swift */; };
 		AB9EEE0A2E5774DB002AECF7 /* Font+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */; };
 		AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */; };
@@ -69,6 +70,7 @@
 		AB907F002E549F78005592E3 /* LevelTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelTestView.swift; sourceTree = "<group>"; };
 		AB907F022E549FA2005592E3 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		AB907F042E54A0BE005592E3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AB96B2A62E6068A900E65362 /* RatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewModel.swift; sourceTree = "<group>"; };
 		AB9EEE072E577312002AECF7 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
 		AB9EEE092E5774DB002AECF7 /* Font+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extensions.swift"; sourceTree = "<group>"; };
 		AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */,
 				AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */,
 				AB81A1582E5873200000E1BD /* TasksViewModel.swift */,
+				AB96B2A62E6068A900E65362 /* RatingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */,
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
+				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
 				AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */,

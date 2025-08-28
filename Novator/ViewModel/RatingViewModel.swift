@@ -1,0 +1,72 @@
+import SwiftUI
+import Combine
+
+final class RatingViewModel: ObservableObject {
+    // Подписка на изменения профиля пользователя
+    @ObservedObject var profile: UserProfileViewModel
+
+    // Списки пользователей и друзей
+    @Published var users: [UserProfile] = []
+    @Published var friends: [UserProfile] = []
+
+    // Текущая вкладка Picker / TabView
+    @Published var pickerMode: Int = 0
+
+    // Отсортированный общий рейтинг
+    var sortedUsers: [UserProfile] {
+        ([profile.profile] + users).sorted { $0.points > $1.points }
+    }
+
+    // Отсортированный рейтинг друзей
+    var sortedFriends: [UserProfile] {
+        ([profile.profile] + friends).sorted { $0.points > $1.points }
+    }
+
+    // MARK: - Инициализация
+    init(profile: UserProfileViewModel) {
+        self.profile = profile
+
+        // Пример данных для общего рейтинга
+        self.users = [
+            UserProfile(
+                firstName: "Павел",
+                lastName: "Дуров",
+                username: "@monk",
+                avatar: "person.circle",
+                level: "advanced",
+                points: 120041,
+                streak: 5,
+                friendsCount: 10,
+                completedTasks: [],
+                achievements: []
+            ),
+            UserProfile(
+                firstName: "Илон",
+                lastName: "Маск",
+                username: "@elonmusk",
+                avatar: "star.circle",
+                level: "intermediate",
+                points: 22709,
+                streak: 3,
+                friendsCount: 8,
+                completedTasks: [],
+                achievements: []
+            ),
+            UserProfile(
+                firstName: "Иван",
+                lastName: "Сидоров",
+                username: "@ivan",
+                avatar: "heart.circle",
+                level: "beginner",
+                points: 910,
+                streak: 7,
+                friendsCount: 12,
+                completedTasks: [],
+                achievements: []
+            )
+        ]
+
+        // В демо версии друзья пока только текущий профиль
+        self.friends = []
+    }
+}

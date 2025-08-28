@@ -9,10 +9,25 @@ enum StudyDestination: String, Hashable {
 // MARK: - StudyView
 struct StudyView: View {
     @ObservedObject var profile: UserProfileViewModel
+    @StateObject private var viewModel: TasksViewModel
     @State private var showPopover = false
     @Binding var navigationPath: NavigationPath
     @Binding var selectedTab: Int
     
+    
+    // MARK: - Initialization
+    init(profile: UserProfileViewModel,
+         navigationPath: Binding<NavigationPath>,
+         selectedTab: Binding<Int>) {
+        
+        self.profile = profile
+        self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
+        self._navigationPath = navigationPath
+        self._selectedTab = selectedTab
+    }
+
+
+
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -31,6 +46,11 @@ struct StudyView: View {
 private extension StudyView {
     var content: some View {
         VStack(spacing: 20) {
+            
+            Spacer()
+            
+            currentTaskLink
+            
             Spacer()
                 
             NavigationLink(value: StudyDestination.tasks) {
@@ -79,6 +99,16 @@ struct PrimaryButton: View {
 // MARK: - SubViews
 private extension StudyView {
     
+    // MARK: Navigation Link to Task
+    @ViewBuilder
+    var currentTaskLink: some View {
+        if let _ = viewModel.currentTask {
+            NavigationLink(destination: TaskDetailView(viewModel: viewModel, navigationPath: $navigationPath)) {
+                Text(Image(systemName: "play.fill"))
+            }
+        }
+    }
+    
     //MARK: - ToolBarContent
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -108,7 +138,7 @@ private extension StudyView {
         case .levelTest:
             LevelTestView(profile: profile, navigationPath: $navigationPath)
         case .tasks:
-            TasksView(profile: profile, navigationPath: $navigationPath, selectedTab: $selectedTab)
+            TasksView(profile: profile, navigationPath: $navigationPath)
         }
     }
 }

@@ -5,110 +5,32 @@ import Foundation
 struct TasksView: View {
     @StateObject private var viewModel: TasksViewModel
     @Binding var navigationPath: NavigationPath
-    @Binding var selectedTab: Int
 
     // MARK: - Initialization
-    init(profile: UserProfileViewModel, navigationPath: Binding<NavigationPath>, selectedTab: Binding<Int>) {
+    init(profile: UserProfileViewModel, navigationPath: Binding<NavigationPath>) {
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
         self._navigationPath = navigationPath
-        self._selectedTab = selectedTab
     }
 
     // MARK: - Body
     var body: some View {
         VStack(spacing: 20) {
-            header
-            taskCard
             currentTaskLink
         }
-        .padding()
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(false)
-        .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear { logAppear() }
-        .toolbar { toolbarContent }
     }
 }
 
 // MARK: - Subviews & Components
 private extension TasksView {
-    
-    // MARK: Header
-    var header: some View {
-        Text("Урок 1")
-            .font(.system(.largeTitle).weight(.semibold))
-            .foregroundColor(Color("AppRed"))
-    }
-
-    // MARK: Task Card
-    var taskCard: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 30)
-                .fill(Color("TaskGray"))
-
-            VStack(spacing: 16) {
-                RoundedRectangle(cornerRadius: 30)
-                    .fill(Color("TaskRectangle"))
-                    .frame(maxHeight: 107)
-
-                RoundedRectangle(cornerRadius: 30)
-                    .fill(Color("TaskRectangle"))
-                    .frame(maxHeight: 299)
-                    .overlay { taskDescription }
-            }
-            .padding()
-        }
-    }
-
-    var taskDescription: some View {
-        Text(
-            "После завершения урока, вы получите 200 очков опыта, а также 15 очков рейтинга.\n\n\nС помощью очков опыта, вы сможете улучшить свой профиль через раздел \(Text("магазин").foregroundColor(Color("AppRed"))).\n\nВы можете посмотреть свой рейтинг во вкладке \(Text("рейтинг").foregroundColor(Color("AppRed"))), чем больше вы учитесь, тем выше становитесь!"
-        )
-        .font(.system(size: 14))
-        .multilineTextAlignment(.center)
-        .opacity(0.6)
-        .padding()
-    }
-
     // MARK: Navigation Link to Task
     @ViewBuilder
     var currentTaskLink: some View {
         if let _ = viewModel.currentTask {
             NavigationLink(destination: TaskDetailView(viewModel: viewModel, navigationPath: $navigationPath)) {
                 Text(Image(systemName: "play.fill"))
-                    .font(.system(size: 23))
-                    .padding()
-                    .frame(maxWidth: 202)
-                    .frame(maxHeight: 60)
-                    .background(Color("AppRed"))
-                    .foregroundColor(.white)
-                    .cornerRadius(15)
-                    .padding(.bottom, 20)
             }
         }
-    }
-
-    // MARK: Toolbar
-    var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            statView(icon: "star.fill", value: "\(viewModel.profile.profile.points)")
-        }
-    }
-
-    // MARK: Stat View
-    @ViewBuilder
-    func statView(icon: String, value: String) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: icon)
-                .imageScale(.small)
-                .foregroundColor(Color("AppRed"))
-            Text(value)
-                .font(.system(.subheadline, design: .rounded).weight(.semibold))
-                .foregroundStyle(.primary)
-        }
-        .padding(.vertical, 6)
-        .padding(.horizontal, 10)
-        .background(.thinMaterial, in: Capsule())
     }
 
     // MARK: Logging
@@ -116,6 +38,23 @@ private extension TasksView {
         print("TasksView: Appeared, level: \(viewModel.profile.profile.level), current task: \(viewModel.currentTask?.question ?? "none")")
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: - TaskDetailView
 struct TaskDetailView: View {
@@ -126,9 +65,25 @@ struct TaskDetailView: View {
     // MARK: Body
     var body: some View {
         VStack(spacing: 20) {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(.subheadline))
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .padding(6)
+                        .background(.thinMaterial, in: Capsule())
+                }
+                
+                ProgressBarView(progress: viewModel.progress)
+                    .frame(maxWidth: .infinity)
+            }
+            
             
             // Прогресс по заданиям
-            ProgressBarView(progress: viewModel.progress)
+//            ProgressBarView(progress: viewModel.progress)
 
             HStack {
                 Spacer()
@@ -150,10 +105,9 @@ struct TaskDetailView: View {
             }
         }
         .padding()
-        .navigationTitle("Задача")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .toolbar { taskToolbar }
+//        .toolbar { taskToolbar }
         .alert(isPresented: $viewModel.showResult) { taskAlert }
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear { logAppear() }
@@ -171,7 +125,8 @@ private extension TaskDetailView {
         var body: some View {
             ProgressView(value: progress)
                 .tint(color)
-                .padding(.horizontal)
+                .scaleEffect(y:2)
+//                .padding(.horizontal)
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
@@ -269,6 +224,6 @@ extension TasksViewModel {
 // MARK: - Preview
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()), selectedTab: .constant(0))
+        TasksView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()))
     }
 }
