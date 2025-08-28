@@ -28,7 +28,7 @@ struct RatingView: View {
                         .pickerStyle(.segmented)
                     }
                 }
-                .animation(.spring(Spring(mass: 0.001, stiffness: 0.886, damping: 1)), value: viewModel.pickerMode)
+//                .animation(.spring(Spring(mass: 0.001, stiffness: 0.886, damping: 1)), value: viewModel.pickerMode)
                 .navigationBarTitleDisplayMode(.inline)
             }
         }

@@ -41,6 +41,12 @@ struct TaskDetailView: View {
                 taskQuestion(task: task)
                 Spacer()
                 taskOptions(task: task)
+                
+                Button(action: { // вот эта кнопка
+                    viewModel.checkAnswer()
+                }, label: {
+                    PrimaryButton(title: viewModel.isCorrect ? "Далее" : "Проверить")
+                })
             } else {
                 noTaskView
             }
@@ -48,9 +54,10 @@ struct TaskDetailView: View {
         .padding()
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .alert(isPresented: $viewModel.showResult) { taskAlert } // что бы убрать алерт и сделать кнопку continue //показывает результат в showResult in TasksViewModel
+//        .alert(isPresented: $viewModel.showResult) { taskAlert } // что бы убрать алерт и сделать кнопку continue //показывает результат в showResult in TasksViewModel
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear { logAppear() }
+        .background(Color("TaskBackground").ignoresSafeArea())
     }
 }
 
@@ -79,7 +86,8 @@ private extension TaskDetailView {
         Text(task.question)
             .font(.system(.title2))
             .foregroundColor(Color("AppRed"))
-            .padding()
+            .padding(.all, 50)
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color(.white)))
     }
 
     @ViewBuilder
@@ -87,7 +95,7 @@ private extension TaskDetailView {
         ForEach(task.options ?? [], id: \.self) { option in
             Button(action: {
                 viewModel.selectedAnswer = option
-                viewModel.checkAnswer()
+//                viewModel.checkAnswer() // это вызывает alerts, а так же проверяет, правильный ли вопрос
             }) {
                 Text(option)
                     .font(.system(.body))
