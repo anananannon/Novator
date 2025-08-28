@@ -22,6 +22,8 @@ final class RatingViewModel: ObservableObject {
         ([profile.profile] + friends).sorted { $0.points > $1.points }
     }
 
+    private var cancellables = Set<AnyCancellable>()
+
     // MARK: - Инициализация
     init(profile: UserProfileViewModel) {
         self.profile = profile
@@ -68,5 +70,12 @@ final class RatingViewModel: ObservableObject {
 
         // В демо версии друзья пока только текущий профиль
         self.friends = []
+
+        // Подписка на изменения в profile, чтобы обновлять RatingViewModel
+        profile.objectWillChange
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
 }

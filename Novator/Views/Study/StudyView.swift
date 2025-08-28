@@ -25,17 +25,14 @@ struct StudyView: View {
             VStack(spacing: 20) {
                 Spacer()
                 
-                currentTaskLink
-                
-                Spacer()
-                
-                NavigationLink(value: StudyDestination.tasks) {
-                    PrimaryButton(title: "Решать задачи")
+                NavigationLink {
+                    TaskDetailView(profile: profile, navigationPath: $navigationPath)
+                } label : {
+                    PrimaryButton(title: "Начать решать задачи")
                 }
             }
             .padding()
             .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: StudyDestination.self) { navigationDestination(for: $0) }
             .toolbar { toolbarContent }
         }
         .preferredColorScheme(profile.theme.colorScheme)
@@ -44,22 +41,7 @@ struct StudyView: View {
 
 // MARK: - Subviews & ViewBuilders
 private extension StudyView {
-    
-    // MARK: - Current Task Navigation Link
-    @ViewBuilder
-    var currentTaskLink: some View {
-        if viewModel.currentTask != nil {
-            NavigationLink {
-                TaskDetailView(viewModel: viewModel, navigationPath: $navigationPath)
-            } label: {
-                Image(systemName: "play.fill")
-                    .font(.largeTitle)
-            }
-        } else {
-            EmptyView()
-        }
-    }
-    
+
     // MARK: - Toolbar Content
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -73,18 +55,9 @@ private extension StudyView {
                     .padding()
                     .foregroundColor(Color("AppRed"))
                     .frame(maxWidth: 250, minHeight: 90)
+                    .presentationCompactAdaptation(.popover)
             }
-        }
-    }
-    
-    // MARK: - Navigation Destination Builder
-    @ViewBuilder
-    func navigationDestination(for destination: StudyDestination) -> some View {
-        switch destination {
-        case .levelTest:
-            LevelTestView(profile: profile, navigationPath: $navigationPath)
-        case .tasks:
-            TasksView(profile: profile, navigationPath: $navigationPath)
+            .preferredColorScheme(viewModel.profile.theme.colorScheme)
         }
     }
 }

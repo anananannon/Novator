@@ -1,9 +1,10 @@
 import SwiftUI
 import Foundation
 
-// MARK: - TasksView
-struct TasksView: View {
+// MARK: - TaskDetailView
+struct TaskDetailView: View {
     @StateObject private var viewModel: TasksViewModel
+    @Environment(\.dismiss) private var dismiss
     @Binding var navigationPath: NavigationPath
 
     // MARK: - Initialization
@@ -11,57 +12,7 @@ struct TasksView: View {
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
         self._navigationPath = navigationPath
     }
-
-    // MARK: - Body
-    var body: some View {
-        VStack(spacing: 20) {
-            currentTaskLink
-        }
-        .onAppear { logAppear() }
-    }
-}
-
-// MARK: - Subviews & Components
-private extension TasksView {
-    // MARK: Navigation Link to Task
-    @ViewBuilder
-    var currentTaskLink: some View {
-        if let _ = viewModel.currentTask {
-            NavigationLink(destination: TaskDetailView(viewModel: viewModel, navigationPath: $navigationPath)) {
-                Text(Image(systemName: "play.fill"))
-            }
-        }
-    }
-
-    // MARK: Logging
-    func logAppear() {
-        print("TasksView: Appeared, level: \(viewModel.profile.profile.level), current task: \(viewModel.currentTask?.question ?? "none")")
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MARK: - TaskDetailView
-struct TaskDetailView: View {
-    @ObservedObject var viewModel: TasksViewModel
-    @Environment(\.dismiss) private var dismiss
-    @Binding var navigationPath: NavigationPath
-
+    
     // MARK: Body
     var body: some View {
         VStack(spacing: 20) {
@@ -81,10 +32,6 @@ struct TaskDetailView: View {
                     .frame(maxWidth: .infinity)
             }
             
-            
-            // Прогресс по заданиям
-//            ProgressBarView(progress: viewModel.progress)
-
             HStack {
                 Spacer()
                 Text("Скоро добавлю возможность использования доски")
@@ -107,7 +54,6 @@ struct TaskDetailView: View {
         .padding()
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-//        .toolbar { taskToolbar }
         .alert(isPresented: $viewModel.showResult) { taskAlert }
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
         .onAppear { logAppear() }
@@ -125,28 +71,10 @@ private extension TaskDetailView {
         var body: some View {
             ProgressView(value: progress)
                 .tint(color)
-                .scaleEffect(y:2)
-//                .padding(.horizontal)
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
     
-    
-    var taskToolbar: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "xmark")
-                    .font(.system(.subheadline))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                    .padding(6)
-                    .background(.thinMaterial, in: Capsule())
-            }
-        }
-    }
-
     func taskHeader(task: Task) -> some View {
         Text(task.isLogicalTrick ? "Логическая задача" : "Математическая задача")
             .font(.system(.subheadline))
@@ -181,7 +109,7 @@ private extension TaskDetailView {
 
     var noTaskView: some View {
         VStack(spacing: 16) {
-            Text("Задачи скоро добавлю")
+            Text("Вы успешно прошли уровень")
                 .font(.system(.title2))
                 .foregroundColor(Color("AppRed"))
 
@@ -218,12 +146,5 @@ extension TasksViewModel {
     var progress: Double {
         guard let program = program, !program.tasks.isEmpty else { return 0 }
         return Double(program.currentIndex) / Double(program.tasks.count)
-    }
-}
-
-// MARK: - Preview
-struct TasksView_Previews: PreviewProvider {
-    static var previews: some View {
-        TasksView(profile: UserProfileViewModel(), navigationPath: .constant(NavigationPath()))
     }
 }
