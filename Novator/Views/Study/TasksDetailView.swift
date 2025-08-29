@@ -5,12 +5,10 @@ import Foundation
 struct TaskDetailView: View {
     @StateObject private var viewModel: TasksViewModel
     @Environment(\.dismiss) private var dismiss
-    @Binding var navigationPath: NavigationPath
 
     // MARK: - Initialization
-    init(profile: UserProfileViewModel, navigationPath: Binding<NavigationPath>) {
+    init(profile: UserProfileViewModel) {
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
-        self._navigationPath = navigationPath
     }
     
     // MARK: Body
@@ -114,7 +112,7 @@ private extension TaskDetailView {
                 .font(.system(.title2))
                 .foregroundColor(Color("AppRed"))
 
-            Button(action: { navigationPath = NavigationPath() }) {
+            Button(action: { /*navigationPath = NavigationPath()*/ dismiss() }) {
                 Text("Вернуться в меню")
                     .font(.system(.title2))
                     .padding()

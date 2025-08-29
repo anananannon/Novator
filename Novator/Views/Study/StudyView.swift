@@ -5,17 +5,17 @@ struct StudyView: View {
     // MARK: - Observed & State Objects
     @ObservedObject var profile: UserProfileViewModel
     @StateObject private var viewModel: TasksViewModel
-    @Binding var navigationPath: NavigationPath
+    @State private var navigationPath = NavigationPath()
     @Binding var selectedTab: Int
+    
     @State private var showPopover = false
+    @State private var showTasks = false
     
     // MARK: - Initialization
     init(profile: UserProfileViewModel,
-         navigationPath: Binding<NavigationPath>,
          selectedTab: Binding<Int>) {
         self.profile = profile
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
-        self._navigationPath = navigationPath
         self._selectedTab = selectedTab
     }
     
@@ -25,10 +25,10 @@ struct StudyView: View {
             VStack(spacing: 20) {
                 Spacer()
                 
-                NavigationLink {
-                    TaskDetailView(profile: profile, navigationPath: $navigationPath)
-                } label : {
-                    PrimaryButton(title: "Начать решать задачи")
+                Button {
+                    showTasks = true
+                } label: {
+                    PrimaryButton(title: "Начать решать задание")
                 }
             }
             .padding()
@@ -36,6 +36,9 @@ struct StudyView: View {
             .toolbar { toolbarContent }
         }
         .preferredColorScheme(profile.theme.colorScheme)
+        .fullScreenCover(isPresented: $showTasks) {
+            TaskDetailView(profile: profile)
+        }
     }
 }
 
@@ -67,7 +70,6 @@ struct StudyView_Previews: PreviewProvider {
     static var previews: some View {
         StudyView(
             profile: UserProfileViewModel(),
-            navigationPath: .constant(NavigationPath()),
             selectedTab: .constant(0)
         )
     }

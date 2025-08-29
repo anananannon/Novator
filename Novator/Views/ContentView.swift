@@ -4,13 +4,13 @@ struct ContentView: View {
     // MARK: - Properties
     @StateObject private var userProfile = UserProfileViewModel()
     @State private var selectedTab: Int = 0
-    @State private var navigationPath = NavigationPath()
+//    @State private var navigationPath = NavigationPath()
 
     // MARK: - Body
     var body: some View {
         TabView(selection: $selectedTab) {
             // Учеба
-            StudyView(profile: userProfile, navigationPath: $navigationPath, selectedTab: $selectedTab)
+            StudyView(profile: userProfile, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Учеба", systemImage: "book.fill")
                 }
