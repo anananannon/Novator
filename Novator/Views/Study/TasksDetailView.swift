@@ -9,8 +9,6 @@ struct TaskDetailView: View {
     // Флаг для анимации появления контента
     @State private var showContent = false
     
-    @State private var showAnswerFeedback = false // флаг показа фидбека
-    
     // MARK: - Initialization
     init(profile: UserProfileViewModel) {
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
@@ -54,8 +52,6 @@ struct TaskDetailView: View {
                     }) {
                         PrimaryButton(title: viewModel.actionButtonTitle)
                     }
-
-
                     
                 } else {
                     noTaskView
