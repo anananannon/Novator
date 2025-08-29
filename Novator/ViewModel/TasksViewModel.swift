@@ -37,3 +37,21 @@ class TasksViewModel: ObservableObject {
         showResult = false
     }
 }
+
+extension TasksViewModel {
+    var isNextButtonActive: Bool {
+        showResult && isCorrect
+    }
+
+    var actionButtonTitle: String {
+        isNextButtonActive ? "Далее" : "Проверить"
+    }
+
+    func actionButtonTapped() {
+        if isNextButtonActive {
+            loadNextTask()
+        } else {
+            checkAnswer()
+        }
+    }
+}

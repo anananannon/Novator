@@ -5,7 +5,12 @@ import Foundation
 struct TaskDetailView: View {
     @StateObject private var viewModel: TasksViewModel
     @Environment(\.dismiss) private var dismiss
-
+    
+    // Флаг для анимации появления контента
+    @State private var showContent = false
+    
+    @State private var showAnswerFeedback = false // флаг показа фидбека
+    
     // MARK: - Initialization
     init(profile: UserProfileViewModel) {
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
@@ -13,49 +18,65 @@ struct TaskDetailView: View {
     
     // MARK: Body
     var body: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(.subheadline))
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                        .padding(6)
-                        .background(.thinMaterial, in: Capsule())
+        ZStack {
+            // 1. Белый фон сразу
+            Color.white.ignoresSafeArea()
+            
+            // 2. Основное содержимое — появляется с анимацией справа налево
+            VStack(spacing: 20) {
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(.subheadline))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                            .padding(6)
+                            .background(.thinMaterial, in: Capsule())
+                    }
+                    
+                    ProgressBarView(progress: viewModel.progress)
+                        .frame(maxWidth: .infinity)
                 }
                 
-                ProgressBarView(progress: viewModel.progress)
-                    .frame(maxWidth: .infinity)
-            }
-            
-            
-            
-            Spacer()
-            
-            if let task = viewModel.currentTask {
-//                taskHeader(task: task)
-                taskQuestion(task: task)
                 Spacer()
-                taskOptions(task: task)
                 
-                Button(action: { // вот эта кнопка
-                    viewModel.checkAnswer()
-                }, label: {
-                    PrimaryButton(title: viewModel.isCorrect ? "Далее" : "Проверить")
-                })
-            } else {
-                noTaskView
+                if let task = viewModel.currentTask {
+                    taskQuestion(task: task)
+                    Spacer()
+                    taskOptions(task: task)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.actionButtonTapped()
+                    }) {
+                        PrimaryButton(title: viewModel.actionButtonTitle)
+                    }
+
+
+                    
+                } else {
+                    noTaskView
+                }
             }
+            .padding()
+//            .background(Color("TaskBackground").ignoresSafeArea())
+            .offset(x: showContent ? 0 : UIScreen.main.bounds.width) // старт за экраном справа
+            .opacity(showContent ? 1 : 0) // добавляем плавное появление
+            .animation(.easeInOut(duration: 0.4).delay(0.2), value: showContent) // анимация въезда
         }
-        .padding()
+        .onAppear {
+            // запускаем анимацию после небольшой задержки
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { //тут число
+                showContent = true
+            }
+            logAppear()
+        }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-//        .alert(isPresented: $viewModel.showResult) { taskAlert } // что бы убрать алерт и сделать кнопку continue //показывает результат в showResult in TasksViewModel
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
-        .onAppear { logAppear() }
-        .background(Color("TaskBackground").ignoresSafeArea())
     }
 }
 
@@ -85,15 +106,15 @@ private extension TaskDetailView {
             .font(.system(.title2))
             .foregroundColor(Color("AppRed"))
             .padding(.all, 50)
-            .background(RoundedRectangle(cornerRadius: 10).fill(Color(.white)))
     }
 
     @ViewBuilder
     func taskOptions(task: Task) -> some View {
         ForEach(task.options ?? [], id: \.self) { option in
             Button(action: {
+                // Блокируем выбор после проверки правильного ответа
+                guard !viewModel.showResult else { return }
                 viewModel.selectedAnswer = option
-//                viewModel.checkAnswer() // это вызывает alerts, а так же проверяет, правильный ли вопрос
             }) {
                 Text(option)
                     .font(.system(.body))
@@ -103,8 +124,10 @@ private extension TaskDetailView {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            .disabled(viewModel.showResult) // дополнительно блокируем визуально
         }
     }
+
 
     var noTaskView: some View {
         VStack(spacing: 16) {
@@ -112,7 +135,7 @@ private extension TaskDetailView {
                 .font(.system(.title2))
                 .foregroundColor(Color("AppRed"))
 
-            Button(action: { /*navigationPath = NavigationPath()*/ dismiss() }) {
+            Button(action: { dismiss() }) {
                 Text("Вернуться в меню")
                     .font(.system(.title2))
                     .padding()
@@ -124,13 +147,15 @@ private extension TaskDetailView {
             Spacer()
         }
     }
-
+    
+    
+    // Alert и след вопрос
     var taskAlert: Alert {
         Alert(
             title: Text(viewModel.isCorrect ? "Правильно!" : "Неправильно"),
             message: Text(viewModel.isCorrect ? "Отличная работа! +\((viewModel.currentTask?.points ?? 0)) очков" : viewModel.currentTask?.explanation ?? "Попробуйте снова"),
             dismissButton: .default(Text("Далее")) {
-                viewModel.loadNextTask()
+                viewModel.loadNextTask() // переход к след вопросу
             }
         )
     }
