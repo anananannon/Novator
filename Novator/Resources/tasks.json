@@ -89,28 +89,6 @@
     },
     {
         "id": "99999999-9999-9999-9999-999999999999",
-        "category": "logic",
-        "level": "advanced",
-        "question": "Три друга: А, Б, В. Один — шпион, другие честные. Честные говорят правду, шпион может лгать. А говорит: 'Б — шпион'. Б молчит. В говорит: 'А — шпион'. Кто шпион?",
-        "options": ["А", "Б", "В", "Никто"],
-        "correctAnswer": "В",
-        "explanation": "Если В — шпион, он может лгать, говоря 'А — шпион', а А честен и прав, что Б — не шпион. Другие варианты приводят к противоречиям.",
-        "points": 50,
-        "isLogicalTrick": true
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999998",
-        "category": "logic",
-        "level": "advanced",
-        "question": "Три друга: Г, Ч, Е. Один — шпион, другие честные. Честные говорят правду, шпион может лгать. А говорит: 'Б — шпион'. Б молчит. В говорит: 'А — шпион'. Кто шпион?",
-        "options": ["А", "Б", "В", "Никто"],
-        "correctAnswer": "В",
-        "explanation": "Если В — шпион, он может лгать, говоря 'А — шпион', а А честен и прав, что Б — не шпион. Другие варианты приводят к противоречиям.",
-        "points": 50,
-        "isLogicalTrick": true
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999997",
         "category": "math",
         "level": "advanced",
         "question": "1:2",
@@ -121,7 +99,7 @@
         "isLogicalTrick": false
     },
     {
-        "id": "99999999-9999-9999-9999-999999999996",
+        "id": "99999999-9999-9999-9999-999999999998",
         "category": "math",
         "level": "advanced",
         "question": "30 - 2x = 0",
@@ -132,13 +110,68 @@
         "isLogicalTrick": false
     },
     {
-        "id": "99999999-9999-9999-9999-999999999995",
+        "id": "99999999-9999-9999-9999-999999999997",
         "category": "math",
         "level": "advanced",
         "question": "2x - 40 = 0",
         "options": ["15", "20", "8", "5"],
         "correctAnswer": "20",
         "explanation": "Переносим известное в другую сторону: 2x = 40, x = 40/2, x = 20",
+        "points": 50,
+        "isLogicalTrick": false
+    },
+    {
+        "id": "99999999-9999-9999-9999-999999999996",
+        "category": "math",
+        "level": "advanced",
+        "question": "Корень из 81?",
+        "options": ["8", "9", "12", "40.5"],
+        "correctAnswer": "9",
+        "explanation": "Корень из 81, это тоже самое, что и 9²",
+        "points": 50,
+        "isLogicalTrick": false
+    },
+    {
+        "id": "99999999-9999-9999-9999-999999999995",
+        "category": "math",
+        "level": "advanced",
+        "question": "3² + 4² = ?",
+        "options": ["12", "25", "14", "22"],
+        "correctAnswer": "25",
+        "explanation": "3² = 9, 4² = 16, 9+16=25",
+        "points": 50,
+        "isLogicalTrick": false
+    },
+    {
+        "id": "99999999-9999-9999-9999-999999999994",
+        "category": "math",
+        "level": "advanced",
+        "question": "Сумма углов треугольника?",
+        "options": ["90", "360", "180", "0"],
+        "correctAnswer": "180",
+        "explanation": "Сумма углов треугольника всегда равна 180°",
+        "points": 50,
+        "isLogicalTrick": false
+    },
+    {
+        "id": "99999999-9999-9999-9999-999999999993",
+        "category": "math",
+        "level": "advanced",
+        "question": "|x²| = 16. x = ?",
+        "options": ["8", "4", "6", "2"],
+        "correctAnswer": "4",
+        "explanation": "4² = 16",
+        "points": 50,
+        "isLogicalTrick": false
+    },
+    {
+        "id": "99999999-9999-9999-9999-999999999992",
+        "category": "math",
+        "level": "advanced",
+        "question": "log₃9 = ?",
+        "options": ["9", "3", "2", "Нет реш."],
+        "correctAnswer": "2",
+        "explanation": "log₃9 это тоже самое, что и 3ⁿ = 9, 3ⁿ = 3², n = 2",
         "points": 50,
         "isLogicalTrick": false
     }

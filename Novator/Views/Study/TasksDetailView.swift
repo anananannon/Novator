@@ -27,62 +27,77 @@ struct TaskDetailView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                            .font(.system(.subheadline))
+                            .font(.system(.title))
                             .fontWeight(.semibold)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.gray)
                             .padding(6)
-                            .background(.thinMaterial, in: Capsule())
                     }
-                    
-                    ProgressBarView(progress: viewModel.progress)
-                        .frame(maxWidth: .infinity)
+                    VStack(alignment: .leading) {
+                        ProgressBarView(progress: viewModel.progress)
+                            .frame(maxWidth: .infinity)
+                        
+                        
+                        Text("2/5")
+                            .font(.system(size: 11))
+                            .fontWeight(.semibold)
+                    }
                 }
                 
                 Spacer()
+
                 
                 if let task = viewModel.currentTask {
-                    taskQuestion(task: task)
-                        .padding(.bottom, 30)
-                    taskOptions(task: task)
-                    
-                
-                    ZStack(alignment: .bottom) {
-                        RoundedRectangle(cornerRadius: 16).fill(viewModel.isCorrect ? Color("redCorrect") : Color("taskMistake"))
-                            .frame(minWidth: 340, maxHeight: 160)
-                            .overlay {
-                                VStack(alignment: .leading) {
-                                    Text(viewModel.isCorrect ? "\(Image(systemName: "checkmark.circle.fill")) Правильно" : "\(Image(systemName: "xmark.circle.fill")) Ошибка")
-                                        .font(.title2)
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(viewModel.isCorrect ? Color(.white) : Color("taskText"))
-                                        .padding(.leading, 15)
-                                        .padding(.top, 20)
-                                    
-                                    Text(viewModel.isCorrect ? "" : viewModel.currentTask?.explanation ?? "")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                        .foregroundStyle(Color("taskExplanation"))
-                                        .padding(.horizontal)
-                                        .padding(.top, 3)
-                                    Spacer()
+                    VStack {
+                        taskQuestion(task: task)
+                            .padding(.bottom, 30)
+                        taskOptions(task: task)
+                        
+                        
+                        ZStack(alignment: .bottom) {
+                            RoundedRectangle(cornerRadius: 16).fill(viewModel.isCorrect ? Color("redCorrect") : Color("taskMistake"))
+                                .frame(minWidth: 340, maxHeight: 160)
+                                .overlay {
+                                    VStack(alignment: .leading) {
+                                        Text(viewModel.isCorrect ? "\(Image(systemName: "checkmark.circle.fill")) Правильно" : "\(Image(systemName: "xmark.circle.fill")) Ошибка")
+                                            .font(.title2)
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(viewModel.isCorrect ? Color(.white) : Color("taskText"))
+                                            .padding(.leading, 15)
+                                            .padding(.top, 20)
+                                        
+                                        Text(viewModel.isCorrect ? "" : viewModel.currentTask?.explanation ?? "")
+                                            .font(.body)
+                                            .fontWeight(.regular)
+                                            .foregroundStyle(Color("taskExplanation"))
+                                            .padding(.horizontal)
+                                            .padding(.top, 3)
+                                        Spacer()
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .opacity(viewModel.showResult ? 1: 0)
+                                .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom) // масштабируем по Y от нижней линии
+                                .animation(.easeOut(duration: 0.3), value: viewModel.showResult)
+                                .padding(.top)
+                            
+                            
+                            
+                            
+                            Button(action: {
+                                viewModel.actionButtonTapped()
+                            }) {
+                                PrimaryButton(title: viewModel.actionButtonTitle)
+                                    .padding(.bottom, 4)
                             }
-                            .opacity(viewModel.showResult ? 1: 0)
-                            .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom) // масштабируем по Y от нижней линии
-                            .animation(.spring(response: 0.4), value: viewModel.showResult)
-                            .padding(.top)
-                            
-                            
-                        
-                        
-                        Button(action: {
-                            viewModel.actionButtonTapped()
-                        }) {
-                            PrimaryButton(title: viewModel.actionButtonTitle)
-                                .padding(.bottom, 4)
                         }
                     }
+                    .id(task.id)
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing), // новый появляется справа + плавно
+                        removal: .move(edge: .leading)     // старый уходит влево + плавно растворяется
+                    ))
+                    .animation(.easeInOut(duration: 0.3), value: viewModel.currentTask?.id)
+
                 } else {
                     noTaskView
                 }
@@ -120,6 +135,8 @@ private extension TaskDetailView {
         }
     }
     
+    
+    
     func taskHeader(task: Task) -> some View {
         Text(task.isLogicalTrick ? "Логическая задача" : "Математическая задача")
             .font(.system(.subheadline))
@@ -130,7 +147,7 @@ private extension TaskDetailView {
         Text(task.question)
             .font(.system(.title2))
             .fontWeight(.semibold)
-            .frame(minWidth: 343, minHeight: 98)
+            .frame(minWidth: 340, minHeight: 98)
             .background(Color("TaskBackground"))
             .foregroundColor(.primary)
             .cornerRadius(16)
@@ -150,6 +167,7 @@ private extension TaskDetailView {
                 } label: {
                     Text(option)
                         .font(.body)
+                        .fontWeight(.medium)
                         .padding()
                         .frame(minWidth: 158, minHeight: 81)
                         .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color("TaskBackground"))
@@ -211,3 +229,5 @@ extension TasksViewModel {
         return Double(program.currentIndex) / Double(program.tasks.count)
     }
 }
+
+
