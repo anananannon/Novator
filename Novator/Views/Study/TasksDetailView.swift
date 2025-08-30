@@ -127,20 +127,26 @@ private extension TaskDetailView {
 
     var noTaskView: some View {
         VStack(spacing: 16) {
-            Text("Вы успешно прошли уровень")
+            Spacer()
+            Text("Урок пройден!")
                 .font(.system(.title2))
                 .foregroundColor(Color("AppRed"))
 
-            Button(action: { dismiss() }) {
-                Text("Вернуться в меню")
-                    .font(.system(.title2))
-                    .padding()
-                    .background(Color("AppRed"))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-
             Spacer()
+            Button(action: { dismiss() }) {
+                HStack {
+                    Image(systemName: "shippingbox.fill")
+                       
+                    Text("Получить награды")
+                        
+                }
+                .font(.system(.title2))
+                .padding()
+                .background(Color("AppRed"))
+                .foregroundColor(.white)
+                .cornerRadius(15)
+
+            }
         }
     }
     

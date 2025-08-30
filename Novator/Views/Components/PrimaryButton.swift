@@ -10,6 +10,6 @@ struct PrimaryButton: View {
             .frame(maxWidth: .infinity)
             .background(Color("AppRed"))
             .foregroundColor(.white)
-            .cornerRadius(12)
+            .cornerRadius(16)
     }
 }

@@ -40,9 +40,13 @@ class TasksViewModel: ObservableObject {
 
 extension TasksViewModel {
     var isNextButtonActive: Bool {
-        showResult && isCorrect
+        showResult /*&& isCorrect*/
     }
 
+    
+    // сначала у меня  else, а потом уже isnextbuttoonactive
+    // так как снаачала у меня всегда else, значит  сначала всегда "проверить", а значить сначала всегда checkAnswer(), а потом уже, после нажатия у меня становится showResult = true и показывается другая кнопка. поэтому очки добавляются.
+    
     var actionButtonTitle: String {
         isNextButtonActive ? "Далее" : "Проверить"
     }
