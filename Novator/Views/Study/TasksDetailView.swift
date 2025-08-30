@@ -45,20 +45,49 @@ struct TaskDetailView: View {
                         .padding(.bottom, 30)
                     taskOptions(task: task)
                     
-                    Spacer()
-                    
-                    Button(action: {
-                        viewModel.actionButtonTapped()
-                    }) {
-                        PrimaryButton(title: viewModel.actionButtonTitle)
+                
+                    ZStack(alignment: .bottom) {
+                        RoundedRectangle(cornerRadius: 16).fill(viewModel.isCorrect ? Color("redCorrect") : Color("taskMistake"))
+                            .frame(minWidth: 340, maxHeight: 160)
+                            .overlay {
+                                VStack(alignment: .leading) {
+                                    Text(viewModel.isCorrect ? "\(Image(systemName: "checkmark.circle.fill")) Правильно" : "\(Image(systemName: "xmark.circle.fill")) Ошибка")
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(viewModel.isCorrect ? Color(.white) : Color("taskText"))
+                                        .padding(.leading, 15)
+                                        .padding(.top, 20)
+                                    
+                                    Text(viewModel.isCorrect ? "" : viewModel.currentTask?.explanation ?? "")
+                                        .font(.body)
+                                        .fontWeight(.regular)
+                                        .foregroundStyle(Color("taskExplanation"))
+                                        .padding(.horizontal)
+                                        .padding(.top, 3)
+                                    Spacer()
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .opacity(viewModel.showResult ? 1: 0)
+                            .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom) // масштабируем по Y от нижней линии
+                            .animation(.spring(response: 0.4), value: viewModel.showResult)
+                            .padding(.top)
+                            
+                            
+                        
+                        
+                        Button(action: {
+                            viewModel.actionButtonTapped()
+                        }) {
+                            PrimaryButton(title: viewModel.actionButtonTitle)
+                                .padding(.bottom, 4)
+                        }
                     }
-                    
                 } else {
                     noTaskView
                 }
             }
             .padding()
-//            .background(Color("TaskBackground").ignoresSafeArea())
             .offset(x: showContent ? 0 : UIScreen.main.bounds.width) // старт за экраном справа
             .opacity(showContent ? 1 : 0) // добавляем плавное появление
             .animation(.easeInOut(duration: 0.4).delay(0.2), value: showContent) // анимация въезда
@@ -124,7 +153,7 @@ private extension TaskDetailView {
                         .padding()
                         .frame(minWidth: 158, minHeight: 81)
                         .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color("TaskBackground"))
-                        .foregroundColor(.primary)
+                        .foregroundColor(viewModel.selectedAnswer == option ? Color(.white) : Color(.black))
                         .cornerRadius(16)
                 }
                 .disabled(viewModel.showResult) // дополнительно блокируем визуально
