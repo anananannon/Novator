@@ -5,9 +5,9 @@ struct PrimaryButton: View {
     
     var body: some View {
         Text(title)
-            .font(.system(.title2))
+            .font(.system(.title3))
             .padding()
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: 333.63, maxHeight: 47)
             .background(Color("AppRed"))
             .foregroundColor(.white)
             .cornerRadius(16)

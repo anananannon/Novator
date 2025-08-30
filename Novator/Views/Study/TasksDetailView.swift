@@ -42,7 +42,7 @@ struct TaskDetailView: View {
                 
                 if let task = viewModel.currentTask {
                     taskQuestion(task: task)
-                    Spacer()
+                        .padding(.bottom, 30)
                     taskOptions(task: task)
                     
                     Spacer()
@@ -100,27 +100,35 @@ private extension TaskDetailView {
     func taskQuestion(task: Task) -> some View {
         Text(task.question)
             .font(.system(.title2))
-            .foregroundColor(Color("AppRed"))
-            .padding(.all, 50)
+            .fontWeight(.semibold)
+            .frame(minWidth: 343, minHeight: 98)
+            .background(Color("TaskBackground"))
+            .foregroundColor(.primary)
+            .cornerRadius(16)
     }
 
     @ViewBuilder
     func taskOptions(task: Task) -> some View {
-        ForEach(task.options ?? [], id: \.self) { option in
-            Button(action: {
-                // Блокируем выбор после проверки правильного ответа
-                guard !viewModel.showResult else { return }
-                viewModel.selectedAnswer = option
-            }) {
-                Text(option)
-                    .font(.system(.body))
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color.gray)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+        let options = task.options ?? []
+        let columns = [GridItem(.flexible()), GridItem(.flexible())] // 2 колонки
+        
+        LazyVGrid(columns: columns, spacing: 16) {
+            ForEach(options, id: \.self) { option in
+                Button {
+                    // Блокируем выбор после проверки правильного ответа
+                    guard !viewModel.showResult else { return }
+                    viewModel.selectedAnswer = option
+                } label: {
+                    Text(option)
+                        .font(.body)
+                        .padding()
+                        .frame(minWidth: 158, minHeight: 81)
+                        .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color("TaskBackground"))
+                        .foregroundColor(.primary)
+                        .cornerRadius(16)
+                }
+                .disabled(viewModel.showResult) // дополнительно блокируем визуально
             }
-            .disabled(viewModel.showResult) // дополнительно блокируем визуально
         }
     }
 
