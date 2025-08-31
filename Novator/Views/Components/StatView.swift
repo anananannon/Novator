@@ -10,7 +10,7 @@ struct StatView: View {
                 .imageScale(.small)
                 .foregroundColor(Color("AppRed"))
             Text(value)
-                .font(.system(.subheadline, design: .rounded).weight(.semibold))
+                .font(.system(.subheadline, design: .monospaced).weight(.semibold))
                 .foregroundColor(.primary)
         }
         .padding(.vertical, 6)

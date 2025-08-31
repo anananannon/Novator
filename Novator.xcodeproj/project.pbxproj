@@ -37,6 +37,7 @@
 		ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080202E54D8DD007B9113 /* TaskManager.swift */; };
 		ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080222E54D902007B9113 /* AchievementManager.swift */; };
 		ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080262E54DCD0007B9113 /* ProfileEditView.swift */; };
+		ABE5C12A2E647048009B2E0A /* RaitingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5C1292E647048009B2E0A /* RaitingRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		ABE080202E54D8DD007B9113 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ABE080222E54D902007B9113 /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		ABE080262E54DCD0007B9113 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		ABE5C1292E647048009B2E0A /* RaitingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaitingRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,7 +247,7 @@
 				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				AB907F002E549F78005592E3 /* LevelTestView.swift */,
 				AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */,
-				AB8899912E5C9BBE00502FFF /* RatingView.swift */,
+				ABE5C1282E647023009B2E0A /* Raiting */,
 				AB35A8EE2E609BC900942C3E /* Components */,
 			);
 			path = Views;
@@ -266,6 +268,15 @@
 				AB907EFC2E549C8A005592E3 /* tasks.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		ABE5C1282E647023009B2E0A /* Raiting */ = {
+			isa = PBXGroup;
+			children = (
+				AB8899912E5C9BBE00502FFF /* RatingView.swift */,
+				ABE5C1292E647048009B2E0A /* RaitingRow.swift */,
+			);
+			path = Raiting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,6 +434,7 @@
 				ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */,
 				ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */,
 				AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */,
+				ABE5C12A2E647048009B2E0A /* RaitingRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

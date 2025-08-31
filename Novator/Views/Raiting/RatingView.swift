@@ -28,7 +28,6 @@ struct RatingView: View {
                         .pickerStyle(.segmented)
                     }
                 }
-//                .animation(.spring(Spring(mass: 0.001, stiffness: 0.886, damping: 1)), value: viewModel.pickerMode)
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
@@ -39,50 +38,11 @@ struct RatingView: View {
         ScrollView {
             VStack(spacing: 12) {
                 ForEach(users.indices, id: \.self) { index in
-                    RatingRowView(rank: index + 1, user: users[index])
+                    RatingRowView(rank: index + 1, user: users[index], currentUser: viewModel.profile.profile)
                 }
             }
             .padding()
         }
-    }
-}
-
-// MARK: - Ячейка рейтинга
-struct RatingRowView: View {
-    let rank: Int
-    let user: UserProfile
-
-    var body: some View {
-        HStack {
-            Text("#\(rank)")
-                .font(.title2)
-                .foregroundColor(.gray)
-                .padding(.leading, 10)
-
-            Divider()
-
-            Image(systemName: user.avatar)
-                .font(.system(size: 40))
-                .foregroundColor(Color("AppRed"))
-
-            VStack(alignment: .leading) {
-                Text(user.fullName)
-                    .font(.system(.title3))
-                Text(user.username)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-            }
-            Spacer()
-
-            HStack(spacing: 4) {
-                Image(systemName: "star.fill")
-                    .foregroundColor(Color("AppRed"))
-                Text("\(user.points)")
-            }
-            .padding(.trailing, 15)
-        }
-        .frame(maxWidth: 340, maxHeight: 50)
-        .padding(.vertical, 10)
     }
 }
 

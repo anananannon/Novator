@@ -145,17 +145,14 @@ private extension TaskDetailView {
                 .font(.system(.title2))
                 .foregroundColor(Color("AppRed"))
             Spacer()
-            Button { dismiss() } label: {
-                HStack {
-                    Image(systemName: "shippingbox.fill")
-                    Text("Получить награды")
-                }
-                .font(.system(.title2))
-                .padding()
-                .background(Color("AppRed"))
-                .foregroundColor(.white)
-                .cornerRadius(15)
+            Button {
+                dismiss()
+            } label: {
+                Label("Получить награды", systemImage: "shippingbox.fill")
+                    .font(.system(.title2))
+                    .frame(maxWidth: 250, maxHeight: 50)
             }
+            .buttonStyle(PrimaryButtonStyle())
         }
     }
 }
