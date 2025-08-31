@@ -5,7 +5,7 @@ struct AchievementsView: View {
     @ObservedObject var profile: UserProfileViewModel
     
     let gridSpacing: CGFloat = 7
-    let sidePadding: CGFloat = 10
+    let sidePadding: CGFloat = 12
     let columns = 3
     
     // computed property для размера карточки
