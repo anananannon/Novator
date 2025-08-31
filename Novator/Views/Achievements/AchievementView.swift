@@ -5,7 +5,7 @@ struct AchievementsView: View {
     @ObservedObject var profile: UserProfileViewModel
     
     let gridSpacing: CGFloat = 7
-    let sidePadding: CGFloat = 9
+    let sidePadding: CGFloat = 10
     let columns = 3
     
     // computed property для размера карточки
@@ -29,20 +29,63 @@ struct AchievementsView: View {
 private extension AchievementsView {
     var content: some View {
         ScrollView {
-            LazyVGrid(
-                columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
-                spacing: gridSpacing
-            ) {
-                ForEach(AchievementManager.achievements) { achievement in
-                    AchievementSquare(
-                        achievement: achievement,
-                        isUnlocked: profile.profile.achievements.contains(achievement.name),
-                        size: itemSize
-                    )
+            VStack(alignment: .leading, spacing: 16) {
+                
+                // MARK: - Раздел "ВАШИ"
+                if unlockedAchievements.count > 0 {
+                    Text("ВАШИ")
+                        .font(.system(.subheadline, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 17)
+                    
+                    LazyVGrid(
+                        columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+                        spacing: gridSpacing
+                    ) {
+                        ForEach(unlockedAchievements) { achievement in
+                            AchievementSquare(
+                                achievement: achievement,
+                                isUnlocked: true,
+                                size: itemSize
+                            )
+                        }
+                    }
+                    .padding(.horizontal, sidePadding)
+                }
+                
+                // MARK: - Раздел "НЕ ПОЛУЧЕНО"
+                if lockedAchievements.count > 0 {
+                    Text("НЕ ПОЛУЧЕНО")
+                        .font(.system(.subheadline, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 17)
+                    
+                    LazyVGrid(
+                        columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+                        spacing: gridSpacing
+                    ) {
+                        ForEach(lockedAchievements) { achievement in
+                            AchievementSquare(
+                                achievement: achievement,
+                                isUnlocked: false,
+                                size: itemSize
+                            )
+                        }
+                    }
+                    .padding(.horizontal, sidePadding)
                 }
             }
-            .padding(.horizontal, sidePadding)
+            .padding(.top, 10)
         }
+    }
+    
+    // MARK: - Computed Properties
+    private var unlockedAchievements: [Achievement] {
+        AchievementManager.achievements.filter { profile.profile.achievements.contains($0.name) }
+    }
+    
+    private var lockedAchievements: [Achievement] {
+        AchievementManager.achievements.filter { !profile.profile.achievements.contains($0.name) }
     }
 }
 

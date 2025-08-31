@@ -12,7 +12,7 @@ struct AchievementManager {
         Achievement(id: UUID(), name: "Накопитель", description: "Достигните 100 очков"),
         Achievement(id: UUID(), name: "5 класс", description: "Достигните 300 очков"),
         Achievement(id: UUID(), name: "Мастер", description: "Достигните 1.000 очков"),
-        Achievement(id: UUID(), name: "Эйнштейн", description: "Решите 100 задач")
+        Achievement(id: UUID(), name: "Эйнштейн", description: "Решите 100 задач"),
     ]
 
     static func checkAchievements(for profile: UserProfileViewModel) {
