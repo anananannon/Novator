@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// MARK: - TasksViewModel
 class TasksViewModel: ObservableObject {
     @Published var program: LearningProgram?
     @Published var selectedAnswer: String?
@@ -16,14 +17,59 @@ class TasksViewModel: ObservableObject {
         print("TasksViewModel: Initialized with level \(profile.profile.level), tasks count: \(program?.tasks.count ?? 0)")
     }
     
+    // MARK: - Current Task
     var currentTask: Task? {
         program?.currentTask
     }
     
+    var currentTaskNumber: Int {
+        guard let program = program else { return 0 }
+        return program.currentIndex
+    }
+    
+    var totalTasks: Int {
+        program?.tasks.count ?? 0
+    }
+    
+    var progress: Double {
+        guard let program = program, !program.tasks.isEmpty else { return 0 }
+        return Double(program.currentIndex) / Double(program.tasks.count)
+    }
+    
+    var progressText: String {
+        "\(currentTaskNumber)/\(totalTasks)"
+    }
+    
+    // MARK: - Result and Action
+    var resultColor: Color {
+        isCorrect ? Color("redCorrect") : Color("taskMistake")
+    }
+    
+    var resultText: String {
+        isCorrect ? "Правильно" : "Ошибка"
+    }
+    
+    var isNextButtonActive: Bool {
+        showResult
+    }
+    
+    var actionButtonTitle: String {
+        isNextButtonActive ? "Далее" : "Проверить"
+    }
+    
+    func actionButtonTapped() {
+        if isNextButtonActive {
+            loadNextTask()
+        } else {
+            checkAnswer()
+        }
+    }
+    
+    // MARK: - Logic
     func checkAnswer() {
         guard let task = currentTask, let answer = selectedAnswer else { return }
         isCorrect = answer == task.correctAnswer
-        showResult = true // показывать результат в alerts
+        showResult = true
         if isCorrect {
             profile.addPoints(task.points)
             profile.completeTask(task.id)
@@ -36,38 +82,9 @@ class TasksViewModel: ObservableObject {
         selectedAnswer = nil
         showResult = false
     }
-}
-
-extension TasksViewModel {
-    var isNextButtonActive: Bool {
-        showResult /*&& isCorrect*/
+    
+    // MARK: - Analytics / Logging
+    func logAppear() {
+        print("TaskDetailView: Appeared, current task: \(currentTask?.question ?? "none")")
     }
-
-    
-    // сначала у меня  else, а потом уже isnextbuttoonactive
-    // так как снаачала у меня всегда else, значит  сначала всегда "проверить", а значить сначала всегда checkAnswer(), а потом уже, после нажатия у меня становится showResult = true и показывается другая кнопка. поэтому очки добавляются.
-    
-    var actionButtonTitle: String {
-        isNextButtonActive ? "Далее" : "Проверить"
-    }
-
-    func actionButtonTapped() {
-        if isNextButtonActive {
-            loadNextTask()
-        } else {
-            checkAnswer()
-        }
-    }
-    
-    
-    
-    // под progressview
-    var currentTaskNumber: Int {
-           guard let program = program else { return 0 }
-           return program.currentIndex /*+ 1*/ // так как индекс с 0, а показывать хотим с 1
-       }
-       
-   var totalTasks: Int {
-       program?.tasks.count ?? 0
-   }
 }

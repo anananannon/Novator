@@ -22,7 +22,7 @@ struct TaskDetailView: View {
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { showContent = true } // запускаем анимацию после небольшой задержки !!!Этот комментарий не убирать
-            logAppear()
+            viewModel.logAppear()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -62,6 +62,7 @@ private extension TaskDetailView {
         }
     }
     
+    // MARK: - Header
     var headerView: some View {
         HStack {
             Button { dismiss() } label: {
@@ -74,13 +75,14 @@ private extension TaskDetailView {
             VStack(alignment: .leading) {
                 ProgressBarView(progress: viewModel.progress)
                     .frame(maxWidth: .infinity)
-                Text("\(viewModel.currentTaskNumber)/\(viewModel.totalTasks)")
+                Text(viewModel.progressText)
                     .font(.system(size: 11, weight: .semibold, design: .monospaced))
                     .padding(.top, 3)
             }
         }
     }
     
+    // MARK: - Task Content
     func taskContentView(task: Task) -> some View {
         VStack {
             taskQuestion(task: task)
@@ -90,10 +92,11 @@ private extension TaskDetailView {
         }
     }
     
+    // MARK: - Result & Action
     var resultAndActionView: some View {
         ZStack(alignment: .bottom) {
             RoundedRectangle(cornerRadius: 16)
-                .fill(viewModel.isCorrect ? Color("redCorrect") : Color("taskMistake"))
+                .fill(viewModel.resultColor)
                 .frame(minWidth: 340, maxHeight: 160)
                 .overlay(resultOverlay)
                 .opacity(viewModel.showResult ? 1 : 0)
@@ -114,7 +117,7 @@ private extension TaskDetailView {
     
     var resultOverlay: some View {
         VStack(alignment: .leading) {
-            Text(viewModel.isCorrect ? "\(Image(systemName: "checkmark.circle.fill")) Правильно" : "\(Image(systemName: "xmark.circle.fill")) Ошибка")
+            Text("\(Image(systemName: viewModel.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")) \(viewModel.resultText)")
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundStyle(viewModel.isCorrect ? Color(.white) : Color("taskText"))
@@ -134,6 +137,7 @@ private extension TaskDetailView {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
+    // MARK: - No Task
     var noTaskView: some View {
         VStack(spacing: 16) {
             Spacer()
@@ -154,14 +158,11 @@ private extension TaskDetailView {
             }
         }
     }
-    
-    func logAppear() {
-        print("TaskDetailView: Appeared, current task: \(viewModel.currentTask?.question ?? "none")")
-    }
 }
 
 // MARK: - Subviews
 private extension TaskDetailView {
+    
     struct ProgressBarView: View {
         let progress: Double
         var color: Color = Color("AppRed")
@@ -206,13 +207,5 @@ private extension TaskDetailView {
                 .disabled(viewModel.showResult) // визуально блокируем
             }
         }
-    }
-}
-
-// MARK: - ViewModel Extension
-extension TasksViewModel {
-    var progress: Double {
-        guard let program = program, !program.tasks.isEmpty else { return 0 }
-        return Double(program.currentIndex) / Double(program.tasks.count)
     }
 }
