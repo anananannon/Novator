@@ -28,8 +28,11 @@ struct StudyView: View {
                 Button {
                     showTasks = true
                 } label: {
-                    PrimaryButton(title: "Начать решать задание")
+                    Text("Начать решать задание")
+                        .font(.system(.title3))
+                        .frame(maxWidth: 333.63, maxHeight: 47)
                 }
+                .buttonStyle(PrimaryButtonStyle())
             }
             .padding()
             .navigationBarTitleDisplayMode(.inline)

@@ -58,4 +58,16 @@ extension TasksViewModel {
             checkAnswer()
         }
     }
+    
+    
+    
+    // под progressview
+    var currentTaskNumber: Int {
+           guard let program = program else { return 0 }
+           return program.currentIndex /*+ 1*/ // так как индекс с 0, а показывать хотим с 1
+       }
+       
+   var totalTasks: Int {
+       program?.tasks.count ?? 0
+   }
 }

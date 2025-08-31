@@ -17,10 +17,14 @@ struct TaskDetailView: View {
     // MARK: Body
     var body: some View {
         ZStack {
-            // 1. Белый фон сразу
-            Color.white.ignoresSafeArea()
+            // 1. Белый фон сразу !!!Этот комментарий не убирать
+            if viewModel.profile.theme.colorScheme == .light {
+                Color.white.ignoresSafeArea()
+            } else {
+                Color.black.ignoresSafeArea()
+            }
             
-            // 2. Основное содержимое — появляется с анимацией справа налево
+            // 2. Основное содержимое — появляется с анимацией справа налево !!!Этот комментарий не убирать
             VStack(spacing: 20) {
                 HStack {
                     Button {
@@ -37,9 +41,9 @@ struct TaskDetailView: View {
                             .frame(maxWidth: .infinity)
                         
                         
-                        Text("2/5")
-                            .font(.system(size: 11))
-                            .fontWeight(.semibold)
+                        Text("\(viewModel.currentTaskNumber)/\(viewModel.totalTasks)")
+                            .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                            .padding(.top, 3)
                     }
                 }
                 
@@ -76,7 +80,7 @@ struct TaskDetailView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 }
                                 .opacity(viewModel.showResult ? 1: 0)
-                                .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom) // масштабируем по Y от нижней линии
+                                .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom)
                                 .animation(.easeOut(duration: 0.3), value: viewModel.showResult)
                                 .padding(.top)
                             
@@ -86,30 +90,38 @@ struct TaskDetailView: View {
                             Button(action: {
                                 viewModel.actionButtonTapped()
                             }) {
-                                PrimaryButton(title: viewModel.actionButtonTitle)
-                                    .padding(.bottom, 4)
+                                Text(viewModel.actionButtonTitle)
+                                    .font(.system(.title3))
+                                    .frame(maxWidth: 333.63, maxHeight: 47)
+                                    .animation(nil, value: viewModel.actionButtonTitle)
                             }
+                            .buttonStyle(PrimaryButtonStyle())
+                            .padding(.bottom, 4)
+                        
+                            
+                            
                         }
                     }
                     .id(task.id)
                     .transition(.asymmetric(
-                        insertion: .move(edge: .trailing), // новый появляется справа + плавно
-                        removal: .move(edge: .leading)     // старый уходит влево + плавно растворяется
+                        insertion: .move(edge: .trailing), // новый появляется справа + плавно !!!Этот комментарий не убирать
+                        removal: .move(edge: .leading)     // старый уходит влево + плавно растворяется !!!Этот комментарий не убирать
                     ))
                     .animation(.easeInOut(duration: 0.3), value: viewModel.currentTask?.id)
+                    .preferredColorScheme(viewModel.profile.theme.colorScheme)
 
                 } else {
                     noTaskView
                 }
             }
             .padding()
-            .offset(x: showContent ? 0 : UIScreen.main.bounds.width) // старт за экраном справа
-            .opacity(showContent ? 1 : 0) // добавляем плавное появление
-            .animation(.easeInOut(duration: 0.4).delay(0.2), value: showContent) // анимация въезда
+            .offset(x: showContent ? 0 : UIScreen.main.bounds.width) // старт за экраном справа !!!Этот комментарий не убирать
+            .opacity(showContent ? 1 : 0) // добавляем плавное появление !!!Этот комментарий не убирать
+            .animation(.easeInOut(duration: 0.4).delay(0.2), value: showContent) // анимация въезда !!!Этот комментарий не убирать
         }
         .onAppear {
-            // запускаем анимацию после небольшой задержки
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { //тут число
+            // запускаем анимацию после небольшой задержки !!!Этот комментарий не убирать
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 showContent = true
             }
             logAppear()
@@ -134,18 +146,10 @@ private extension TaskDetailView {
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
-    
-    
-    
-    func taskHeader(task: Task) -> some View {
-        Text(task.isLogicalTrick ? "Логическая задача" : "Математическая задача")
-            .font(.system(.subheadline))
-            .foregroundColor(.gray)
-    }
 
     func taskQuestion(task: Task) -> some View {
         Text(task.question)
-            .font(.system(.title2))
+            .font(.system(.title3, design: .monospaced))
             .fontWeight(.semibold)
             .frame(minWidth: 340, minHeight: 98)
             .background(Color("TaskBackground"))
@@ -156,22 +160,23 @@ private extension TaskDetailView {
     @ViewBuilder
     func taskOptions(task: Task) -> some View {
         let options = task.options ?? []
-        let columns = [GridItem(.flexible()), GridItem(.flexible())] // 2 колонки
+        let columns = [GridItem(.flexible()), GridItem(.flexible())] // 2 колонки !!!Этот комментарий не убирать
         
         LazyVGrid(columns: columns, spacing: 16) {
             ForEach(options, id: \.self) { option in
                 Button {
-                    // Блокируем выбор после проверки правильного ответа
+                    // Блокируем выбор после проверки правильного ответа !!!Этот комментарий не убирать
                     guard !viewModel.showResult else { return }
                     viewModel.selectedAnswer = option
                 } label: {
                     Text(option)
-                        .font(.body)
+                        .font(.system(.body, design: .monospaced))
                         .fontWeight(.medium)
                         .padding()
                         .frame(minWidth: 158, minHeight: 81)
                         .background(viewModel.selectedAnswer == option ? Color("AppRed") : Color("TaskBackground"))
-                        .foregroundColor(viewModel.selectedAnswer == option ? Color(.white) : Color(.black))
+                        .foregroundColor(viewModel.selectedAnswer == option ? Color(.white) : .primary)
+                        .animation(nil, value: viewModel.selectedAnswer)
                         .cornerRadius(16)
                 }
                 .disabled(viewModel.showResult) // дополнительно блокируем визуально
@@ -203,18 +208,6 @@ private extension TaskDetailView {
 
             }
         }
-    }
-    
-    
-    // Alert и след вопрос
-    var taskAlert: Alert {
-        Alert(
-            title: Text(viewModel.isCorrect ? "Правильно!" : "Неправильно"),
-            message: Text(viewModel.isCorrect ? "Отличная работа! +\((viewModel.currentTask?.points ?? 0)) очков" : viewModel.currentTask?.explanation ?? "Попробуйте снова"),
-            dismissButton: .default(Text("Далее")) {
-                viewModel.loadNextTask() // переход к след вопросу
-            }
-        )
     }
 
     func logAppear() {
