@@ -38,6 +38,7 @@
 		ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080222E54D902007B9113 /* AchievementManager.swift */; };
 		ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080262E54DCD0007B9113 /* ProfileEditView.swift */; };
 		ABE5C12A2E647048009B2E0A /* RaitingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5C1292E647048009B2E0A /* RaitingRow.swift */; };
+		ABE5C12C2E649263009B2E0A /* AchievementSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5C12B2E649263009B2E0A /* AchievementSquare.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		ABE080222E54D902007B9113 /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		ABE080262E54DCD0007B9113 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		ABE5C1292E647048009B2E0A /* RaitingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaitingRow.swift; sourceTree = "<group>"; };
+		ABE5C12B2E649263009B2E0A /* AchievementSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementSquare.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 			children = (
 				AB9EEE072E577312002AECF7 /* AchievementView.swift */,
 				ABC0ECA42E5DBD7E00534E0A /* AchievementRow.swift */,
+				ABE5C12B2E649263009B2E0A /* AchievementSquare.swift */,
 			);
 			path = Achievements;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,
 				AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
+				ABE5C12C2E649263009B2E0A /* AchievementSquare.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
 				AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */,
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,

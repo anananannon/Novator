@@ -3,6 +3,16 @@ import SwiftUI
 // MARK: - AchievementsView
 struct AchievementsView: View {
     @ObservedObject var profile: UserProfileViewModel
+    
+    let gridSpacing: CGFloat = 7
+    let sidePadding: CGFloat = 9
+    let columns = 3
+    
+    // computed property для размера карточки
+    private var itemSize: CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        return (screenWidth - sidePadding * 2 - gridSpacing * CGFloat(columns - 1)) / CGFloat(columns)
+    }
 
     // MARK: - Body
     var body: some View {
@@ -18,27 +28,21 @@ struct AchievementsView: View {
 // MARK: - Content
 private extension AchievementsView {
     var content: some View {
-        List {
-            Section() {
+        ScrollView {
+            LazyVGrid(
+                columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+                spacing: gridSpacing
+            ) {
                 ForEach(AchievementManager.achievements) { achievement in
-                    AchievementRow(
+                    AchievementSquare(
                         achievement: achievement,
-                        isUnlocked: profile.profile.achievements.contains(achievement.name)
+                        isUnlocked: profile.profile.achievements.contains(achievement.name),
+                        size: itemSize
                     )
-                    .listRowSeparator(.hidden)
                 }
             }
+            .padding(.horizontal, sidePadding)
         }
-        .listStyle(.inset)
-    }
-}
-
-// MARK: - Subviews
-private extension AchievementsView {
-    func sectionHeader(_ title: String) -> some View {
-        Text(title)
-            .font(.subheadlineRounded)
-            .foregroundColor(.secondary)
     }
 }
 

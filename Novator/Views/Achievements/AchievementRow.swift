@@ -7,10 +7,12 @@ struct AchievementRow: View {
 
     // MARK: - Body
     var body: some View {
-        HStack {
+        VStack {
             icon
-            details
-            Spacer()
+            HStack {
+                details
+                Spacer()
+            }
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 20).stroke(Color("AppRed"), lineWidth: 1))
