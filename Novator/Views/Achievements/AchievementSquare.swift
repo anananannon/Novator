@@ -11,14 +11,9 @@ struct AchievementSquare: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            Image(systemName: isUnlocked ? "checkmark.circle.fill" : "circle")
-                .font(.system(size: 34))
+            Image(systemName: achievement.icon) // Поменять на achievement.icoon
+                .font(.system(size: 40))
                 .foregroundColor(Color("AppRed"))
-
-            Text(achievement.name)
-                .font(.caption)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.primary)
         }
         .frame(width: size, height: size) // фиксированный квадрат
         .background(
@@ -31,14 +26,29 @@ struct AchievementSquare: View {
         .sheet(isPresented: $showingAchievementDetail, content: {
             NavigationStack {
                 VStack(spacing: 10) {
-                    Image(systemName: isUnlocked ? "checkmark.circle.fill" : "circle")
-                        .font(.system(size: 70))
+                    Spacer()
+                    Image(systemName: achievement.icon)
+                        .font(.system(size: 150))
                         .foregroundColor(Color("AppRed"))
+                    
+                    Spacer()
+                    
                     Text(achievement.name)
                         .font(.title)
+
                     Text(achievement.description)
                         .font(.headline)
                         .foregroundStyle(.secondary)
+                    
+                    Spacer()
+                    
+                    Button {
+                        showingAchievementDetail.toggle()
+                    } label: {
+                        Text("ОК")
+                            .frame(minWidth: 300, minHeight: 55)
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -54,6 +64,7 @@ struct AchievementSquare: View {
             }
             .opacity(isUnlocked ? 1: 0.5)
             .presentationDetents([.height(500)])
+            .presentationCornerRadius(20)
         })
     }
 }
@@ -64,6 +75,7 @@ struct AchievementSquare_Previews: PreviewProvider {
         AchievementSquare(
             achievement: Achievement(
                 id: UUID(),
+                icon: "",
                 name: "Первое задание",
                 description: "Выполни своё первое задание"
             ),
