@@ -14,6 +14,8 @@ struct AchievementManager {
         Achievement(id: UUID(), icon: "backpack", name: "5 класс", description: "Достигните 300 очков"),
         Achievement(id: UUID(), icon: "trophy", name: "Мастер", description: "Достигните 1.000 очков"),
         Achievement(id: UUID(), icon: "function", name: "Эйнштейн", description: "Решите 100 задач"),
+        Achievement(id: UUID(), icon: "person", name: "Test", description: "Пройди 3 уровня")
+        
     ]
 
     static func checkAchievements(for profile: UserProfileViewModel) {
@@ -42,6 +44,11 @@ struct AchievementManager {
                     }
                 case "Эйнштейн":
                     if profile.profile.completedTasks.count >= 100 {
+                        profile.profile.achievements.append(achievement.name)
+                        profile.saveProfile()
+                    }
+                case "Test":
+                    if profile.profile.completedLessons.count >= 3 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }

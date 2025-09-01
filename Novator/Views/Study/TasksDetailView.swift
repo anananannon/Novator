@@ -1,16 +1,16 @@
 import SwiftUI
 import Foundation
-
 // MARK: - TaskDetailView
 struct TaskDetailView: View {
     @StateObject private var viewModel: TasksViewModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var systemColorScheme
     @State private var showContent = false
-    
-    init(profile: UserProfileViewModel) {
-        self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile))
+    let lessonId: String
+    init(profile: UserProfileViewModel, lessonId: String) {
+        self.lessonId = lessonId
+        self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile, lessonId: lessonId))
     }
-    
     var body: some View {
         ZStack {
             backgroundView
@@ -29,20 +29,18 @@ struct TaskDetailView: View {
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
     }
 }
-
 // MARK: - Views
 private extension TaskDetailView {
-    
     var backgroundView: some View {
         Group {
-            if viewModel.profile.theme.colorScheme == .light {
+//            @Environment(\.colorScheme) private var systemColorScheme
+            if viewModel.profile.theme.colorScheme == .light || (viewModel.profile.theme == .system && systemColorScheme == .light) {
                 Color.white.ignoresSafeArea() // 1. Белый фон сразу !!!Этот комментарий не убирать
             } else {
                 Color.black.ignoresSafeArea()
             }
         }
     }
-    
     var contentView: some View {
         VStack(spacing: 20) {
             headerView
@@ -61,7 +59,6 @@ private extension TaskDetailView {
             }
         }
     }
-    
     // MARK: - Header
     var headerView: some View {
         HStack {
@@ -81,7 +78,6 @@ private extension TaskDetailView {
             }
         }
     }
-    
     // MARK: - Task Content
     func taskContentView(task: Task) -> some View {
         VStack {
@@ -91,7 +87,6 @@ private extension TaskDetailView {
             resultAndActionView
         }
     }
-    
     // MARK: - Result & Action
     var resultAndActionView: some View {
         ZStack(alignment: .bottom) {
@@ -103,7 +98,6 @@ private extension TaskDetailView {
                 .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom)
                 .animation(.easeOut(duration: 0.3), value: viewModel.showResult)
                 .padding(.top)
-            
             Button(action: viewModel.actionButtonTapped) {
                 Text(viewModel.actionButtonTitle)
                     .font(.system(.title3))
@@ -114,7 +108,6 @@ private extension TaskDetailView {
             .padding(.bottom, 4)
         }
     }
-    
     var resultOverlay: some View {
         VStack(alignment: .leading) {
             Text("\(Image(systemName: viewModel.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")) \(viewModel.resultText)")
@@ -123,7 +116,6 @@ private extension TaskDetailView {
                 .foregroundStyle(viewModel.isCorrect ? Color(.white) : Color("taskText"))
                 .padding(.leading, 15)
                 .padding(.top, 20)
-            
             if !viewModel.isCorrect {
                 Text(viewModel.currentTask?.explanation ?? "")
                     .font(.body)
@@ -136,7 +128,6 @@ private extension TaskDetailView {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
     // MARK: - No Task
     var noTaskView: some View {
         VStack(spacing: 16) {
@@ -156,10 +147,8 @@ private extension TaskDetailView {
         }
     }
 }
-
 // MARK: - Subviews
 private extension TaskDetailView {
-    
     struct ProgressBarView: View {
         let progress: Double
         var color: Color = Color("AppRed")
@@ -169,7 +158,6 @@ private extension TaskDetailView {
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
-    
     func taskQuestion(task: Task) -> some View {
         Text(task.question)
             .font(.system(.title3, design: .monospaced))
@@ -179,12 +167,10 @@ private extension TaskDetailView {
             .foregroundColor(.primary)
             .cornerRadius(16)
     }
-    
     @ViewBuilder
     func taskOptions(task: Task) -> some View {
         let options = task.options ?? []
         let columns = [GridItem(.flexible()), GridItem(.flexible())] // 2 колонки !!!Этот комментарий не убирать
-        
         LazyVGrid(columns: columns, spacing: 16) {
             ForEach(options, id: \.self) { option in
                 Button {

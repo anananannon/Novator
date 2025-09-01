@@ -1,179 +1,298 @@
-[
-    {
-        "id": "11111111-1111-1111-1111-111111111111",
-        "category": "math",
-        "level": "beginner",
-        "question": "Сколько будет 5 + 7?",
-        "options": ["10", "11", "12", "13"],
-        "correctAnswer": "12",
-        "explanation": "Сложите 5 и 7: 5 + 7 = 12.",
-        "points": 10,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "22222222-2222-2222-2222-222222222222",
-        "category": "math",
-        "level": "beginner",
-        "question": "Сколько будет 8 - 3?",
-        "options": ["4", "5", "6", "7"],
-        "correctAnswer": "5",
-        "explanation": "Вычтите 3 из 8: 8 - 3 = 5.",
-        "points": 10,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "33333333-3333-3333-3333-333333333333",
-        "category": "logic",
-        "level": "beginner",
-        "question": "Если сегодня понедельник, какой день будет завтра?",
-        "options": ["Вторник", "Среда", "Четверг", "Пятница"],
-        "correctAnswer": "Вторник",
-        "explanation": "Завтра после понедельника — вторник.",
-        "points": 10,
-        "isLogicalTrick": true
-    },
-    {
-        "id": "44444444-4444-4444-4444-444444444444",
-        "category": "math",
-        "level": "intermediate",
-        "question": "Решите уравнение: 2x = 10",
-        "options": ["3", "4", "5", "6"],
-        "correctAnswer": "5",
-        "explanation": "Разделите обе стороны на 2: x = 10 / 2 = 5.",
-        "points": 20,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "55555555-5555-5555-5555-555555555555",
-        "category": "logic",
-        "level": "intermediate",
-        "question": "Найдите число, которое в 3 раза больше суммы своих цифр.",
-        "options": ["12", "21", "27", "30"],
-        "correctAnswer": "27",
-        "explanation": "Для числа 27: сумма цифр = 2 + 7 = 9, 3 × 9 = 27, что равно числу.",
-        "points": 20,
-        "isLogicalTrick": true
-    },
-    {
-        "id": "66666666-6666-6666-6666-666666666666",
-        "category": "math",
-        "level": "advanced",
-        "question": "Найдите x: x² - 4 = 0",
-        "options": ["1", "2", "3", "4"],
-        "correctAnswer": "2",
-        "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "77777777-7777-7777-7777-777777777777",
-        "category": "logic",
-        "level": "advanced",
-        "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
-        "options": ["А", "Б", "Оба", "Никто"],
-        "correctAnswer": "А",
-        "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
-        "points": 50,
-        "isLogicalTrick": true
-    },
-    {
-        "id": "88888888-8888-8888-8888-888888888888",
-        "category": "math",
-        "level": "advanced",
-        "question": "Найдите x: x² - 64 = 0",
-        "options": ["7", "8", "9", "Нет решения"],
-        "correctAnswer": "8",
-        "explanation": "Решите x² - 64 = 0: x² = 64, x = ±8. Из вариантов подходит 8.",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999999",
-        "category": "math",
-        "level": "advanced",
-        "question": "1:2",
-        "options": ["1.5", "0.5", "2", "5"],
-        "correctAnswer": "0.5",
-        "explanation": "Делаем множитель равным 10: 2*5, соответсвенно и числитель умножаем на 5, 5/10 = 0.5",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999998",
-        "category": "math",
-        "level": "advanced",
-        "question": "30 - 2x = 0",
-        "options": ["15", "6", "5", "Нет решения"],
-        "correctAnswer": "15",
-        "explanation": "Переносим известное в другую сторону: 2x = 30, x = 30/2, x = 15",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999997",
-        "category": "math",
-        "level": "advanced",
-        "question": "2x - 40 = 0",
-        "options": ["15", "20", "8", "5"],
-        "correctAnswer": "20",
-        "explanation": "Переносим известное в другую сторону: 2x = 40, x = 40/2, x = 20",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999996",
-        "category": "math",
-        "level": "advanced",
-        "question": "Корень из 81?",
-        "options": ["8", "9", "12", "40.5"],
-        "correctAnswer": "9",
-        "explanation": "Корень из 81, это тоже самое, что и 9²",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999995",
-        "category": "math",
-        "level": "advanced",
-        "question": "3² + 4² = ?",
-        "options": ["12", "25", "14", "22"],
-        "correctAnswer": "25",
-        "explanation": "3² = 9, 4² = 16, 9+16=25",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999994",
-        "category": "math",
-        "level": "advanced",
-        "question": "Сумма углов треугольника?",
-        "options": ["90", "360", "180", "0"],
-        "correctAnswer": "180",
-        "explanation": "Сумма углов треугольника всегда равна 180°",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999993",
-        "category": "math",
-        "level": "advanced",
-        "question": "|x²| = 16. x = ?",
-        "options": ["8", "4", "6", "2"],
-        "correctAnswer": "4",
-        "explanation": "4² = 16",
-        "points": 50,
-        "isLogicalTrick": false
-    },
-    {
-        "id": "99999999-9999-9999-9999-999999999992",
-        "category": "math",
-        "level": "advanced",
-        "question": "log₃9 = ?",
-        "options": ["9", "3", "2", "Нет реш."],
-        "correctAnswer": "2",
-        "explanation": "log₃9 это тоже самое, что и 3ⁿ = 9, 3ⁿ = 3², n = 2",
-        "points": 50,
-        "isLogicalTrick": false
-    }
-
-]
+{
+    "lessons": [
+        {
+            "id": "1",
+            "name": "Урок 1: Основы",
+            "tasks": [
+                {
+                    "id": "11111111-1111-1111-1111-111111111111",
+                    "category": "math",
+                    "question": "Сколько будет 5 + 7?",
+                    "options": ["10", "11", "12", "13"],
+                    "correctAnswer": "12",
+                    "explanation": "Сложите 5 и 7: 5 + 7 = 12.",
+                    "points": 10,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "22222222-2222-2222-2222-222222222222",
+                    "category": "math",
+                    "question": "Сколько будет 8 - 3?",
+                    "options": ["4", "5", "6", "7"],
+                    "correctAnswer": "5",
+                    "explanation": "Вычтите 3 из 8: 8 - 3 = 5.",
+                    "points": 10,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "33333333-3333-3333-3333-333333333333",
+                    "category": "logic",
+                    "question": "Если сегодня понедельник, какой день будет завтра?",
+                    "options": ["Вторник", "Среда", "Четверг", "Пятница"],
+                    "correctAnswer": "Вторник",
+                    "explanation": "Завтра после понедельника — вторник.",
+                    "points": 10,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "name": "Урок 2: Средний уровень",
+            "tasks": [
+                {
+                    "id": "44444444-4444-4444-4444-444444444444",
+                    "category": "math",
+                    "question": "Решите уравнение: 2x = 10",
+                    "options": ["3", "4", "5", "6"],
+                    "correctAnswer": "5",
+                    "explanation": "Разделите обе стороны на 2: x = 10 / 2 = 5.",
+                    "points": 20,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "55555555-5555-5555-5555-555555555555",
+                    "category": "logic",
+                    "question": "Найдите число, которое в 3 раза больше суммы своих цифр.",
+                    "options": ["12", "21", "27", "30"],
+                    "correctAnswer": "27",
+                    "explanation": "Для числа 27: сумма цифр = 2 + 7 = 9, 3 × 9 = 27, что равно числу.",
+                    "points": 20,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "name": "Урок 3: Продвинутый уровень",
+            "tasks": [
+                {
+                    "id": "66666666-6666-6666-6666-666666666666",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "77777777-7777-7777-7777-777777777777",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "points": 50,
+                    "isLogicalTrick": true
+                },
+                {
+                    "id": "88888888-8888-8888-8888-888888888888",
+                    "category": "math",
+                    "question": "Найдите x: x² - 64 = 0",
+                    "options": ["7", "8", "9", "Нет решения"],
+                    "correctAnswer": "8",
+                    "explanation": "Решите x² - 64 = 0: x² = 64, x = ±8. Из вариантов подходит 8.",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999999",
+                    "category": "math",
+                    "question": "1:2",
+                    "options": ["1.5", "0.5", "2", "5"],
+                    "correctAnswer": "0.5",
+                    "explanation": "Делаем множитель равным 10: 2*5, соответсвенно и числитель умножаем на 5, 5/10 = 0.5",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999998",
+                    "category": "math",
+                    "question": "30 - 2x = 0",
+                    "options": ["15", "6", "5", "Нет решения"],
+                    "correctAnswer": "15",
+                    "explanation": "Переносим известное в другую сторону: 2x = 30, x = 30/2, x = 15",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999997",
+                    "category": "math",
+                    "question": "2x - 40 = 0",
+                    "options": ["15", "20", "8", "5"],
+                    "correctAnswer": "20",
+                    "explanation": "Переносим известное в другую сторону: 2x = 40, x = 40/2, x = 20",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999996",
+                    "category": "math",
+                    "question": "Корень из 81?",
+                    "options": ["8", "9", "12", "40.5"],
+                    "correctAnswer": "9",
+                    "explanation": "Корень из 81, это тоже самое, что и 9²",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999995",
+                    "category": "math",
+                    "question": "3² + 4² = ?",
+                    "options": ["12", "25", "14", "22"],
+                    "correctAnswer": "25",
+                    "explanation": "3² = 9, 4² = 16, 9+16=25",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999994",
+                    "category": "math",
+                    "question": "Сумма углов треугольника?",
+                    "options": ["90", "360", "180", "0"],
+                    "correctAnswer": "180",
+                    "explanation": "Сумма углов треугольника всегда равна 180°",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999993",
+                    "category": "math",
+                    "question": "|x²| = 16. x = ?",
+                    "options": ["8", "4", "6", "2"],
+                    "correctAnswer": "4",
+                    "explanation": "4² = 16",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999992",
+                    "category": "math",
+                    "question": "log₃9 = ?",
+                    "options": ["9", "3", "2", "Нет реш."],
+                    "correctAnswer": "2",
+                    "explanation": "log₃9 это тоже самое, что и 3ⁿ = 9, 3ⁿ = 3², n = 2",
+                    "points": 50,
+                    "isLogicalTrick": false
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "66666666-6666-6666-6666-666666666665",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "77777777-7777-7777-7777-777777777776",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "points": 50,
+                    "isLogicalTrick": true
+                },
+                {
+                    "id": "88888888-8888-8888-8888-888888888887",
+                    "category": "math",
+                    "question": "Найдите x: x² - 64 = 0",
+                    "options": ["7", "8", "9", "Нет решения"],
+                    "correctAnswer": "8",
+                    "explanation": "Решите x² - 64 = 0: x² = 64, x = ±8. Из вариантов подходит 8.",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999988",
+                    "category": "math",
+                    "question": "1:2",
+                    "options": ["1.5", "0.5", "2", "5"],
+                    "correctAnswer": "0.5",
+                    "explanation": "Делаем множитель равным 10: 2*5, соответсвенно и числитель умножаем на 5, 5/10 = 0.5",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999977",
+                    "category": "math",
+                    "question": "30 - 2x = 0",
+                    "options": ["15", "6", "5", "Нет решения"],
+                    "correctAnswer": "15",
+                    "explanation": "Переносим известное в другую сторону: 2x = 30, x = 30/2, x = 15",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999966",
+                    "category": "math",
+                    "question": "2x - 40 = 0",
+                    "options": ["15", "20", "8", "5"],
+                    "correctAnswer": "20",
+                    "explanation": "Переносим известное в другую сторону: 2x = 40, x = 40/2, x = 20",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999955",
+                    "category": "math",
+                    "question": "Корень из 81?",
+                    "options": ["8", "9", "12", "40.5"],
+                    "correctAnswer": "9",
+                    "explanation": "Корень из 81, это тоже самое, что и 9²",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999944",
+                    "category": "math",
+                    "question": "3² + 4² = ?",
+                    "options": ["12", "25", "14", "22"],
+                    "correctAnswer": "25",
+                    "explanation": "3² = 9, 4² = 16, 9+16=25",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999933",
+                    "category": "math",
+                    "question": "Сумма углов треугольника?",
+                    "options": ["90", "360", "180", "0"],
+                    "correctAnswer": "180",
+                    "explanation": "Сумма углов треугольника всегда равна 180°",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999922",
+                    "category": "math",
+                    "question": "|x²| = 16. x = ?",
+                    "options": ["8", "4", "6", "2"],
+                    "correctAnswer": "4",
+                    "explanation": "4² = 16",
+                    "points": 50,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "99999999-9999-9999-9999-999999999911",
+                    "category": "math",
+                    "question": "log₃9 = ?",
+                    "options": ["9", "3", "2", "Нет реш."],
+                    "correctAnswer": "2",
+                    "explanation": "log₃9 это тоже самое, что и 3ⁿ = 9, 3ⁿ = 3², n = 2",
+                    "points": 50,
+                    "isLogicalTrick": false
+                }
+            ]
+        }
+    ]
+}

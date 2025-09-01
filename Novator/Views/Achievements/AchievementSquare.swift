@@ -72,6 +72,8 @@ private struct AchievementDetailView: View {
                 
                 Button(action: onDismiss) {
                     Text("ОК")
+                        .font(.headline)
+                        .fontWeight(.semibold)
                         .frame(minWidth: 300, minHeight: 55)
                 }
                 .buttonStyle(PrimaryButtonStyle())
