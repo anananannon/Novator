@@ -2,70 +2,95 @@ import SwiftUI
 
 // MARK: - AchievementSquare
 struct AchievementSquare: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     let achievement: Achievement
     let isUnlocked: Bool
     let size: CGFloat
     
     @State private var showingAchievementDetail: Bool = false
 
+    // MARK: - Body
     var body: some View {
         VStack(spacing: 8) {
-            Image(systemName: achievement.icon) // Поменять на achievement.icoon
-                .font(.system(size: 40))
-                .foregroundColor(Color("AppRed"))
+            AchievementIconView(icon: achievement.icon)
         }
-        .frame(width: size, height: size) // фиксированный квадрат
+        .frame(width: size, height: size)
         .background(
-            RoundedRectangle(cornerRadius: 20).fill(Color("TaskBackground"))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color("TaskBackground"))
         )
         .opacity(isUnlocked ? 1 : 0.5)
         .onTapGesture {
             showingAchievementDetail.toggle()
         }
-        .sheet(isPresented: $showingAchievementDetail, content: {
-            NavigationStack {
-                VStack(spacing: 10) {
-                    Spacer()
-                    Image(systemName: achievement.icon)
-                        .font(.system(size: 150))
-                        .foregroundColor(Color("AppRed"))
-                    
-                    Spacer()
-                    
-                    Text(achievement.name)
-                        .font(.title)
+        .sheet(isPresented: $showingAchievementDetail) {
+            AchievementDetailView(
+                achievement: achievement,
+                isUnlocked: isUnlocked,
+                onDismiss: { showingAchievementDetail.toggle() }
+            )
+        }
+    }
+}
 
-                    Text(achievement.description)
-                        .font(.headline)
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    Button {
-                        showingAchievementDetail.toggle()
-                    } label: {
-                        Text("ОК")
-                            .frame(minWidth: 300, minHeight: 55)
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
+// MARK: - AchievementIconView
+private struct AchievementIconView: View {
+    let icon: String
+    
+    var body: some View {
+        Image(systemName: icon)
+            .font(.system(size: 40))
+            .foregroundColor(Color("AppRed"))
+    }
+}
+
+// MARK: - AchievementDetailView
+private struct AchievementDetailView: View {
+    let achievement: Achievement
+    let isUnlocked: Bool
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 10) {
+                Spacer()
+                
+                Image(systemName: achievement.icon)
+                    .font(.system(size: 150))
+                    .foregroundColor(Color("AppRed"))
+                
+                Spacer()
+                
+                Text(achievement.name)
+                    .font(.title)
+                
+                Text(achievement.description)
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                
+                Spacer()
+                
+                Button(action: onDismiss) {
+                    Text("ОК")
+                        .frame(minWidth: 300, minHeight: 55)
                 }
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: { showingAchievementDetail.toggle() }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .foregroundStyle(.secondary)
-                        })
-                        .buttonStyle(.plain)
+                .buttonStyle(PrimaryButtonStyle())
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: onDismiss) {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundStyle(.secondary)
                     }
+                    .buttonStyle(.plain)
                 }
             }
-            .opacity(isUnlocked ? 1: 0.5)
-            .presentationDetents([.height(500)])
-            .presentationCornerRadius(20)
-        })
+        }
+        .opacity(isUnlocked ? 1 : 0.5)
+        .presentationDetents([.height(500)])
+        .presentationCornerRadius(20)
     }
 }
 
@@ -75,14 +100,15 @@ struct AchievementSquare_Previews: PreviewProvider {
         AchievementSquare(
             achievement: Achievement(
                 id: UUID(),
-                icon: "",
+                icon: "star.fill",
                 name: "Первое задание",
                 description: "Выполни своё первое задание"
             ),
             isUnlocked: true,
-            size: 0
+            size: 120
         )
         .previewLayout(.sizeThatFits)
         .padding()
     }
 }
+
