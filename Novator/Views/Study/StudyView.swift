@@ -8,9 +8,8 @@ struct StudyView: View {
     @Binding var selectedTab: Int
     @State private var showPopover = false
     @State private var selectedLesson: Lesson? = nil
-    
-    @State private var isTapButton = false
-    
+    // Словарь для отслеживания состояния нажатия кнопок, используем String для lesson.id
+    @State private var buttonStates: [String: Bool] = [:]
     
     // MARK: - Initialization
     init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
@@ -23,50 +22,53 @@ struct StudyView: View {
         NavigationStack(path: $navigationPath) {
             GeometryReader { geometry in
                 ScrollView {
-                    LazyVStack(spacing: 20) { // <-- LazyVStack вместо VStack
-                        ForEach(TaskManager.lessons.reversed().chunked(into: 10), id: \.self) { chunk in
-                            LazyVStack(spacing: 20) { // вложенный LazyVStack
-                                ForEach(chunk.indices, id: \.self) { index in
-                                    let lesson = chunk[index]
-                                    HStack {
-                                        if index % 2 == 0 {
-                                            ZStack(alignment: .leading) {
-                                                RoundedRectangle(cornerRadius: 23).fill(Color("TaskBackground"))
-                                                    .frame(height: 76)
-                                                    .frame(minWidth: 200)
-                                                    .opacity(isTapButton ? 1:0)
-                                                    .scaleEffect(x: isTapButton ? 1 : 0, anchor: .leading)
-                                                
-                                                lessonButton(lesson)
-                                            }
-                                            Spacer()
-                                        } else {
-                                            Spacer()
-                                            ZStack(alignment: .trailing) {
-                                                RoundedRectangle(cornerRadius: 23).fill(Color("TaskBackground"))
-                                                    .frame(height: 76)
-                                                    .frame(minWidth: 200)
-                                                    .opacity(isTapButton ? 1:0)
-                                                    .scaleEffect(x: isTapButton ? 1 : 0, anchor: .trailing)
-                                                lessonButton(lesson)
-                                            }
+                    LazyVStack(spacing: 20) {
+                        // Переворачиваем уроки, чтобы первые были внизу, и преобразуем в массив
+                        let reversedLessons = Array(TaskManager.lessons.reversed())
+                        ForEach(reversedLessons.indices, id: \.self) { index in
+                            let lesson = reversedLessons[index]
+                            VStack(spacing: 20) {
+                                // Рисуем Divider перед уроком, если текущий lesson.id % 10 == 0
+                                if let lessonId = Int(lesson.id), lessonId % 10 == 0 {
+                                    Divider()
+                                        .frame(height: 1.5)
+                                        .background(Color("AppRed"))
+                                        .padding(.horizontal, 10)
+                                }
+                                
+                                HStack {
+                                    if index % 2 == 0 {
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 23)
+                                                .fill(Color("TaskBackground"))
+                                                .frame(height: 76)
+                                                .frame(minWidth: 200)
+                                                .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
+                                                .scaleEffect(x: buttonStates[lesson.id, default: false] ? 1 : 0, anchor: .leading)
+                                            
+                                            lessonButton(lesson)
+                                        }
+                                        Spacer()
+                                    } else {
+                                        Spacer()
+                                        ZStack(alignment: .trailing) {
+                                            RoundedRectangle(cornerRadius: 23)
+                                                .fill(Color("TaskBackground"))
+                                                .frame(height: 76)
+                                                .frame(minWidth: 200)
+                                                .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
+                                                .scaleEffect(x: buttonStates[lesson.id, default: false] ? 1 : 0, anchor: .trailing)
+                                            lessonButton(lesson)
                                         }
                                     }
                                 }
                             }
-
-                            if chunk != TaskManager.lessons.reversed().chunked(into: 10).last {
-                                Divider()
-                                    .frame(height: 1.5)
-                                    .background(Color("AppRed"))
-                                    .padding(.horizontal, 10)
-                            }
                         }
                     }
-                    .animation(.linear(duration: 0.2), value: isTapButton)
+                    .animation(.linear(duration: 0.2), value: buttonStates)
                     .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                     .padding()
-                    .padding(.horizontal, 40    )
+                    .padding(.horizontal, 40)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar { toolbarContent }
                 }
@@ -74,6 +76,9 @@ struct StudyView: View {
         }
         .fullScreenCover(item: $selectedLesson) { lesson in
             TaskDetailView(profile: profile, lessonId: lesson.id)
+                .onDisappear {
+                    buttonStates = [:] // Сбрасываем все состояния после закрытия
+                }
         }
         .preferredColorScheme(profile.theme.colorScheme)
     }
@@ -103,10 +108,11 @@ private extension StudyView {
     func lessonButton(_ lesson: Lesson) -> some View {
         ZStack(alignment: .leading) {
             Button(action: {
-                if isTapButton {
+                if buttonStates[lesson.id, default: false] {
                     selectedLesson = lesson
+                    buttonStates = [:] // Сбрасываем состояние перед открытием урока
                 } else {
-                    isTapButton.toggle()
+                    buttonStates = [lesson.id: true] // Сбрасываем все состояния и активируем только текущую кнопку
                 }
             }) {
                 RoundedRectangle(cornerRadius: 20)
@@ -128,14 +134,5 @@ private extension StudyView {
 struct StudyView_Previews: PreviewProvider {
     static var previews: some View {
         StudyView(profile: UserProfileViewModel(), selectedTab: .constant(0))
-    }
-}
-
-// Helper: разбиваем массив на чанки по N элементов
-extension Array {
-    func chunked(into size: Int) -> [[Element]] {
-        stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
-        }
     }
 }
