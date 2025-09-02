@@ -1,5 +1,5 @@
 import Foundation
-struct Task: Codable, Identifiable {
+struct Task: Codable, Identifiable, Hashable {
     let id: UUID
     let category: String
     let question: String

@@ -63,4 +63,8 @@ class UserProfileViewModel: ObservableObject {
             saveProfile()
         }
     }
+    func isLessonCompleted(_ lessonId: String) -> Bool {
+        profile.completedLessons.contains(lessonId)
+    }
+
 }

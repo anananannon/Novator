@@ -15,6 +15,6 @@ struct StatView: View {
         }
         .padding(.vertical, 6)
         .padding(.horizontal, 10)
-        .background(.bar, in: Capsule())
+        .background(.thinMaterial, in: Capsule())
     }
 }
