@@ -15,7 +15,7 @@ class TasksViewModel: ObservableObject {
         print("TasksViewModel: Initialized with lesson (lessonId), tasks count: (program?.tasks.count ?? 0)")
     }
     // MARK: - Current Task
-    var currentTask: Task? {
+    var currentTask: AppTask? {
         program?.currentTask
     }
     var currentTaskNumber: Int {

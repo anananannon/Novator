@@ -4,7 +4,7 @@ struct UserProfile: Codable, Identifiable {
     var firstName: String
     var lastName: String
     var username: String
-    var avatar: String
+    var avatar: Data? // Changed from String to Data? for image storage
     var stars: Int
     var raitingPoints: Int
     var streak: Int
@@ -15,7 +15,8 @@ struct UserProfile: Codable, Identifiable {
     var fullName: String {
         "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
     }
-    init(id: UUID = UUID(), firstName: String = "Имя", lastName: String = "", username: String = "@username", avatar: String = "person.circle", stars: Int = 0, raitingPoints: Int = 0, streak: Int = 0, friendsCount: Int = 0, completedTasks: [UUID] = [], achievements: [String] = [], completedLessons: [String] = []) {
+
+    init(id: UUID = UUID(), firstName: String = "Имя", lastName: String = "", username: String = "@username", avatar: Data? = nil, stars: Int = 0, raitingPoints: Int = 0, streak: Int = 0, friendsCount: Int = 0, completedTasks: [UUID] = [], achievements: [String] = [], completedLessons: [String] = []) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName

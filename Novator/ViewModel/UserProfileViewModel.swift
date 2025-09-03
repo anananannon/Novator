@@ -27,7 +27,7 @@ class UserProfileViewModel: ObservableObject {
                 firstName: "Имя",
                 lastName: "",
                 username: "@username",
-                avatar: "person.circle",
+                avatar: nil, // Initialize with nil for default avatar
                 stars: 0,
                 raitingPoints: 0,
                 streak: 0,
@@ -43,13 +43,14 @@ class UserProfileViewModel: ObservableObject {
             UserDefaults.standard.set(data, forKey: "userProfile")
         }
     }
-    func updateProfile(firstName: String, lastName: String, username: String, avatar: String) {
+    func updateProfile(firstName: String, lastName: String, username: String, avatar: Data?) {
         profile.firstName = firstName.trimmingCharacters(in: .whitespaces)
         profile.lastName = lastName.trimmingCharacters(in: .whitespaces)
         profile.username = username
         profile.avatar = avatar
         saveProfile()
     }
+    // Other methods remain unchanged
     func addStars(_ stars: Int) {
         profile.stars += stars
         saveProfile()
@@ -71,5 +72,4 @@ class UserProfileViewModel: ObservableObject {
     func isLessonCompleted(_ lessonId: String) -> Bool {
         profile.completedLessons.contains(lessonId)
     }
-
 }

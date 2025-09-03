@@ -34,7 +34,7 @@ final class RatingViewModel: ObservableObject {
                 firstName: "Павел",
                 lastName: "Дуров",
                 username: "@monk",
-                avatar: "person.circle",
+                avatar: nil, // Changed to nil to match Data? type
                 stars: 2131212,
                 raitingPoints: 120041,
                 streak: 5,
@@ -46,7 +46,7 @@ final class RatingViewModel: ObservableObject {
                 firstName: "Илон",
                 lastName: "Маск",
                 username: "@elonmusk",
-                avatar: "star.circle",
+                avatar: nil, // Changed to nil to match Data? type
                 stars: 1200,
                 raitingPoints: 22709,
                 streak: 3,
@@ -58,7 +58,7 @@ final class RatingViewModel: ObservableObject {
                 firstName: "Иван",
                 lastName: "Сидоров",
                 username: "@ivan",
-                avatar: "heart.circle",
+                avatar: nil, // Changed to nil to match Data? type
                 stars: 10,
                 raitingPoints: 910,
                 streak: 7,

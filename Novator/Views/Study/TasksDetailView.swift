@@ -79,7 +79,7 @@ private extension TaskDetailView {
         }
     }
     // MARK: - Task Content
-    func taskContentView(task: Task) -> some View {
+    func taskContentView(task: AppTask) -> some View {
         VStack {
             taskQuestion(task: task)
                 .padding(.bottom, 30)
@@ -159,7 +159,7 @@ private extension TaskDetailView {
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
-    func taskQuestion(task: Task) -> some View {
+    func taskQuestion(task: AppTask) -> some View {
         Text(task.question)
             .font(.system(.title3, design: .monospaced))
             .fontWeight(.semibold)
@@ -169,7 +169,7 @@ private extension TaskDetailView {
             .cornerRadius(16)
     }
     @ViewBuilder
-    func taskOptions(task: Task) -> some View {
+    func taskOptions(task: AppTask) -> some View {
         let options = task.options ?? []
         let columns = [GridItem(.flexible()), GridItem(.flexible())] // 2 колонки !!!Этот комментарий не убирать
         LazyVGrid(columns: columns, spacing: 16) {

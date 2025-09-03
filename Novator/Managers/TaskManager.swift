@@ -2,7 +2,7 @@ import Foundation
 struct Lesson: Codable, Identifiable, Hashable {
     let id: String
     let name: String
-    let tasks: [Task]
+    let tasks: [AppTask]
     
     var lessonStars: Int {
        tasks.reduce(0) { $0 + $1.stars }
@@ -12,19 +12,19 @@ struct Lesson: Codable, Identifiable, Hashable {
     }
 }
 struct LearningProgram {
-    let tasks: [Task]
+    let tasks: [AppTask]
     let lessonId: String
     var currentIndex: Int
-    init(tasks: [Task], lessonId: String) {
+    init(tasks: [AppTask], lessonId: String) {
         self.tasks = tasks.sorted { $0.stars < $1.stars }
         self.lessonId = lessonId
         self.currentIndex = 0
         print("LearningProgram: Lesson \(lessonId), \(tasks.count) tasks available")
     }
-    var currentTask: Task? {
+    var currentTask: AppTask? {
         currentIndex < tasks.count ? tasks[currentIndex] : nil
     }
-    mutating func nextTask() -> Task? {
+    mutating func nextTask() -> AppTask? {
         currentIndex += 1
         return currentTask
     }

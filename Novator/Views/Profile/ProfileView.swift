@@ -38,10 +38,20 @@ private extension ProfileView {
     var profileHeader: some View {
         Button(action: { showingEditView = true }) {
             HStack {
-                Image(systemName: profile.profile.avatar)
-                    .font(.system(size: 50))
-                    .foregroundColor(Color("AppRed"))
-                    .padding(.leading, 2)
+                if let avatarData = profile.profile.avatar, let uiImage = UIImage(data: avatarData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 70, height: 70)
+                        .clipShape(Circle())
+                        .foregroundColor(Color("AppRed"))
+                        .padding(.leading, 2)
+                } else {
+                    Image(systemName: "person.circle")
+                        .font(.system(size: 60))
+                        .foregroundColor(Color("AppRed"))
+                        .padding(.leading, 2)
+                }
                 
                 Spacer()
                 

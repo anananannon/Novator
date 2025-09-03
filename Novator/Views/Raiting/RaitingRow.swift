@@ -4,19 +4,17 @@ import SwiftUI
 struct RatingRowView: View {
     let rank: Int
     let user: UserProfile
-    var currentUser: UserProfile // добавляем текущий профиль
+    var currentUser: UserProfile // текущий профиль
     
     // MARK: - Цвет бейджа в зависимости от места
     private var rankColor: Color {
         switch rank {
-        case 1: return Color(red: 255/255, green: 215/255, blue: 0/255) //gold
-        case 2: return Color(red: 196/255, green: 196/255, blue: 196/255) //iron
-        case 3: return Color(red: 206/255, green: 137/255, blue: 70/255) //bronze
+        case 1: return Color(red: 255/255, green: 215/255, blue: 0/255) // gold
+        case 2: return Color(red: 196/255, green: 196/255, blue: 196/255) // iron
+        case 3: return Color(red: 206/255, green: 137/255, blue: 70/255) // bronze
         default: return .clear
         }
     }
-    
-    
     
     var body: some View {
         HStack {
@@ -30,10 +28,18 @@ struct RatingRowView: View {
                 )
                 .padding(.horizontal, 10)
 
-
-            Image(systemName: user.avatar)
-                .font(.system(size: 39))
-                .foregroundColor(Color("AppRed"))
+            // Обработка аватара
+            if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 39, height: 39)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: "person.circle")
+                    .font(.system(size: 39))
+                    .foregroundColor(Color("AppRed"))
+            }
 
             VStack(alignment: .leading) {
                 Text(user.fullName)
