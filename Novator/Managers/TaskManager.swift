@@ -3,6 +3,10 @@ struct Lesson: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let tasks: [Task]
+    
+    var lessonPoints: Int {
+       tasks.reduce(0) { $0 + $1.points }
+   }
 }
 struct LearningProgram {
     let tasks: [Task]

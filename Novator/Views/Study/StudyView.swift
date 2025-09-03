@@ -41,8 +41,18 @@ struct StudyView: View {
                                         ZStack(alignment: .leading) {
                                             RoundedRectangle(cornerRadius: 23)
                                                 .fill(Color("TaskBackground"))
-                                                .frame(height: 76)
-                                                .frame(minWidth: 200)
+                                                .frame(height: 96)
+                                                .frame(maxWidth: 230)
+                                                .overlay {
+                                                    HStack {
+                                                        Spacer()
+                                                        Image(systemName: "star.fill")
+                                                            .foregroundStyle(Color("AppRed"))
+                                                        Text("\(lesson.lessonPoints)")
+                                                            .font(.system(.headline, design: .monospaced))
+                                                            .padding(.trailing, 30)
+                                                    }
+                                                }
                                                 .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
                                                 .scaleEffect(x: buttonStates[lesson.id, default: false] ? 1 : 0, anchor: .leading)
                                             
@@ -54,23 +64,41 @@ struct StudyView: View {
                                         ZStack(alignment: .trailing) {
                                             RoundedRectangle(cornerRadius: 23)
                                                 .fill(Color("TaskBackground"))
-                                                .frame(height: 76)
-                                                .frame(minWidth: 200)
+                                                .frame(height: 96)
+                                                .frame(maxWidth: 230)
+                                                .overlay {
+                                                    HStack {
+                                                        Image(systemName: "star.fill")
+                                                            .foregroundStyle(Color("AppRed"))
+                                                            .padding(.leading, 30)
+                                                        Text("\(lesson.lessonPoints)")
+                                                            .font(.system(.headline, design: .monospaced))
+                                                        Spacer()
+                                                    }
+                                                }
                                                 .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
                                                 .scaleEffect(x: buttonStates[lesson.id, default: false] ? 1 : 0, anchor: .trailing)
                                             lessonButton(lesson)
                                         }
                                     }
                                 }
+                                .padding(.horizontal, 30)
                             }
                         }
                     }
-                    .animation(.linear(duration: 0.2), value: buttonStates)
+//                    .animation(.linear(duration: 0.2), value: buttonStates)
+                    .animation(.spring(response: 0.2), value: buttonStates)
                     .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                     .padding()
-                    .padding(.horizontal, 40)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar { toolbarContent }
+                }
+                // Добавляем жест тапа на пустое место
+                .contentShape(Rectangle()) // Убедимся, что ScrollView реагирует на тапы по всей площади
+                .onTapGesture {
+                    if !buttonStates.isEmpty {
+                        buttonStates = [:] // Сбрасываем состояния кнопок при тапе на пустое место
+                    }
                 }
             }
         }
@@ -117,7 +145,7 @@ private extension StudyView {
             }) {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(profile.isLessonCompleted(lesson.id) ? Color("AppRed") : Color(.gray))
-                    .frame(width: 70, height: 70)
+                    .frame(width: 90, height: 90)
                     .overlay {
                         Text("\(lesson.id)")
                             .font(.headline)

@@ -19,7 +19,7 @@ struct ContentView: View {
             // Рейтинг
             RatingView(profile: userProfile)
                 .tabItem {
-                    Label("Рейтинг", systemImage: "chart.bar.fill")
+                    Label("Рейтинг", systemImage: "crown.fill")
                 }
                 .tag(1)
 

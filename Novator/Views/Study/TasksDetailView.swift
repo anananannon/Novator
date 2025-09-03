@@ -90,13 +90,14 @@ private extension TaskDetailView {
     // MARK: - Result & Action
     var resultAndActionView: some View {
         ZStack(alignment: .bottom) {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: 19)
                 .fill(viewModel.resultColor)
                 .frame(minWidth: 340, maxHeight: 160)
                 .overlay(resultOverlay)
                 .opacity(viewModel.showResult ? 1 : 0)
                 .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom)
-                .animation(.easeOut(duration: 0.3), value: viewModel.showResult)
+//                .animation(.easeOut(duration: 0.3), value: viewModel.showResult)
+                .animation(.spring(response: 0.3), value: viewModel.showResult)
                 .padding(.top)
             Button(action: viewModel.actionButtonTapped) {
                 Text(viewModel.actionButtonTitle)
@@ -187,6 +188,7 @@ private extension TaskDetailView {
                         .animation(nil, value: viewModel.selectedAnswer)
                         .cornerRadius(16)
                 }
+                .buttonStyle(.plain)
                 .disabled(viewModel.showResult) // визуально блокируем
             }
         }
