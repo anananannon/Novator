@@ -28,7 +28,8 @@ class UserProfileViewModel: ObservableObject {
                 lastName: "",
                 username: "@username",
                 avatar: "person.circle",
-                points: 0,
+                stars: 0,
+                raitingPoints: 0,
                 streak: 0,
                 friendsCount: 0,
                 completedTasks: [],
@@ -49,8 +50,12 @@ class UserProfileViewModel: ObservableObject {
         profile.avatar = avatar
         saveProfile()
     }
-    func addPoints(_ points: Int) {
-        profile.points += points
+    func addStars(_ stars: Int) {
+        profile.stars += stars
+        saveProfile()
+    }
+    func addRaitingPoints(_ raitingPoints: Int) {
+        profile.raitingPoints += raitingPoints
         saveProfile()
     }
     func completeTask(_ taskId: UUID) {

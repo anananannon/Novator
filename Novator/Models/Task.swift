@@ -6,6 +6,7 @@ struct Task: Codable, Identifiable, Hashable {
     let options: [String]?
     let correctAnswer: String
     let explanation: String
-    let points: Int
+    let stars: Int
+    let raitingPoints: Int
     let isLogicalTrick: Bool
 }

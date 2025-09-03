@@ -45,9 +45,9 @@ struct RatingRowView: View {
             Spacer()
 
             HStack(spacing: 4) {
-                Image(systemName: "star.fill")
+                Image(systemName: "crown.fill")
                     .foregroundColor(Color("AppRed"))
-                Text("\(user.points)")
+                Text("\(user.raitingPoints)")
             }
             .font(.system(.headline, design: .monospaced))
             .padding(.trailing, 15)

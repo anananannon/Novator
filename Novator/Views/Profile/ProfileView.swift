@@ -58,7 +58,7 @@ private extension ProfileView {
                 
                 VStack(alignment: .leading, spacing: 8) {
                     StatChip(icon: "flame.fill", value: "\(profile.profile.streak)")
-                    StatChip(icon: "star.fill", value: "\(profile.profile.points)")
+                    StatChip(icon: "crown.fill", value: "\(profile.profile.raitingPoints)")
                     StatChip(icon: "person.2.fill", value: "\(profile.profile.friendsCount)")
                 }
             }
@@ -120,6 +120,8 @@ private struct SectionRow: View {
         switch item.destinationType {
         case .settings:
             SettingsView(profile: profile)
+        case .store:
+            StoreView(profile: profile)
         default:
             Text("\(item.destinationType.title) View")
         }
@@ -139,7 +141,7 @@ extension ProfileNavigationItem.DestinationType {
         switch self {
         case .settings: return "Настройки"
         case .statistics: return "Статистика"
-        case .activity: return "Активность"
+        case .store: return "Магазин"
         case .friends: return "Друзья"
         case .chats: return "Чаты"
         case .privacy: return "Конфиденциальность"

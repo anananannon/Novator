@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB0E5E332E6863690057D2E5 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E322E6863690057D2E5 /* StoreView.swift */; };
 		AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F02E609C4200942C3E /* StudyDestination.swift */; };
 		AB35A8F32E609C5400942C3E /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F22E609C5400942C3E /* StatView.swift */; };
 		AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F42E609C6900942C3E /* PrimaryButton.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB0E5E322E6863690057D2E5 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		AB35A8F02E609C4200942C3E /* StudyDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDestination.swift; sourceTree = "<group>"; };
 		AB35A8F22E609C5400942C3E /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		AB35A8F42E609C6900942C3E /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */,
 				ABE5C1282E647023009B2E0A /* Raiting */,
 				AB35A8EE2E609BC900942C3E /* Components */,
+				AB0E5E322E6863690057D2E5 /* StoreView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */,
 				AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */,
 				AB9EEE082E577312002AECF7 /* AchievementView.swift in Sources */,
+				AB0E5E332E6863690057D2E5 /* StoreView.swift in Sources */,
 				AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */,
 				AB9EEE0A2E5774DB002AECF7 /* Font+Extensions.swift in Sources */,
 				AB907F032E549FA2005592E3 /* TasksDetailView.swift in Sources */,

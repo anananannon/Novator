@@ -4,16 +4,19 @@ struct Lesson: Codable, Identifiable, Hashable {
     let name: String
     let tasks: [Task]
     
-    var lessonPoints: Int {
-       tasks.reduce(0) { $0 + $1.points }
+    var lessonStars: Int {
+       tasks.reduce(0) { $0 + $1.stars }
    }
+    var lessonRaitingPoints: Int {
+        tasks.reduce(0) { $0 + $1.raitingPoints }
+    }
 }
 struct LearningProgram {
     let tasks: [Task]
     let lessonId: String
     var currentIndex: Int
     init(tasks: [Task], lessonId: String) {
-        self.tasks = tasks.sorted { $0.points < $1.points }
+        self.tasks = tasks.sorted { $0.stars < $1.stars }
         self.lessonId = lessonId
         self.currentIndex = 0
         print("LearningProgram: Lesson \(lessonId), \(tasks.count) tasks available")

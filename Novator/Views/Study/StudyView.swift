@@ -46,11 +46,21 @@ struct StudyView: View {
                                                 .overlay {
                                                     HStack {
                                                         Spacer()
-                                                        Image(systemName: "star.fill")
-                                                            .foregroundStyle(Color("AppRed"))
-                                                        Text("\(lesson.lessonPoints)")
-                                                            .font(.system(.headline, design: .monospaced))
-                                                            .padding(.trailing, 30)
+                                                        VStack(alignment: .trailing) {
+                                                            HStack(spacing: 6) {
+                                                                Image(systemName: "star.fill")
+                                                                    .foregroundStyle(Color("AppRed"))
+                                                                Text("\(lesson.lessonStars)")
+                                                                    .font(.system(.headline, design: .monospaced))
+                                                            }
+                                                            HStack(spacing: 6) {
+                                                                Image(systemName: "crown.fill")
+                                                                    .foregroundStyle(Color("AppRed"))
+                                                                Text("\(lesson.lessonRaitingPoints)")
+                                                                    .font(.system(.headline, design: .monospaced))
+                                                            }
+                                                        }
+                                                        .padding(.horizontal, 20)
                                                     }
                                                 }
                                                 .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
@@ -68,11 +78,22 @@ struct StudyView: View {
                                                 .frame(maxWidth: 230)
                                                 .overlay {
                                                     HStack {
-                                                        Image(systemName: "star.fill")
-                                                            .foregroundStyle(Color("AppRed"))
-                                                            .padding(.leading, 30)
-                                                        Text("\(lesson.lessonPoints)")
-                                                            .font(.system(.headline, design: .monospaced))
+                                                        VStack(alignment: .leading) {
+                                                            HStack(spacing: 6) {
+                                                                Image(systemName: "star.fill")
+                                                                    .foregroundStyle(Color("AppRed"))
+                                                                
+                                                                Text("\(lesson.lessonStars)")
+                                                                    .font(.system(.headline, design: .monospaced))
+                                                            }
+                                                            HStack(spacing: 6) {
+                                                                Image(systemName: "crown.fill")
+                                                                    .foregroundStyle(Color("AppRed"))
+                                                                Text("\(lesson.lessonRaitingPoints)")
+                                                                    .font(.system(.headline, design: .monospaced))
+                                                            }
+                                                        }
+                                                        .padding(.horizontal, 20)
                                                         Spacer()
                                                     }
                                                 }
@@ -114,15 +135,16 @@ struct StudyView: View {
 
 // MARK: - Subviews & ViewBuilders
 private extension StudyView {
+    @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Button {
                 showPopover.toggle()
             } label: {
-                StatView(icon: "star.fill", value: "\(profile.profile.points)")
+                StatView(icon: "star.fill", value: "\(profile.profile.stars)")
             }
             .popover(isPresented: $showPopover) {
-                Text("С помощью очков опыта вы можете повысить свой рейтинг и открыть уникальные фишки.")
+                Text("С помощью очков опыта магазина вы можете приобретать уникальные вещи для вашего профиля, а так же дарить подарки друзьям.")
                     .padding()
                     .foregroundColor(Color("AppRed"))
                     .frame(maxWidth: 250, minHeight: 90)
@@ -130,6 +152,14 @@ private extension StudyView {
             }
             .preferredColorScheme(profile.theme.colorScheme)
         }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                //
+            } label: {
+                StatView(icon: "crown.fill", value: "\(profile.profile.raitingPoints)")
+            }
+        }
+        
     }
 
     @ViewBuilder

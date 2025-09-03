@@ -10,12 +10,12 @@ struct Achievement: Codable, Identifiable {
 struct AchievementManager {
     static let achievements: [Achievement] = [
         Achievement(id: UUID(), icon: "figure.walk", name: "Начало пути", description: "Решите 5 задач"),
-        Achievement(id: UUID(), icon: "bag.fill", name: "Накопитель", description: "Достигните 100 очков"),
-        Achievement(id: UUID(), icon: "backpack", name: "5 класс", description: "Достигните 300 очков"),
-        Achievement(id: UUID(), icon: "trophy", name: "Мастер", description: "Достигните 1.000 очков"),
+        Achievement(id: UUID(), icon: "bag.fill", name: "Накопитель", description: "Достигните 100 очков магазина"),
+        Achievement(id: UUID(), icon: "backpack", name: "5 класс", description: "Достигните 300 очков магазина"),
+        Achievement(id: UUID(), icon: "trophy", name: "Мастер", description: "Достигните 1.000 очков магазина"),
         Achievement(id: UUID(), icon: "function", name: "Эйнштейн", description: "Решите 100 задач"),
-        Achievement(id: UUID(), icon: "person", name: "Test", description: "Пройди 3 уровня")
-        
+        Achievement(id: UUID(), icon: "person", name: "Test", description: "Пройди 3 уровня"),
+        Achievement(id: UUID(), icon: "crown", name: "Test2", description: "Достигните 150 очков рейтинга")
     ]
 
     static func checkAchievements(for profile: UserProfileViewModel) {
@@ -28,17 +28,17 @@ struct AchievementManager {
                         profile.saveProfile()
                     }
                 case "Накопитель":
-                    if profile.profile.points >= 100 {
+                    if profile.profile.stars >= 100 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
                 case "5 класс":
-                    if profile.profile.points >= 300 {
+                    if profile.profile.stars >= 300 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
                 case "Мастер":
-                    if profile.profile.points >= 1000 {
+                    if profile.profile.stars >= 1000 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }
@@ -49,6 +49,11 @@ struct AchievementManager {
                     }
                 case "Test":
                     if profile.profile.completedLessons.count >= 3 {
+                        profile.profile.achievements.append(achievement.name)
+                        profile.saveProfile()
+                    }
+                case "Test2":
+                    if profile.profile.raitingPoints >= 150 {
                         profile.profile.achievements.append(achievement.name)
                         profile.saveProfile()
                     }

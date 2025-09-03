@@ -14,12 +14,12 @@ final class RatingViewModel: ObservableObject {
 
     // Отсортированный общий рейтинг
     var sortedUsers: [UserProfile] {
-        ([profile.profile] + users).sorted { $0.points > $1.points }
+        ([profile.profile] + users).sorted { $0.raitingPoints > $1.raitingPoints }
     }
 
     // Отсортированный рейтинг друзей
     var sortedFriends: [UserProfile] {
-        ([profile.profile] + friends).sorted { $0.points > $1.points }
+        ([profile.profile] + friends).sorted { $0.raitingPoints > $1.raitingPoints }
     }
 
     private var cancellables = Set<AnyCancellable>()
@@ -35,7 +35,8 @@ final class RatingViewModel: ObservableObject {
                 lastName: "Дуров",
                 username: "@monk",
                 avatar: "person.circle",
-                points: 120041,
+                stars: 2131212,
+                raitingPoints: 120041,
                 streak: 5,
                 friendsCount: 10,
                 completedTasks: [],
@@ -46,7 +47,8 @@ final class RatingViewModel: ObservableObject {
                 lastName: "Маск",
                 username: "@elonmusk",
                 avatar: "star.circle",
-                points: 22709,
+                stars: 1200,
+                raitingPoints: 22709,
                 streak: 3,
                 friendsCount: 8,
                 completedTasks: [],
@@ -57,7 +59,8 @@ final class RatingViewModel: ObservableObject {
                 lastName: "Сидоров",
                 username: "@ivan",
                 avatar: "heart.circle",
-                points: 910,
+                stars: 10,
+                raitingPoints: 910,
                 streak: 7,
                 friendsCount: 12,
                 completedTasks: [],

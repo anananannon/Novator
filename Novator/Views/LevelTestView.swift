@@ -14,9 +14,9 @@
 //    
 //    // MARK: - Test Data
 //    private let testTasks: [Task] = [
-//        Task(id: UUID(), category: "math", question: "2 + 3 = ?", options: ["5", "6", "4", "7"], correctAnswer: "5", explanation: "Сложите 2 и 3, чтобы получить 5.", points: 10, isLogicalTrick: false),
-//        Task(id: UUID(), category: "math", question: "Решите: x + 4 = 10", options: ["6", "5", "7", "8"], correctAnswer: "6", explanation: "Вычтите 4 из 10: x = 10 - 4 = 6.", points: 20, isLogicalTrick: false),
-//        Task(id: UUID(), category: "logic", question: "Если все кошки мурлыкают, а Тигр - кошка, то что делает Тигр?", options: ["Мурлыкает", "Лает", "Крякает", "Рычит"], correctAnswer: "Мурлыкает", explanation: "По условию, все кошки мурлыкают, значит, Тигр мурлыкает.", points: 50, isLogicalTrick: true)
+//        Task(id: UUID(), category: "math", question: "2 + 3 = ?", options: ["5", "6", "4", "7"], correctAnswer: "5", explanation: "Сложите 2 и 3, чтобы получить 5.", stars: 10, isLogicalTrick: false),
+//        Task(id: UUID(), category: "math", question: "Решите: x + 4 = 10", options: ["6", "5", "7", "8"], correctAnswer: "6", explanation: "Вычтите 4 из 10: x = 10 - 4 = 6.", stars: 20, isLogicalTrick: false),
+//        Task(id: UUID(), category: "logic", question: "Если все кошки мурлыкают, а Тигр - кошка, то что делает Тигр?", options: ["Мурлыкает", "Лает", "Крякает", "Рычит"], correctAnswer: "Мурлыкает", explanation: "По условию, все кошки мурлыкают, значит, Тигр мурлыкает.", stars: 50, isLogicalTrick: true)
 //    ]
 //    
 //    // MARK: - Body
@@ -114,9 +114,9 @@
 //        showResult = true
 //        if answer == currentTask.correctAnswer {
 //            correctAnswers += 1
-//            profile.addPoints(currentTask.points)
+//            profile.addStars(currentTask.stars)
 //            AchievementManager.checkAchievements(for: profile)
-//            print("LevelTestView: Correct answer, points: \(profile.profile.points), correct count: \(correctAnswers)")
+//            print("LevelTestView: Correct answer, stars: \(profile.profile.stars), correct count: \(correctAnswers)")
 //        }
 //    }
 //    

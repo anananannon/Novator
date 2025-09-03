@@ -58,7 +58,8 @@ class TasksViewModel: ObservableObject {
         isCorrect = answer == task.correctAnswer
         showResult = true
         if isCorrect {
-            profile.addPoints(task.points)
+            profile.addStars(task.stars)
+            profile.addRaitingPoints(task.raitingPoints)
             profile.completeTask(task.id)
             AchievementManager.checkAchievements(for: profile)
             if let lessonId = program?.lessonId, isLessonCompleted(lessonId: lessonId) {

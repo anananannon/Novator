@@ -11,7 +11,7 @@ struct ProfileNavigationItem: Identifiable {
     enum DestinationType {
         case settings
         case statistics
-        case activity
+        case store
         case friends
         case chats
         case privacy
@@ -23,7 +23,7 @@ struct ProfileNavigationItem: Identifiable {
 enum ProfileNavigation {
     static let section1: [ProfileNavigationItem] = [
         ProfileNavigationItem(title: "Статистика", imageName: "chart.bar.xaxis", imageSize: 18, destinationType: .statistics),
-        ProfileNavigationItem(title: "Активность", imageName: "bolt.square", imageSize: 21, destinationType: .activity)
+        ProfileNavigationItem(title: "Магазин", imageName: "gift.fill", imageSize: 21, destinationType: .store)
     ]
     
     static let section2: [ProfileNavigationItem] = [
