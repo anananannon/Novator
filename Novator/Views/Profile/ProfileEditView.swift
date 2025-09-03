@@ -32,50 +32,48 @@ struct ProfileEditView: View {
     // MARK: - Body
     var body: some View {
         NavigationStack {
-            AvatarSection(
-                avatarImage: $avatarImage,
-                selectedPhoto: $selectedPhoto
-            )
-            
-            List {
-//                AvatarSection(
-//                    avatarImage: $avatarImage,
-//                    selectedPhoto: $selectedPhoto
-//                )
-                Section(footer: Text("Укажите имя которое хотите отоброжать в профиле")) {
-                    TextFieldView(title: "Имя", text: $firstName, font: .body)
-                    TextFieldView(title: "Фамилия", text: $lastName, font: .body)
-                }
-                Section(header: Text("Пользовательское имя").font(.subheadline), footer: Text("Имя пользователя нужно, что бы присвоить вашему аккаунту уникальность и что бы люди могли вас находить во вкладке (друзья)")) {
-                    UsernameTextFieldView(text: $username)
-                }
-            }
-            .listStyle(.insetGrouped)
-            .navigationTitle("Редактировать профиль")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Отмена", action: { dismiss() })
-                        .font(.body)
-                        .foregroundColor(Color("AppRed"))
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Сохранить") {
-                        // Convert avatarImage to Data for saving
-                        let avatarData = avatarImage?.jpegData(compressionQuality: 0.8)
-                        profile.updateProfile(
-                            firstName: firstName,
-                            lastName: lastName,
-                            username: username,
-                            avatar: avatarData
-                        )
-                        dismiss()
+            VStack {
+                AvatarSection(
+                    avatarImage: $avatarImage,
+                    selectedPhoto: $selectedPhoto
+                )
+                List {
+                    Section(footer: Text("Укажите имя которое хотите отоброжать в профиле")) {
+                        TextFieldView(title: "Имя", text: $firstName, font: .body)
+                        TextFieldView(title: "Фамилия", text: $lastName, font: .body)
                     }
-                    .font(.body)
-                    .foregroundColor(isSaveButtonEnabled ? Color("AppRed") : .gray)
-                    .disabled(!isSaveButtonEnabled)
+                    Section(header: Text("Пользовательское имя").font(.subheadline), footer: Text("Имя пользователя нужно, что бы присвоить вашему аккаунту уникальность и что бы люди могли вас находить во вкладке (друзья)")) {
+                        UsernameTextFieldView(text: $username)
+                    }
+                }
+                .listStyle(.insetGrouped)
+                .navigationTitle("Редактировать профиль")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Отмена", action: { dismiss() })
+                            .font(.body)
+                            .foregroundColor(Color("AppRed"))
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Сохранить") {
+                            // Convert avatarImage to Data for saving
+                            let avatarData = avatarImage?.jpegData(compressionQuality: 0.8)
+                            profile.updateProfile(
+                                firstName: firstName,
+                                lastName: lastName,
+                                username: username,
+                                avatar: avatarData
+                            )
+                            dismiss()
+                        }
+                        .font(.body)
+                        .foregroundColor(isSaveButtonEnabled ? Color("AppRed") : .gray)
+                        .disabled(!isSaveButtonEnabled)
+                    }
                 }
             }
+            .background(Color("TaskBackground"))
         }
         .preferredColorScheme(profile.theme.colorScheme)
     }
@@ -117,7 +115,7 @@ struct AvatarSection: View {
                             .font(.body)
                             .foregroundColor(Color("AppRed"))
                             .frame(alignment: .center)
-                            .padding(.leading, 5)
+                            .padding(.leading, 9)
                     }
                     .onChange(of: selectedPhoto) { newItem in
                         Task {
@@ -139,6 +137,7 @@ struct AvatarSection: View {
                     }
                     .disabled(avatarImage == nil) // Опционально: отключает кнопку, если аватар уже сброшен
                 }
+                .offset(y: 6)
                 .frame(maxWidth: .infinity)
             }
         }

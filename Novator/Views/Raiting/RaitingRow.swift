@@ -18,22 +18,26 @@ struct RatingRowView: View {
     
     var body: some View {
         HStack {
-            Text("\(rank)")
-                .font(.system(.title3, design: .monospaced))
-                .foregroundColor(rank <= 3 ? .white : .gray) // текст на цветном фоне
-                .padding(8)
-                .background(
-                    RoundedRectangle(cornerRadius: 40)
-                        .fill(rankColor)
-                )
-                .padding(.horizontal, 10)
+            ZStack {
+                Image(systemName: "lane")
+                    .imageScale(.large)
+                    .bold()
+                    .foregroundStyle(rankColor)
+                
+                Text("\(rank)")
+                    .font(.system(.title3, design: .monospaced))
+                    .foregroundColor(rank <= 3 ? rankColor : .gray) // текст на цветном фоне
+                    .padding(8)
+            }
+            .padding(.horizontal, 10)
+                
 
             // Обработка аватара
             if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 39, height: 39)
+                    .frame(width: 45, height: 45)
                     .clipShape(Circle())
             } else {
                 Image(systemName: "person.circle")

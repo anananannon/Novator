@@ -78,7 +78,7 @@ struct StudyView: View {
                                                 .frame(maxWidth: 230)
                                                 .overlay {
                                                     HStack {
-                                                        VStack(alignment: .leading) {
+                                                        VStack(alignment: .trailing) {
                                                             HStack(spacing: 6) {
                                                                 Image(systemName: "star.fill")
                                                                     .foregroundStyle(Color("AppRed"))
