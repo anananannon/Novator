@@ -27,9 +27,8 @@ struct RatingRowView: View {
                 Text("\(rank)")
                     .font(.system(.title3, design: .monospaced))
                     .foregroundColor(rank <= 3 ? rankColor : .gray) // текст на цветном фоне
-                    .padding(8)
             }
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 12)
                 
 
             // Обработка аватара
@@ -40,24 +39,26 @@ struct RatingRowView: View {
                     .frame(width: 45, height: 45)
                     .clipShape(Circle())
             } else {
-                Image(systemName: "person.circle")
-                    .font(.system(size: 39))
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 45, height: 45)
                     .foregroundColor(Color("AppRed"))
             }
 
             VStack(alignment: .leading) {
                 Text(user.fullName)
-                    .font(.system(.title3))
+                    .font(.system(size: 17))
                 Text(user.username)
-                    .font(.headline)
+                    .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
             Spacer()
 
             HStack(spacing: 4) {
+                Text("\(user.raitingPoints)")
                 Image(systemName: "crown.fill")
                     .foregroundColor(Color("AppRed"))
-                Text("\(user.raitingPoints)")
             }
             .font(.system(.headline, design: .monospaced))
             .padding(.trailing, 5)
@@ -66,8 +67,11 @@ struct RatingRowView: View {
                 .imageScale(.medium)
                 .bold()
                 .foregroundStyle(.secondary)
+                .padding(.trailing, 9)
         }
-        .frame(maxWidth: 340, maxHeight: 50)
+        .frame(maxWidth: .infinity, maxHeight: 50)
+        .padding(.vertical, 6)
+        .background(user.id == currentUser.id ? Color(.black).opacity(0.1) : .clear)
     }
 }
 

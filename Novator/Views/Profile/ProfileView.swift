@@ -47,7 +47,7 @@ private extension ProfileView {
                         .foregroundColor(Color("AppRed"))
                         .padding(.leading, 2)
                 } else {
-                    Image(systemName: "person.circle")
+                    Image(systemName: "person.circle.fill")
                         .font(.system(size: 60))
                         .foregroundColor(Color("AppRed"))
                         .padding(.leading, 2)

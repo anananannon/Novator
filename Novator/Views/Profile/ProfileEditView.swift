@@ -96,7 +96,7 @@ struct AvatarSection: View {
                         .clipShape(Circle())
                         .foregroundColor(Color("AppRed"))
                 } else {
-                    Image(systemName: "person.circle")
+                    Image(systemName: "person.circle.fill")
                         .resizable()
                         .frame(width: 120, height: 120)
                         .foregroundColor(Color("AppRed"))

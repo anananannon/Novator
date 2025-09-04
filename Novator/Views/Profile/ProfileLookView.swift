@@ -5,20 +5,18 @@ struct ProfileLookView: View {
     
     var body: some View {
         VStack {
-            Text("Профиль пользователя: \(user.fullName)")
-                .font(.title)
-            Text("Username: \(user.username)")
-                .font(.headline)
-                .foregroundColor(.gray)
-            Text("Рейтинг: \(user.raitingPoints)")
-                .font(.subheadline)
-            Spacer()
+//            Text("Профиль пользователя: \(user.fullName)")
+//                .font(.title)
+//            Text("Username: \(user.username)")
+//                .font(.headline)
+//                .foregroundColor(.gray)
+//            Text("Рейтинг: \(user.raitingPoints)")
+//                .font(.subheadline)
+//            Spacer()
             Text("Это заглушка для ProfileLookView")
                 .foregroundColor(.red)
-            Spacer()
+//            Spacer()
         }
-        .padding()
-        .navigationTitle("Профиль")
     }
 }
 
