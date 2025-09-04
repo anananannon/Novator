@@ -67,12 +67,24 @@ final class RatingViewModel: ObservableObject {
                 achievements: []
             ),
             UserProfile(
+                firstName: "Джулия",
+                lastName: "Вавилова",
+                username: "@juli",
+                avatar: nil, // Changed to nil to match Data? type
+                stars: 701392,
+                raitingPoints: 1923,
+                streak: 7,
+                friendsCount: 12,
+                completedTasks: [],
+                achievements: []
+            ),
+            UserProfile(
                 firstName: "Джек",
                 lastName: "Дорси",
                 username: "@jack",
                 avatar: nil, // Changed to nil to match Data? type
                 stars: 1200,
-                raitingPoints: 1720,
+                raitingPoints: 2812,
                 streak: 1,
                 friendsCount: 5,
                 completedTasks: [],

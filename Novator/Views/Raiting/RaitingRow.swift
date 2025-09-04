@@ -28,7 +28,8 @@ struct RatingRowView: View {
                     .font(.system(.title3, design: .monospaced))
                     .foregroundColor(rank <= 3 ? rankColor : .gray) // текст на цветном фоне
             }
-            .padding(.horizontal, 12)
+            .padding(.leading, 9)
+            .padding(.trailing, 5)
                 
 
             // Обработка аватара
@@ -36,13 +37,13 @@ struct RatingRowView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 45, height: 45)
+                    .frame(width: 40, height: 40)
                     .clipShape(Circle())
             } else {
                 Image(systemName: "person.circle.fill")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 45, height: 45)
+                    .frame(width: 40, height: 40)
                     .foregroundColor(Color("AppRed"))
             }
 
@@ -53,6 +54,7 @@ struct RatingRowView: View {
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
+            .padding(.leading, 4)
             Spacer()
 
             HStack(spacing: 4) {

@@ -92,6 +92,7 @@ struct RatingView: View {
                     }
                     .buttonStyle(.plain)
                     Divider()
+                        .padding(.leading, 40)
                 }
             }
         }
