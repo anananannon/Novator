@@ -12,23 +12,18 @@ struct RatingView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Picker("HzChe", selection: $viewModel.pickerMode) {
+                    Text("Общий").tag(0)
+                    Text("Друзья").tag(1)
+                }
+                .padding(.horizontal, 50)
+                .pickerStyle(.segmented)
                 // TabView синхронизирован с Picker
                 TabView(selection: $viewModel.pickerMode) {
                     content(users: viewModel.sortedUsers).tag(0)
                     content(users: viewModel.sortedFriends).tag(1)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Picker("HzChe", selection: $viewModel.pickerMode) {
-                            Text("Общий").tag(0)
-                            Text("Друзья").tag(1)
-                        }
-                        .padding(.horizontal, 40)
-                        .pickerStyle(.segmented)
-                    }
-                }
-                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
@@ -38,10 +33,14 @@ struct RatingView: View {
         ScrollView {
             VStack(spacing: 12) {
                 ForEach(users.indices, id: \.self) { index in
-                    RatingRowView(rank: index + 1, user: users[index], currentUser: viewModel.profile.profile)
+                    NavigationLink(destination: ProfileLookView(user: users[index])) {
+                        RatingRowView(rank: index + 1, user: users[index], currentUser: viewModel.profile.profile)
+                    }
+                    .buttonStyle(.plain)
+                    Divider()
                 }
             }
-            .padding()
+            .padding(.top, 10)
         }
     }
 }

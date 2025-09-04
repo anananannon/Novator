@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AB0E5E332E6863690057D2E5 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E322E6863690057D2E5 /* StoreView.swift */; };
+		AB0E5E372E698F5B0057D2E5 /* ProfileLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */; };
 		AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F02E609C4200942C3E /* StudyDestination.swift */; };
 		AB35A8F32E609C5400942C3E /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F22E609C5400942C3E /* StatView.swift */; };
 		AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F42E609C6900942C3E /* PrimaryButton.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		AB0E5E322E6863690057D2E5 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLookView.swift; sourceTree = "<group>"; };
 		AB35A8F02E609C4200942C3E /* StudyDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDestination.swift; sourceTree = "<group>"; };
 		AB35A8F22E609C5400942C3E /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		AB35A8F42E609C6900942C3E /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				AB907F042E54A0BE005592E3 /* ProfileView.swift */,
 				ABE080262E54DCD0007B9113 /* ProfileEditView.swift */,
+				AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */,
+				AB0E5E372E698F5B0057D2E5 /* ProfileLookView.swift in Sources */,
 				AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */,
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,

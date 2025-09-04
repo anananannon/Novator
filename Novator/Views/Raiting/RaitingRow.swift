@@ -29,7 +29,7 @@ struct RatingRowView: View {
                     .foregroundColor(rank <= 3 ? rankColor : .gray) // текст на цветном фоне
                     .padding(8)
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 6)
                 
 
             // Обработка аватара
@@ -60,10 +60,14 @@ struct RatingRowView: View {
                 Text("\(user.raitingPoints)")
             }
             .font(.system(.headline, design: .monospaced))
-            .padding(.trailing, 15)
+            .padding(.trailing, 5)
+            
+            Image(systemName: "chevron.right")
+                .imageScale(.medium)
+                .bold()
+                .foregroundStyle(.secondary)
         }
         .frame(maxWidth: 340, maxHeight: 50)
-        .padding(.vertical, 10)
     }
 }
 
