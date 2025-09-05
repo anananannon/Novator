@@ -30,8 +30,6 @@ struct RatingView: View {
                 }
                 .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
-                .toolbarBackground(.ultraThinMaterial, for: .tabBar)
-                .toolbarBackground(.visible, for: .tabBar)
             }
             .navigationTitle("Рейтинг")
             .navigationBarTitleDisplayMode(.inline)
@@ -108,7 +106,7 @@ struct RatingView: View {
                         Spacer()
                     }
                     .background(Color("TaskBackground"))
-                    .padding(.top, 10)
+                    .padding(.top, 12)
                     ForEach(users.dropFirst().indices, id: \.self) { index in
                         NavigationLink(destination: ProfileLookView(user: users[index])) {
                             RatingRowView(rank: index + 1, user: users[index], currentUser: viewModel.profile.profile)
