@@ -19,14 +19,17 @@ struct RatingRowView: View {
     var body: some View {
         HStack {
             ZStack {
-                Image(systemName: "lane")
+                Image(systemName: "circle.fill")
                     .imageScale(.large)
                     .bold()
-                    .foregroundStyle(rankColor)
+                    .foregroundColor(rankColor)
+                    .overlay {
+                        Text("\(rank)")
+                            .font(.system(.subheadline))
+                            .foregroundColor(.gray) // текст на цветном фоне
+                    }
                 
-                Text("\(rank)")
-                    .font(.system(.title3, design: .monospaced))
-                    .foregroundColor(rank <= 3 ? rankColor : .gray) // текст на цветном фоне
+                
             }
             .padding(.leading, 9)
             .padding(.trailing, 5)
@@ -37,21 +40,21 @@ struct RatingRowView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 36, height: 36)
                     .clipShape(Circle())
             } else {
                 Image(systemName: "person.circle.fill")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 36, height: 36)
                     .foregroundColor(Color("AppRed"))
             }
 
             VStack(alignment: .leading) {
                 Text(user.fullName)
-                    .font(.system(size: 17))
+                    .font(.system(size: 15))
                 Text(user.username)
-                    .font(.system(size: 14))
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
             }
             .padding(.leading, 4)
@@ -62,18 +65,18 @@ struct RatingRowView: View {
                 Image(systemName: "crown.fill")
                     .foregroundColor(Color("AppRed"))
             }
-            .font(.system(.headline, design: .monospaced))
+            .font(.system(size:13, weight: .medium))
             .padding(.trailing, 5)
             
             Image(systemName: "chevron.right")
-                .imageScale(.medium)
+                .imageScale(.small)
                 .bold()
                 .foregroundStyle(.secondary)
                 .padding(.trailing, 9)
         }
         .frame(maxWidth: .infinity, maxHeight: 50)
         .padding(.vertical, 6)
-        .background(user.id == currentUser.id ? Color(.black).opacity(0.1) : .clear)
+        .background(user.id == currentUser.id ? Color(.black).opacity(0.1) : Color(.black).opacity(0.00001))
     }
 }
 

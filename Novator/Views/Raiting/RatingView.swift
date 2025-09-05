@@ -16,22 +16,24 @@ struct RatingView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Picker("Global", selection: $viewModel.pickerMode) {
-                            Text("Общий").tag(0)
-                        }
-                        .frame(minWidth: 30)
-                        .pickerStyle(.segmented)
-                    }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Picker("Friends", selection: $viewModel.pickerMode) {
-                            Text("Друзья").tag(1)
+                        Menu {
+                            Picker(selection: $viewModel.pickerMode,
+                                   label: Image(systemName: "person")) {
+                                Text("Общий").tag(0)
+                                Text("Друзья").tag(1)
+                            }.pickerStyle(.automatic)
+                        } label: {
+                            Image(systemName: "list.bullet")
                         }
-                        .frame(minWidth: 30)
-                        .pickerStyle(.segmented)
                     }
                 }
+                .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
             }
+            .navigationTitle("Рейтинг")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
@@ -58,53 +60,62 @@ struct RatingView: View {
                                                 Image(uiImage: uiImage)
                                                     .resizable()
                                                     .scaledToFill()
-                                                    .frame(width: 110, height: 110)
+                                                    .frame(width: 100, height: 100)
                                                     .clipShape(Circle())
                                             } else {
                                                 Image(systemName: "person.circle.fill")
                                                     .resizable()
                                                     .scaledToFill()
-                                                    .frame(width: 110, height: 110)
+                                                    .frame(width: 100, height: 100)
                                                     .foregroundColor(Color("AppRed"))
                                             }
                                             
                                             Image(systemName: "star.circle.fill")
-                                                .font(.system(size: 22))
+                                                .font(.system(size: 20))
                                                 .foregroundColor(Color(red: 255/255, green: 215/255, blue: 0/255))
                                                 .offset(y: 6)
                                         }
                                         
                                         Text("\(firstPlaceUser.fullName)")
-                                            .font(.system(size: 22))
+                                            .font(.system(size: 20))
                                             .fontWeight(.semibold)
                                         HStack {
                                             Image(systemName: "crown.fill")
-                                                .font(.system(size: 17))
+                                                .font(.system(size: 15))
                                                 .foregroundColor(Color("AppRed"))
                                             Text("\(firstPlaceUser.raitingPoints)")
-                                                .font(.system(size: 17))
+                                                .font(.system(size: 15))
                                                 .foregroundColor(.gray)
                                         }
                                     }
-                                    .padding(.vertical, 20)
                                     .scaleEffect(scale) // Масштабирование всего VStack
                                     .animation(.linear, value: relativeOffset) // Линейная анимация
                                 }
                                 .buttonStyle(.plain)
                                 Spacer()
                             }
+                            .padding(.top, 15)
                         }
-                        .frame(height: 200) // Фиксированная высота для корректного отслеживания
+                        .frame(height: 160) // Фиксированная высота для корректного отслеживания
                     }
 
-                    Divider()
+                    HStack {
+                        Text("НЕ ПЕРВОЕ МЕСТО")
+                            .font(.system(.subheadline, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal, 17)
+                            .padding(.vertical, 5)
+                        Spacer()
+                    }
+                    .background(Color("TaskBackground"))
+                    .padding(.top, 10)
                     ForEach(users.dropFirst().indices, id: \.self) { index in
                         NavigationLink(destination: ProfileLookView(user: users[index])) {
                             RatingRowView(rank: index + 1, user: users[index], currentUser: viewModel.profile.profile)
                         }
                         .buttonStyle(.plain)
                         Divider()
-                            .padding(.leading, 40)
+                            .padding(.leading, 50)
                     }
                 }
             }
