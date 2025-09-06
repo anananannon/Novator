@@ -17,7 +17,7 @@ struct AchievementSquare: View {
         .frame(width: size, height: size)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color("TaskBackground"))
+                .fill(Color("SectionBackground"))
         )
         .opacity(isUnlocked ? 1 : 0.5)
         .onTapGesture {

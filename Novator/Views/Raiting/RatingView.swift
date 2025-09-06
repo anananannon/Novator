@@ -28,7 +28,7 @@ struct RatingView: View {
                         }
                     }
                 }
-                .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
+                .toolbarBackground(Color("ProfileBackground"), for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
             }
             .navigationTitle("Рейтинг")
@@ -105,8 +105,9 @@ struct RatingView: View {
                             .padding(.vertical, 5)
                         Spacer()
                     }
-                    .background(Color("TaskBackground"))
-                    .padding(.top, 12)
+                    .background(Color("SectionBackground"))
+                    .padding(.top, 14)
+                    
                     ForEach(users.dropFirst().indices, id: \.self) { index in
                         NavigationLink(destination: ProfileLookView(user: users[index])) {
                             RatingRowView(rank: index + 1, user: users[index], currentUser: viewModel.profile.profile)
@@ -118,6 +119,7 @@ struct RatingView: View {
                 }
             }
         }
+        .background(Color("ProfileBackground"))
     }
 }
 

@@ -14,53 +14,58 @@ struct AchievementsView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                    
-                    // MARK: - ВАШИ
-                    if unlockedAchievements.count > 0 {
-                        Section(header: sectionHeader(title: "ВАШИ")) {
-                            LazyVGrid(
-                                columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
-                                spacing: gridSpacing
-                            ) {
-                                ForEach(unlockedAchievements) { achievement in
-                                    AchievementSquare(
-                                        achievement: achievement,
-                                        isUnlocked: true,
-                                        size: itemSize
-                                    )
+            ZStack {
+                Color("ProfileBackground") // фон на весь экран
+                    .ignoresSafeArea() // игнорируем safe area
+                
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
+                        
+                        // MARK: - ВАШИ
+                        if unlockedAchievements.count > 0 {
+                            Section(header: sectionHeader(title: "ВАШИ")) {
+                                LazyVGrid(
+                                    columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+                                    spacing: gridSpacing
+                                ) {
+                                    ForEach(unlockedAchievements) { achievement in
+                                        AchievementSquare(
+                                            achievement: achievement,
+                                            isUnlocked: true,
+                                            size: itemSize
+                                        )
+                                    }
                                 }
+                                .padding(.horizontal, sidePadding)
                             }
-                            .padding(.horizontal, sidePadding)
+                        }
+                        
+                        // MARK: - НЕ ПОЛУЧЕНО
+                        if lockedAchievements.count > 0 {
+                            Section(header: sectionHeader(title: "НЕ ПОЛУЧЕНО")) {
+                                LazyVGrid(
+                                    columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+                                    spacing: gridSpacing
+                                ) {
+                                    ForEach(lockedAchievements) { achievement in
+                                        AchievementSquare(
+                                            achievement: achievement,
+                                            isUnlocked: false,
+                                            size: itemSize
+                                        )
+                                    }
+                                }
+                                .padding(.horizontal, sidePadding)
+                            }
                         }
                     }
-                    
-                    // MARK: - НЕ ПОЛУЧЕНО
-                    if lockedAchievements.count > 0 {
-                        Section(header: sectionHeader(title: "НЕ ПОЛУЧЕНО")) {
-                            LazyVGrid(
-                                columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
-                                spacing: gridSpacing
-                            ) {
-                                ForEach(lockedAchievements) { achievement in
-                                    AchievementSquare(
-                                        achievement: achievement,
-                                        isUnlocked: false,
-                                        size: itemSize
-                                    )
-                                }
-                            }
-                            .padding(.horizontal, sidePadding)
-                        }
-                    }
+                    .padding(.top, 10)
                 }
-                .padding(.top, 10)
             }
             .navigationTitle("Достижения")
             .navigationBarTitleDisplayMode(.inline)
+            .preferredColorScheme(profile.theme.colorScheme)
         }
-        .preferredColorScheme(profile.theme.colorScheme)
     }
     
     // MARK: - Section Header
@@ -73,7 +78,7 @@ struct AchievementsView: View {
                 .padding(.vertical, 5)
             Spacer()
         }
-        .background(Color("TaskBackground"))
+        .background(Color("SectionBackground"))
     }
     
     // MARK: - Computed Properties
