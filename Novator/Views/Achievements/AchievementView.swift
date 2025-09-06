@@ -1,61 +1,43 @@
 import SwiftUI
 
+// MARK: - AchievementsView
 struct AchievementsView: View {
     @ObservedObject var profile: UserProfileViewModel
-    
-    let gridSpacing: CGFloat = 7
-    let sidePadding: CGFloat = 12
-    let columns = 3
-    
+    @StateObject private var viewModel: AchievementsViewModel
+
+    private let gridSpacing: CGFloat = 7
+    private let sidePadding: CGFloat = 12
+    private let columns = 3
+
+    // MARK: - Инициализация
+    init(profile: UserProfileViewModel) {
+        self.profile = profile
+        _viewModel = StateObject(wrappedValue: AchievementsViewModel(profile: profile))
+    }
+
     private var itemSize: CGFloat {
         let screenWidth = UIScreen.main.bounds.width
         return (screenWidth - sidePadding * 2 - gridSpacing * CGFloat(columns - 1)) / CGFloat(columns)
     }
-    
+
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("ProfileBackground") // фон на весь экран
-                    .ignoresSafeArea() // игнорируем safe area
-                
+                Color("ProfileBackground")
+                    .ignoresSafeArea()
+
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
-                        
-                        // MARK: - ВАШИ
-                        if unlockedAchievements.count > 0 {
+                        if !viewModel.unlockedAchievements.isEmpty {
                             Section(header: sectionHeader(title: "ВАШИ")) {
-                                LazyVGrid(
-                                    columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
-                                    spacing: gridSpacing
-                                ) {
-                                    ForEach(unlockedAchievements) { achievement in
-                                        AchievementSquare(
-                                            achievement: achievement,
-                                            isUnlocked: true,
-                                            size: itemSize
-                                        )
-                                    }
-                                }
-                                .padding(.horizontal, sidePadding)
+                                achievementsGrid(viewModel.unlockedAchievements, unlocked: true)
                             }
                         }
-                        
-                        // MARK: - НЕ ПОЛУЧЕНО
-                        if lockedAchievements.count > 0 {
+
+                        if !viewModel.lockedAchievements.isEmpty {
                             Section(header: sectionHeader(title: "НЕ ПОЛУЧЕНО")) {
-                                LazyVGrid(
-                                    columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
-                                    spacing: gridSpacing
-                                ) {
-                                    ForEach(lockedAchievements) { achievement in
-                                        AchievementSquare(
-                                            achievement: achievement,
-                                            isUnlocked: false,
-                                            size: itemSize
-                                        )
-                                    }
-                                }
-                                .padding(.horizontal, sidePadding)
+                                achievementsGrid(viewModel.lockedAchievements, unlocked: false)
                             }
                         }
                     }
@@ -67,7 +49,24 @@ struct AchievementsView: View {
             .preferredColorScheme(profile.theme.colorScheme)
         }
     }
-    
+
+    // MARK: - Grid генератор
+    private func achievementsGrid(_ achievements: [Achievement], unlocked: Bool) -> some View {
+        LazyVGrid(
+            columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+            spacing: gridSpacing
+        ) {
+            ForEach(achievements) { achievement in
+                AchievementSquare(
+                    achievement: achievement,
+                    isUnlocked: unlocked,
+                    size: itemSize
+                )
+            }
+        }
+        .padding(.horizontal, sidePadding)
+    }
+
     // MARK: - Section Header
     private func sectionHeader(title: String) -> some View {
         HStack {
@@ -80,13 +79,16 @@ struct AchievementsView: View {
         }
         .background(Color("SectionBackground"))
     }
-    
-    // MARK: - Computed Properties
-    private var unlockedAchievements: [Achievement] {
-        AchievementManager.achievements.filter { profile.profile.achievements.contains($0.name) }
-    }
-    
-    private var lockedAchievements: [Achievement] {
-        AchievementManager.achievements.filter { !profile.profile.achievements.contains($0.name) }
+}
+
+// MARK: - ViewModel
+final class AchievementsViewModel: ObservableObject {
+    @Published var unlockedAchievements: [Achievement] = []
+    @Published var lockedAchievements: [Achievement] = []
+
+    init(profile: UserProfileViewModel) {
+        let userAchievements = profile.profile.achievements
+        unlockedAchievements = AchievementManager.achievements.filter { userAchievements.contains($0.name) }
+        lockedAchievements = AchievementManager.achievements.filter { !userAchievements.contains($0.name) }
     }
 }

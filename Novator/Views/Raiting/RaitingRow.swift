@@ -4,18 +4,18 @@ import SwiftUI
 struct RatingRowView: View {
     let rank: Int
     let user: UserProfile
-    var currentUser: UserProfile // текущий профиль
-    
-    // MARK: - Цвет бейджа в зависимости от места
+    let currentUser: UserProfile
+
+    // MARK: - Цвет бейджа
     private var rankColor: Color {
         switch rank {
-        case 1: return Color(red: 255/255, green: 215/255, blue: 0/255) // gold
-        case 2: return Color(red: 196/255, green: 196/255, blue: 196/255) // iron
-        case 3: return Color(red: 206/255, green: 137/255, blue: 70/255) // bronze
+        case 1: return Color.yellow
+        case 2: return Color.gray
+        case 3: return Color.brown
         default: return .clear
         }
     }
-    
+
     var body: some View {
         HStack {
             ZStack {
@@ -23,19 +23,15 @@ struct RatingRowView: View {
                     .imageScale(.large)
                     .bold()
                     .foregroundColor(rankColor)
-                    .overlay {
+                    .overlay(
                         Text("\(rank)")
                             .font(.system(.subheadline))
-                            .foregroundColor(.gray) // текст на цветном фоне
-                    }
-                
-                
+                            .foregroundColor(rank <= 3 ? .primary : .gray)
+                    )
             }
             .padding(.leading, 9)
             .padding(.trailing, 5)
-                
 
-            // Обработка аватара
             if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -65,9 +61,9 @@ struct RatingRowView: View {
                 Image(systemName: "crown.fill")
                     .foregroundColor(Color("AppRed"))
             }
-            .font(.system(size:13, weight: .medium))
+            .font(.system(size: 13, weight: .medium))
             .padding(.trailing, 5)
-            
+
             Image(systemName: "chevron.right")
                 .imageScale(.small)
                 .bold()
@@ -76,13 +72,13 @@ struct RatingRowView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: 50)
         .padding(.vertical, 6)
-        .background(user.id == currentUser.id ? Color(.black).opacity(0.1) : Color(.black).opacity(0.00001))
+        .background(user.id == currentUser.id ? Color.black.opacity(0.1) : Color.clear)
     }
 }
 
 // MARK: - Preview
 struct RatingRow_Previews: PreviewProvider {
     static var previews: some View {
-        RatingRowView(rank: 1, user: UserProfile(), currentUser: UserProfile())
+        RatingRowView(rank: 1, user: UserProfile(firstName: "Иван", lastName: "Иванов", username: "@ivan", avatar: nil, stars: 0, raitingPoints: 10, streak: 0, friendsCount: 0, completedTasks: [], achievements: []), currentUser: UserProfile(firstName: "Иван", lastName: "Иванов", username: "@ivan", avatar: nil, stars: 0, raitingPoints: 10, streak: 0, friendsCount: 0, completedTasks: [], achievements: []))
     }
 }

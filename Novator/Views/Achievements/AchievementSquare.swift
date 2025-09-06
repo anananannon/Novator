@@ -2,17 +2,17 @@ import SwiftUI
 
 // MARK: - AchievementSquare
 struct AchievementSquare: View {
-    @Environment(\.dismiss) private var dismiss
     let achievement: Achievement
     let isUnlocked: Bool
     let size: CGFloat
-    
-    @State private var showingAchievementDetail: Bool = false
 
-    // MARK: - Body
+    @State private var showingDetail = false
+
     var body: some View {
-        VStack(spacing: 8) {
-            AchievementIconView(icon: achievement.icon)
+        VStack {
+            Image(systemName: achievement.icon)
+                .font(.system(size: 40))
+                .foregroundColor(Color("AppRed"))
         }
         .frame(width: size, height: size)
         .background(
@@ -20,27 +20,14 @@ struct AchievementSquare: View {
                 .fill(Color("SectionBackground"))
         )
         .opacity(isUnlocked ? 1 : 0.5)
-        .onTapGesture {
-            showingAchievementDetail.toggle()
-        }
-        .sheet(isPresented: $showingAchievementDetail) {
+        .onTapGesture { showingDetail.toggle() }
+        .sheet(isPresented: $showingDetail) {
             AchievementDetailView(
                 achievement: achievement,
                 isUnlocked: isUnlocked,
-                onDismiss: { showingAchievementDetail.toggle() }
+                onDismiss: { showingDetail.toggle() }
             )
         }
-    }
-}
-
-// MARK: - AchievementIconView
-private struct AchievementIconView: View {
-    let icon: String
-    
-    var body: some View {
-        Image(systemName: icon)
-            .font(.system(size: 40))
-            .foregroundColor(Color("AppRed"))
     }
 }
 
@@ -49,27 +36,20 @@ private struct AchievementDetailView: View {
     let achievement: Achievement
     let isUnlocked: Bool
     let onDismiss: () -> Void
-    
+
     var body: some View {
         NavigationStack {
-            VStack(spacing: 10) {
+            VStack(spacing: 20) {
                 Spacer()
-                
                 Image(systemName: achievement.icon)
                     .font(.system(size: 150))
                     .foregroundColor(Color("AppRed"))
-                
-                Spacer()
-                
                 Text(achievement.name)
                     .font(.title)
-                
                 Text(achievement.description)
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                
                 Spacer()
-                
                 Button(action: onDismiss) {
                     Text("ОК")
                         .font(.headline)
@@ -95,22 +75,3 @@ private struct AchievementDetailView: View {
         .presentationCornerRadius(20)
     }
 }
-
-// MARK: - Preview
-struct AchievementSquare_Previews: PreviewProvider {
-    static var previews: some View {
-        AchievementSquare(
-            achievement: Achievement(
-                id: UUID(),
-                icon: "star.fill",
-                name: "Первое задание",
-                description: "Выполни своё первое задание"
-            ),
-            isUnlocked: true,
-            size: 120
-        )
-        .previewLayout(.sizeThatFits)
-        .padding()
-    }
-}
-
