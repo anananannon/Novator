@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 // MARK: - AchievementsView
 struct AchievementsView: View {
@@ -81,14 +82,14 @@ struct AchievementsView: View {
     }
 }
 
-// MARK: - ViewModel
-final class AchievementsViewModel: ObservableObject {
-    @Published var unlockedAchievements: [Achievement] = []
-    @Published var lockedAchievements: [Achievement] = []
-
-    init(profile: UserProfileViewModel) {
-        let userAchievements = profile.profile.achievements
-        unlockedAchievements = AchievementManager.achievements.filter { userAchievements.contains($0.name) }
-        lockedAchievements = AchievementManager.achievements.filter { !userAchievements.contains($0.name) }
-    }
-}
+//// MARK: - ViewModel
+//final class AchievementsViewModel: ObservableObject {
+//    @Published var unlockedAchievements: [Achievement] = []
+//    @Published var lockedAchievements: [Achievement] = []
+//
+//    init(profile: UserProfileViewModel) {
+//        let userAchievements = profile.profile.achievements
+//        unlockedAchievements = AchievementManager.achievements.filter { userAchievements.contains($0.name) }
+//        lockedAchievements = AchievementManager.achievements.filter { !userAchievements.contains($0.name) }
+//    }
+//}

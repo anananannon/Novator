@@ -9,7 +9,6 @@ class TasksViewModel: ObservableObject {
     let profile: UserProfileViewModel
     init(profile: UserProfileViewModel, lessonId: String) {
         self.profile = profile
-        profile.profile.completedTasks = [] // Сброс для теста
         profile.saveProfile()
         self.program = TaskManager.createLearningProgram(for: lessonId, completedTasks: profile.profile.completedTasks)
         print("TasksViewModel: Initialized with lesson (lessonId), tasks count: (program?.tasks.count ?? 0)")

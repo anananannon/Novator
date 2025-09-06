@@ -31,6 +31,8 @@
 		AB9EEE0C2E579FF6002AECF7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */; };
 		AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */; };
 		ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */; };
+		ABAAA5A62E6C7819006E7DA4 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAA5A52E6C7819006E7DA4 /* Achievement.swift */; };
+		ABAAA5A82E6C90A2006E7DA4 /* AchievementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAAA5A72E6C90A2006E7DA4 /* AchievementsViewModel.swift */; };
 		ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */; };
 		ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080182E54D73E007B9113 /* ProfileNavigation.swift */; };
 		ABE0801B2E54D874007B9113 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0801A2E54D874007B9113 /* Task.swift */; };
@@ -87,6 +89,8 @@
 		AB9EEE0B2E579FF6002AECF7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		ABA0F9202E55E9D20059D84D /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		ABAAA5A52E6C7819006E7DA4 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		ABAAA5A72E6C90A2006E7DA4 /* AchievementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewModel.swift; sourceTree = "<group>"; };
 		ABC0ECA12E5CDF6A00534E0A /* StudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
 		ABE080182E54D73E007B9113 /* ProfileNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigation.swift; sourceTree = "<group>"; };
 		ABE0801A2E54D874007B9113 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 				AB9EEE0E2E57AB51002AECF7 /* SettingsViewModel.swift */,
 				AB81A1582E5873200000E1BD /* TasksViewModel.swift */,
 				AB96B2A62E6068A900E65362 /* RatingViewModel.swift */,
+				ABAAA5A72E6C90A2006E7DA4 /* AchievementsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				ABE080182E54D73E007B9113 /* ProfileNavigation.swift */,
 				ABE0801A2E54D874007B9113 /* Task.swift */,
 				ABE0801C2E54D898007B9113 /* UserProfile.swift */,
+				ABAAA5A52E6C7819006E7DA4 /* Achievement.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -425,11 +431,13 @@
 				AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */,
 				AB907F012E549F78005592E3 /* LevelTestView.swift in Sources */,
 				ABE5C12C2E649263009B2E0A /* AchievementSquare.swift in Sources */,
+				ABAAA5A62E6C7819006E7DA4 /* Achievement.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
 				AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */,
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
 				AB35A8F32E609C5400942C3E /* StatView.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,
+				ABAAA5A82E6C90A2006E7DA4 /* AchievementsViewModel.swift in Sources */,
 				ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */,
 				ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */,
 				AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */,

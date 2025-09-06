@@ -60,8 +60,13 @@ class UserProfileViewModel: ObservableObject {
         saveProfile()
     }
     func completeTask(_ taskId: UUID) {
-        profile.completedTasks.append(taskId)
-        saveProfile()
+        if !profile.completedTasks.contains(taskId) {
+            profile.completedTasks.append(taskId)
+            print("✅ Добавлена задача: \(taskId). Всего задач: \(profile.completedTasks.count)")
+            saveProfile()
+        } else {
+            print("⚠️ Задача \(taskId) уже есть. Пропускаем.")
+        }
     }
     func completeLesson(_ lessonId: String) {
         if !profile.completedLessons.contains(lessonId) {

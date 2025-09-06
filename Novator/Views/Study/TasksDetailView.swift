@@ -6,6 +6,7 @@ struct TaskDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var systemColorScheme
     @State private var showContent = false
+    @State private var showAcceptSheet = false
     let lessonId: String
     init(profile: UserProfileViewModel, lessonId: String) {
         self.lessonId = lessonId
@@ -24,6 +25,7 @@ struct TaskDetailView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { showContent = true } // запускаем анимацию после небольшой задержки !!!Этот комментарий не убирать
             viewModel.logAppear()
         }
+        .sheet(isPresented: $showAcceptSheet) { acceptSheetContent }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
@@ -59,10 +61,50 @@ private extension TaskDetailView {
             }
         }
     }
+    
+    var acceptSheetContent: some View {
+        VStack {
+            Image(systemName: "questionmark.app")
+                .font(.system(size: 100))
+                .foregroundColor(Color("AppRed"))
+            
+            Spacer()
+            
+            Text("Вы уверены?")
+                .font(.system(size: 24, weight: .semibold))
+                .padding(.horizontal, 50)
+            
+            Spacer()
+            
+            Button {
+                dismiss()
+            } label: {
+                Text("Выйти")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .frame(minWidth: 300, minHeight: 55)
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            
+            Button {
+                showAcceptSheet.toggle()
+            } label: {
+                Text("Остаться")
+                    .foregroundColor(.primary)
+                    .fontWeight(.semibold)
+            }
+        }
+        .padding(.vertical, 20)
+        .presentationDetents([.height(300)])
+        .presentationCornerRadius(20)
+    }
     // MARK: - Header
     var headerView: some View {
         HStack {
-            Button { dismiss() } label: {
+            Button {
+//                dismiss()
+                showAcceptSheet.toggle()
+            } label: {
                 Image(systemName: "xmark")
                     .font(.system(.title))
                     .fontWeight(.semibold)
