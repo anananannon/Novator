@@ -85,12 +85,15 @@ private extension TaskDetailView {
             }
             .buttonStyle(PrimaryButtonStyle())
             
+            Spacer()
+            
             Button {
                 showAcceptSheet.toggle()
             } label: {
                 Text("Остаться")
                     .foregroundColor(.primary)
                     .fontWeight(.semibold)
+                    .underline()
             }
         }
         .padding(.vertical, 20)

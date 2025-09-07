@@ -72,7 +72,7 @@ struct RatingRowView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: 50)
         .padding(.vertical, 6)
-        .background(user.id == currentUser.id ? Color.black.opacity(0.1) : Color.clear)
+        .background(user.id == currentUser.id ? Color.black.opacity(0.1) : Color.black.opacity(0.00000001))
     }
 }
 

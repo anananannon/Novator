@@ -94,7 +94,7 @@ struct ProfileLookView: View {
                 VStack(alignment: .leading) {
                     Text("имя пользователя").font(.system(size: 13))
                     Text(user.username)
-                        .font(.system(size: 14))
+                        .font(.system(size: 15))
                         .fontWeight(.semibold)
                         .foregroundColor(Color("AppRed"))
                 }
@@ -103,6 +103,13 @@ struct ProfileLookView: View {
             .padding()
             .background(Color("SectionBackground"))
             .clipShape(RoundedRectangle(cornerRadius: 10))
+            .contextMenu {
+                Button {
+                    UIPasteboard.general.string = user.username
+                } label: {
+                    Label("Скопировать", systemImage: "doc.on.doc")
+                }
+            }
             .padding(.horizontal, sidePadding)
         }
     }

@@ -31,36 +31,46 @@ struct SettingsView: View {
 
     // MARK: - Выбор темы
     private var themePicker: some View {
-        Menu {
-            ForEach(UserProfileViewModel.Theme.allCases, id: \.self) { theme in
-                Button {
-                    viewModel.updateTheme(theme)
-                } label: {
-                    HStack {
-                        Image(systemName: theme.iconName)
-                            .font(.system(size: 16))
-                            .foregroundColor(Color("AppRed"))
-                        Text(theme.displayName)
-                            .font(.body)
-                        if viewModel.selectedTheme == theme {
-                            Image(systemName: "checkmark")
+        HStack {
+            Image(systemName: "paintpalette.fill")
+                .font(.system(size: 16))
+                .foregroundColor(Color("AppRed"))
+            Text("Тема приложения")
+                .font(.body)
+                .foregroundColor(.primary)
+            Spacer()
+            
+            Menu {
+                ForEach(UserProfileViewModel.Theme.allCases, id: \.self) { theme in
+                    Button {
+                        viewModel.updateTheme(theme)
+                    } label: {
+                        HStack {
+                            Image(systemName: theme.iconName)
+                                .font(.system(size: 16))
                                 .foregroundColor(Color("AppRed"))
+                            Text(theme.displayName)
+                                .font(.body)
+                            if viewModel.selectedTheme == theme {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(Color("AppRed"))
+                            }
                         }
                     }
                 }
-            }
-        } label: {
-            HStack {
-                Image(systemName: "paintpalette.fill")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color("AppRed"))
-                Text("Тема приложения")
-                    .font(.body)
-                    .foregroundColor(.primary)
-                Spacer()
+            } label: {
+                //            HStack {
+                //                Image(systemName: "paintpalette.fill")
+                //                    .font(.system(size: 16))
+                //                    .foregroundColor(Color("AppRed"))
+                //                Text("Тема приложения")
+                //                    .font(.body)
+                //                    .foregroundColor(.primary)
+                //                Spacer()
                 Text(viewModel.selectedTheme.displayName)
                     .font(.body)
                     .foregroundColor(.gray)
+                //            }
             }
         }
     }

@@ -187,6 +187,8 @@ private extension StudyView {
                         }
                     }())
                     .frame(width: 90, height: 90)
+                    .scaleEffect(lesson.id == nextIncompleteLessonId ? 1 : 0.96)
+                    .animation(.spring(response: 0.3), value: nextIncompleteLessonId)
                     .overlay {
                         Text("\(lesson.id)")
                             .font(.headline)
@@ -195,7 +197,7 @@ private extension StudyView {
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 3)
-            .disabled(profile.isLessonCompleted(lesson.id)) // Отключаем завершенные уроки
+            .disabled(lesson.id != nextIncompleteLessonId) // Отключаем все уроки, кроме следующего незавершенного
         }
     }
 }
