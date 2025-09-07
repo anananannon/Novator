@@ -35,7 +35,6 @@ struct TaskDetailView: View {
 private extension TaskDetailView {
     var backgroundView: some View {
         Group {
-//            @Environment(\.colorScheme) private var systemColorScheme
             if viewModel.profile.theme.colorScheme == .light || (viewModel.profile.theme == .system && systemColorScheme == .light) {
                 Color.white.ignoresSafeArea() // 1. Белый фон сразу !!!Этот комментарий не убирать
             } else {

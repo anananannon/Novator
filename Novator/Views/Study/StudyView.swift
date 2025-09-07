@@ -10,11 +10,15 @@ struct StudyView: View {
     @State private var selectedLesson: Lesson? = nil
     // Словарь для отслеживания состояния нажатия кнопок, используем String для lesson.id
     @State private var buttonStates: [String: Bool] = [:]
-    
+    // Кэшируем id следующего незавершенного урока
+    @State private var nextIncompleteLessonId: String?
+
     // MARK: - Initialization
     init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
         self.profile = profile
         self._selectedTab = selectedTab
+        // Инициализируем nextIncompleteLessonId
+        self._nextIncompleteLessonId = State(initialValue: TaskManager.lessons.sorted { Int($0.id) ?? 0 < Int($1.id) ?? 0 }.first { !profile.isLessonCompleted($0.id) }?.id)
     }
 
     // MARK: - Body
@@ -82,7 +86,6 @@ struct StudyView: View {
                                                             HStack(spacing: 6) {
                                                                 Image(systemName: "star.fill")
                                                                     .foregroundStyle(Color("AppRed"))
-                                                                
                                                                 Text("\(lesson.lessonStars)")
                                                                     .font(.system(.headline, design: .monospaced))
                                                             }
@@ -107,7 +110,6 @@ struct StudyView: View {
                             }
                         }
                     }
-//                    .animation(.linear(duration: 0.2), value: buttonStates)
                     .animation(.spring(response: 0.2), value: buttonStates)
                     .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                     .padding()
@@ -127,6 +129,8 @@ struct StudyView: View {
             TaskDetailView(profile: profile, lessonId: lesson.id)
                 .onDisappear {
                     buttonStates = [:] // Сбрасываем все состояния после закрытия
+                    // Обновляем nextIncompleteLessonId после завершения урока
+                    nextIncompleteLessonId = TaskManager.lessons.sorted { Int($0.id) ?? 0 < Int($1.id) ?? 0 }.first { !profile.isLessonCompleted($0.id) }?.id
                 }
         }
         .preferredColorScheme(profile.theme.colorScheme)
@@ -154,12 +158,11 @@ private extension StudyView {
         }
         ToolbarItem(placement: .topBarTrailing) {
             Button {
-                //
+                // Действие для рейтинга
             } label: {
                 StatView(icon: "crown.fill", value: "\(profile.profile.raitingPoints)")
             }
         }
-        
     }
 
     @ViewBuilder
@@ -174,16 +177,25 @@ private extension StudyView {
                 }
             }) {
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(profile.isLessonCompleted(lesson.id) ? Color("AppRed") : Color(.gray))
+                    .fill({
+                        if profile.isLessonCompleted(lesson.id) {
+                            return Color("AppRed") // Завершенные уроки — красные
+                        } else if lesson.id == nextIncompleteLessonId {
+                            return Color("AppRed") // Следующий незавершенный урок — красный
+                        } else {
+                            return Color(.gray) // Остальные незавершенные — серые
+                        }
+                    }())
                     .frame(width: 90, height: 90)
                     .overlay {
                         Text("\(lesson.id)")
                             .font(.headline)
-                            .foregroundColor(profile.isLessonCompleted(lesson.id) ? .white : .primary)
+                            .foregroundColor(profile.isLessonCompleted(lesson.id) || lesson.id == nextIncompleteLessonId ? .white : .primary)
                     }
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 3)
+            .disabled(profile.isLessonCompleted(lesson.id)) // Отключаем завершенные уроки
         }
     }
 }
