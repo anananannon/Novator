@@ -2,6 +2,9 @@ import SwiftUI
 
 struct ProfileLookView: View {
     let user: UserProfile
+    
+    @State private var showStreakPopover = false
+    
     private let gridSpacing: CGFloat = 7
     private let sidePadding: CGFloat = 17
     private let columns = 3
@@ -52,6 +55,7 @@ struct ProfileLookView: View {
             }
             .background(Color("ProfileBackground"))
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar { toolbarContent }
         }
     }
 
@@ -110,8 +114,8 @@ struct ProfileLookView: View {
                     Label("Скопировать", systemImage: "doc.on.doc")
                 }
             }
-            .padding(.horizontal, sidePadding)
         }
+        .padding(.horizontal, sidePadding)
     }
 
     // MARK: - Section Header
@@ -151,7 +155,7 @@ private struct TopProfileHeader: View {
                 }
             }()
 
-            VStack(spacing: 10) {
+            VStack(spacing: 5) {
                 if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -169,11 +173,35 @@ private struct TopProfileHeader: View {
                 Text(user.fullName)
                     .font(.system(size: 20))
                     .fontWeight(.semibold)
+                Text("Уровень \(user.completedLessons.count)")
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
             }
             .scaleEffect(scale)
             .frame(maxWidth: .infinity)
         }
         .frame(height: 140)
         .padding(.top, 30)
+        .padding(.bottom, 5)
+    }
+}
+
+private extension ProfileLookView {
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                showStreakPopover.toggle()
+            } label: {
+                StatView(icon: "flame.fill", value: "\(user.streak)")
+            }
+            .popover(isPresented: $showStreakPopover) {
+                Text("Стрик - количество дней подряд, когда пользователь выполнял минимум один уровень.")
+                    .padding(.all, 10)
+                    .foregroundColor(Color("AppRed"))
+                    .frame(maxWidth: 260, minHeight: 105)
+                    .presentationCompactAdaptation(.popover)
+            }
+        }
     }
 }

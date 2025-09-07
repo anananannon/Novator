@@ -1,206 +1,264 @@
 import SwiftUI
 
 // MARK: - StudyView
+@MainActor
 struct StudyView: View {
-    // MARK: - Observed & State Objects
+    // MARK: Observed & State
     @ObservedObject var profile: UserProfileViewModel
-    @State private var navigationPath = NavigationPath()
     @Binding var selectedTab: Int
-    @State private var showPopover = false
+
+    @State private var navigationPath = NavigationPath()
+    
+    @State private var showStarsPopover = false
+    @State private var showRaitingPopover = false
+    
     @State private var selectedLesson: Lesson? = nil
-    // Словарь для отслеживания состояния нажатия кнопок, используем String для lesson.id
-    @State private var buttonStates: [String: Bool] = [:]
-    // Кэшируем id следующего незавершенного урока
+    @State private var activeButtons: Set<String> = []
     @State private var nextIncompleteLessonId: String?
 
-    // MARK: - Initialization
+    // MARK: Init
     init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
         self.profile = profile
         self._selectedTab = selectedTab
-        // Инициализируем nextIncompleteLessonId
-        self._nextIncompleteLessonId = State(initialValue: TaskManager.lessons.sorted { Int($0.id) ?? 0 < Int($1.id) ?? 0 }.first { !profile.isLessonCompleted($0.id) }?.id)
+        self._nextIncompleteLessonId = State(initialValue: Self.computeNextIncompleteLessonId(for: profile))
     }
 
-    // MARK: - Body
+    // MARK: Body
     var body: some View {
         NavigationStack(path: $navigationPath) {
             GeometryReader { geometry in
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        // Переворачиваем уроки, чтобы первые были внизу, и преобразуем в массив
-                        let reversedLessons = Array(TaskManager.lessons.reversed())
-                        ForEach(reversedLessons.indices, id: \.self) { index in
-                            let lesson = reversedLessons[index]
+                        let lessons = reversedLessons
+                        ForEach(Array(lessons.enumerated()), id: \.offset) { index, lesson in
                             VStack(spacing: 20) {
-                                // Рисуем Divider перед уроком, если текущий lesson.id % 10 == 0
-                                if let lessonId = Int(lesson.id), lessonId % 10 == 0 {
+                                if shouldShowDivider(before: lesson) {
                                     Divider()
                                         .frame(height: 1.5)
                                         .background(Color("AppRed"))
                                         .padding(.horizontal, 10)
                                 }
-                                
-                                HStack {
-                                    if index % 2 == 0 {
-                                        ZStack(alignment: .leading) {
-                                            RoundedRectangle(cornerRadius: 23)
-                                                .fill(Color("TaskBackground"))
-                                                .frame(height: 96)
-                                                .frame(maxWidth: 230)
-                                                .overlay {
-                                                    HStack {
-                                                        Spacer()
-                                                        VStack(alignment: .trailing) {
-                                                            HStack(spacing: 6) {
-                                                                Image(systemName: "star.fill")
-                                                                    .foregroundStyle(Color("AppRed"))
-                                                                Text("\(lesson.lessonStars)")
-                                                                    .font(.system(.headline, design: .monospaced))
-                                                            }
-                                                            HStack(spacing: 6) {
-                                                                Image(systemName: "crown.fill")
-                                                                    .foregroundStyle(Color("AppRed"))
-                                                                Text("\(lesson.lessonRaitingPoints)")
-                                                                    .font(.system(.headline, design: .monospaced))
-                                                            }
-                                                        }
-                                                        .padding(.horizontal, 20)
-                                                    }
-                                                }
-                                                .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
-                                                .scaleEffect(x: buttonStates[lesson.id, default: false] ? 1 : 0, anchor: .leading)
-                                            
-                                            lessonButton(lesson)
-                                        }
-                                        Spacer()
-                                    } else {
-                                        Spacer()
-                                        ZStack(alignment: .trailing) {
-                                            RoundedRectangle(cornerRadius: 23)
-                                                .fill(Color("TaskBackground"))
-                                                .frame(height: 96)
-                                                .frame(maxWidth: 230)
-                                                .overlay {
-                                                    HStack {
-                                                        VStack(alignment: .trailing) {
-                                                            HStack(spacing: 6) {
-                                                                Image(systemName: "star.fill")
-                                                                    .foregroundStyle(Color("AppRed"))
-                                                                Text("\(lesson.lessonStars)")
-                                                                    .font(.system(.headline, design: .monospaced))
-                                                            }
-                                                            HStack(spacing: 6) {
-                                                                Image(systemName: "crown.fill")
-                                                                    .foregroundStyle(Color("AppRed"))
-                                                                Text("\(lesson.lessonRaitingPoints)")
-                                                                    .font(.system(.headline, design: .monospaced))
-                                                            }
-                                                        }
-                                                        .padding(.horizontal, 20)
-                                                        Spacer()
-                                                    }
-                                                }
-                                                .opacity(buttonStates[lesson.id, default: false] ? 1 : 0)
-                                                .scaleEffect(x: buttonStates[lesson.id, default: false] ? 1 : 0, anchor: .trailing)
-                                            lessonButton(lesson)
-                                        }
-                                    }
-                                }
+
+                                LessonRow(
+                                    lesson: lesson,
+                                    isEvenIndex: index.isMultiple(of: 2),
+                                    isExpanded: activeButtons.contains(lesson.id),
+                                    nextIncompleteLessonId: nextIncompleteLessonId,
+                                    isCompleted: profile.isLessonCompleted(lesson.id),
+                                    onTapSquare: { handleSquareTap(for: lesson) }
+                                )
                                 .padding(.horizontal, 30)
                             }
                         }
                     }
-                    .animation(.spring(response: 0.2), value: buttonStates)
+                    .animation(.spring(response: 0.2), value: activeButtons)
                     .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                     .padding()
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar { toolbarContent }
                 }
-                // Добавляем жест тапа на пустое место
-                .contentShape(Rectangle()) // Убедимся, что ScrollView реагирует на тапы по всей площади
-                .onTapGesture {
-                    if !buttonStates.isEmpty {
-                        buttonStates = [:] // Сбрасываем состояния кнопок при тапе на пустое место
-                    }
-                }
+                .contentShape(Rectangle())
+                .onTapGesture { if !activeButtons.isEmpty { activeButtons.removeAll() } }
             }
         }
         .fullScreenCover(item: $selectedLesson) { lesson in
             TaskDetailView(profile: profile, lessonId: lesson.id)
                 .onDisappear {
-                    buttonStates = [:] // Сбрасываем все состояния после закрытия
-                    // Обновляем nextIncompleteLessonId после завершения урока
-                    nextIncompleteLessonId = TaskManager.lessons.sorted { Int($0.id) ?? 0 < Int($1.id) ?? 0 }.first { !profile.isLessonCompleted($0.id) }?.id
+                    activeButtons.removeAll()
+                    nextIncompleteLessonId = Self.computeNextIncompleteLessonId(for: profile)
                 }
         }
         .preferredColorScheme(profile.theme.colorScheme)
     }
 }
 
-// MARK: - Subviews & ViewBuilders
+// MARK: - UI Constants
+private enum UIConstants {
+    static let lessonSquareSize: CGFloat = 90
+    static let lessonRowHeight: CGFloat = 96
+    static let lessonRowMaxWidth: CGFloat = 230
+    static let cornerRadius: CGFloat = 23
+    static let squareCornerRadius: CGFloat = 20
+}
+
+// MARK: - Computeds & Helpers
+private extension StudyView {
+    var reversedLessons: [Lesson] {
+        Array(TaskManager.lessons.reversed())
+    }
+
+    func shouldShowDivider(before lesson: Lesson) -> Bool {
+        guard let id = Int(lesson.id) else { return false }
+        return id % 10 == 0
+    }
+
+    static func computeNextIncompleteLessonId(for profile: UserProfileViewModel) -> String? {
+        TaskManager.lessons
+            .sorted { (Int($0.id) ?? 0) < (Int($1.id) ?? 0) }
+            .first { !profile.isLessonCompleted($0.id) }?
+            .id
+    }
+
+    func handleSquareTap(for lesson: Lesson) {
+        if activeButtons.contains(lesson.id) {
+            selectedLesson = lesson
+            activeButtons.removeAll()
+        } else {
+            activeButtons = [lesson.id]
+        }
+    }
+}
+
+// MARK: - Toolbar
 private extension StudyView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button {
-                showPopover.toggle()
-            } label: {
+            Button { showStarsPopover.toggle() } label: {
                 StatView(icon: "star.fill", value: "\(profile.profile.stars)")
             }
-            .popover(isPresented: $showPopover) {
-                Text("С помощью очков опыта магазина вы можете приобретать уникальные вещи для вашего профиля, а так же дарить подарки друзьям.")
+            .popover(isPresented: $showStarsPopover) {
+                Text("Очки опыта - вы можете потратить их в магазине украшений профиля.")
                     .padding()
                     .foregroundColor(Color("AppRed"))
-                    .frame(maxWidth: 250, minHeight: 90)
+                    .frame(maxWidth: 210, minHeight: 90)
                     .presentationCompactAdaptation(.popover)
             }
-            .preferredColorScheme(profile.theme.colorScheme)
         }
+
         ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                // Действие для рейтинга
-            } label: {
+            Button { showRaitingPopover.toggle() } label: {
                 StatView(icon: "crown.fill", value: "\(profile.profile.raitingPoints)")
             }
-        }
-    }
-
-    @ViewBuilder
-    func lessonButton(_ lesson: Lesson) -> some View {
-        ZStack(alignment: .leading) {
-            Button(action: {
-                if buttonStates[lesson.id, default: false] {
-                    selectedLesson = lesson
-                    buttonStates = [:] // Сбрасываем состояние перед открытием урока
-                } else {
-                    buttonStates = [lesson.id: true] // Сбрасываем все состояния и активируем только текущую кнопку
-                }
-            }) {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill({
-                        if profile.isLessonCompleted(lesson.id) {
-                            return Color("AppRed") // Завершенные уроки — красные
-                        } else if lesson.id == nextIncompleteLessonId {
-                            return Color("AppRed") // Следующий незавершенный урок — красный
-                        } else {
-                            return Color(.gray) // Остальные незавершенные — серые
-                        }
-                    }())
-                    .frame(width: 90, height: 90)
-                    .scaleEffect(lesson.id == nextIncompleteLessonId ? 1 : 0.96)
-                    .animation(.spring(response: 0.3), value: nextIncompleteLessonId)
-                    .overlay {
-                        Text("\(lesson.id)")
-                            .font(.headline)
-                            .foregroundColor(profile.isLessonCompleted(lesson.id) || lesson.id == nextIncompleteLessonId ? .white : .primary)
-                    }
+            .popover(isPresented: $showRaitingPopover) {
+                Text("Очки рейтинга - с помощью них вы можете повышать свой рейтинг и получать уникальные подарки.")
+                    .padding()
+                    .foregroundColor(Color("AppRed"))
+                    .frame(maxWidth: 230, minHeight: 116)
+                    .presentationCompactAdaptation(.popover)
             }
-            .buttonStyle(.plain)
-            .padding(.horizontal, 3)
-            .disabled(lesson.id != nextIncompleteLessonId) // Отключаем все уроки, кроме следующего незавершенного
         }
     }
 }
+
+// MARK: - LessonRow
+private struct LessonRow: View {
+    let lesson: Lesson
+    let isEvenIndex: Bool
+    let isExpanded: Bool
+    let nextIncompleteLessonId: String?
+    let isCompleted: Bool
+    let onTapSquare: () -> Void
+
+    var body: some View {
+        HStack {
+            if isEvenIndex {
+                content(alignment: .leading)
+                Spacer()
+            } else {
+                Spacer()
+                content(alignment: .trailing)
+            }
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Урок \(lesson.id)")
+    }
+}
+
+// MARK: - LessonRow UI
+private extension LessonRow {
+    func content(alignment: HorizontalAlignmentEdge) -> some View {
+        ZStack(alignment: alignment == .leading ? .leading : .trailing) {
+            StatsOverlay(
+                stars: lesson.lessonStars,
+                crowns: lesson.lessonRaitingPoints,
+                isVisible: isExpanded,
+                anchor: alignment == .leading ? .leading : .trailing
+            )
+
+            LessonSquare(
+                idText: lesson.id,
+                isCompleted: isCompleted,
+                isNextIncomplete: (lesson.id == nextIncompleteLessonId),
+                action: onTapSquare
+            )
+            .padding(.horizontal, 3)
+            .disabled(lesson.id != nextIncompleteLessonId)
+            .buttonStyle(.plain)
+        }
+    }
+}
+
+// MARK: - Supporting Views
+private struct StatsOverlay: View {
+    let stars: Int
+    let crowns: Int
+    let isVisible: Bool
+    let anchor: UnitPoint
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: UIConstants.cornerRadius)
+            .fill(Color("TaskBackground"))
+            .frame(height: UIConstants.lessonRowHeight)
+            .frame(maxWidth: UIConstants.lessonRowMaxWidth)
+            .overlay(alignment: .center) {
+                HStack {
+                    if anchor == .trailing { stats }
+                    Spacer()
+                    if anchor == .leading { stats }
+                }
+            }
+            .opacity(isVisible ? 1 : 0)
+            .scaleEffect(x: isVisible ? 1 : 0, anchor: anchor)
+            .animation(.spring(response: 0.2), value: isVisible)
+    }
+
+    private var stats: some View {
+        VStack(alignment: .trailing) {
+            HStack(spacing: 6) {
+                Image(systemName: "star.fill").foregroundStyle(Color("AppRed"))
+                Text("\(stars)").font(.system(.headline, design: .monospaced))
+            }
+            HStack(spacing: 6) {
+                Image(systemName: "crown.fill").foregroundStyle(Color("AppRed"))
+                Text("\(crowns)").font(.system(.headline, design: .monospaced))
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+}
+
+private struct LessonSquare: View {
+    let idText: String
+    let isCompleted: Bool
+    let isNextIncomplete: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            RoundedRectangle(cornerRadius: UIConstants.squareCornerRadius)
+                .fill(fillColor)
+                .frame(width: UIConstants.lessonSquareSize, height: UIConstants.lessonSquareSize)
+                .scaleEffect(isNextIncomplete ? 1 : 0.96)
+                .overlay { Text(idText).font(.headline).foregroundColor(textColor) }
+        }
+        .animation(.spring(response: 0.3), value: isNextIncomplete)
+        .accessibilityAddTraits(.isButton)
+    }
+
+    private var fillColor: Color {
+        if isCompleted { return Color("AppRed") }
+        if isNextIncomplete { return Color("AppRed") }
+        return Color(.gray)
+    }
+
+    private var textColor: Color {
+        (isCompleted || isNextIncomplete) ? .white : .primary
+    }
+}
+
+// MARK: - Utilities
+private enum HorizontalAlignmentEdge { case leading, trailing }
 
 // MARK: - Preview
 struct StudyView_Previews: PreviewProvider {
