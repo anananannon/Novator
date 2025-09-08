@@ -6,6 +6,7 @@ struct ProfileLookView: View {
     @State private var showStreakPopover = false
     @State private var isFriendRequestSent = false // Отправка заявки
     @State private var isFriend = false // Статус друга
+    @State private var hasIncomingRequest = false // Входящая заявка
 
     private let gridSpacing: CGFloat = 7
     private let sidePadding: CGFloat = 17
@@ -50,10 +51,19 @@ struct ProfileLookView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
         .onAppear {
-            isFriendRequestSent = userProfileViewModel.profile.pendingFriendRequests.contains(user.id)
-            isFriend = userProfileViewModel.profile.friends.contains(user.id)
-            print("🔔 ProfileLookView onAppear: user.id = \(user.id), pendingFriendRequests = \(userProfileViewModel.profile.pendingFriendRequests), isFriendRequestSent = \(isFriendRequestSent), isFriend = \(isFriend)")
+            updateStates()
         }
+        .onReceive(userProfileViewModel.$profile) { newProfile in
+            updateStates()
+        }
+    }
+
+    // MARK: - Обновление состояний
+    private func updateStates() {
+        isFriendRequestSent = userProfileViewModel.profile.pendingFriendRequests.contains(user.id)
+        isFriend = userProfileViewModel.profile.friends.contains(user.id)
+        hasIncomingRequest = userProfileViewModel.profile.incomingFriendRequests.contains(user.id)
+        print("🔔 ProfileLookView update: user.id = \(user.id), pendingFriendRequests = \(userProfileViewModel.profile.pendingFriendRequests), isFriendRequestSent = \(isFriendRequestSent), isFriend = \(isFriend), hasIncomingRequest = \(hasIncomingRequest)")
     }
 
     // MARK: - Buttons
@@ -61,25 +71,44 @@ struct ProfileLookView: View {
         HStack(spacing: 12) {
             // Показываем кнопку только если это не собственный профиль
             if user.id != userProfileViewModel.profile.id {
-                Button {
-                    if !isFriendRequestSent && !isFriend {
-                        userProfileViewModel.sendFriendRequest(to: user.id)
-                        isFriendRequestSent = userProfileViewModel.profile.pendingFriendRequests.contains(user.id)
+                if hasIncomingRequest && !isFriend {
+                    Button {
+                        userProfileViewModel.acceptFriendRequest(from: user.id)
+                        updateStates() // Обновляем состояния после принятия
+                    } label: {
+                        VStack(spacing: 5) {
+                            Image(systemName: "person.fill.checkmark")
+                                .font(.system(size: 21))
+                                .foregroundColor(Color("AppRed"))
+                            Text("Принять заявку")
+                                .foregroundColor(Color("AppRed"))
+                                .font(.system(size: 11))
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .background(Color("SectionBackground"))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
-                } label: {
-                    VStack(spacing: 5) {
-                        Image(systemName: isFriend ? "person.fill" : isFriendRequestSent ? "person.fill.checkmark" : "person.fill.badge.plus")
-                            .font(.system(size: 21))
-                            .foregroundColor(isFriendRequestSent ? Color.gray : Color("AppRed"))
-                        Text(isFriend ? "Ваш друг" : isFriendRequestSent ? "Заявка отправлена" : "Добавить")
-                            .foregroundColor(isFriendRequestSent ? Color.gray : Color("AppRed"))
-                            .font(.system(size: 11))
+                } else {
+                    Button {
+                        if !isFriendRequestSent && !isFriend {
+                            userProfileViewModel.sendFriendRequest(to: user.id)
+                            isFriendRequestSent = true // Обновляем локально
+                        }
+                    } label: {
+                        VStack(spacing: 5) {
+                            Image(systemName: isFriend ? "person.fill" : isFriendRequestSent ? "person.fill.checkmark" : "person.fill.badge.plus")
+                                .font(.system(size: 21))
+                                .foregroundColor(isFriendRequestSent ? Color.gray : Color("AppRed"))
+                            Text(isFriend ? "Ваш друг" : isFriendRequestSent ? "Заявка отправлена" : "Добавить")
+                                .foregroundColor(isFriendRequestSent ? Color.gray : Color("AppRed"))
+                                .font(.system(size: 11))
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 70)
+                        .background(isFriend ? Color("SectionBackground") : isFriendRequestSent ? Color.gray.opacity(0.5) : Color("SectionBackground"))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
-                    .frame(maxWidth: .infinity, minHeight: 70)
-                    .background(isFriend ? Color("SectionBackground") : isFriendRequestSent ? Color.gray.opacity(0.5) : Color("SectionBackground"))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .disabled(isFriend || isFriendRequestSent || hasIncomingRequest)
                 }
-                .disabled(isFriend || isFriendRequestSent)
             }
 
             Button {
@@ -88,7 +117,10 @@ struct ProfileLookView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "message.fill")
                         .font(.system(size: 19))
-                    Text("Чат").font(.system(size: 11))
+                        .foregroundColor(Color("AppRed"))
+                    Text("Чат")
+                        .font(.system(size: 11))
+                        .foregroundColor(Color("AppRed"))
                 }
                 .frame(maxWidth: .infinity, minHeight: 70)
                 .background(Color("SectionBackground"))
