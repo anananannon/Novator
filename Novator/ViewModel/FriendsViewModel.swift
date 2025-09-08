@@ -1,9 +1,9 @@
-import SwiftUI
+import Foundation
 import Combine
 
 final class FriendsViewModel: ObservableObject {
     // MARK: - Input
-    @ObservedObject var profile: UserProfileViewModel
+    @Published var profile: UserProfileViewModel? // Изменено на @Published для реактивности
 
     // MARK: - Output
     @Published var friends: [UserProfile] = []
@@ -12,25 +12,38 @@ final class FriendsViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Инициализация
-    init(profile: UserProfileViewModel, userDataSource: UserDataSourceProtocol = UserDataSource()) {
+    init(profile: UserProfileViewModel?, userDataSource: UserDataSourceProtocol = UserDataSource()) {
         self.profile = profile
         self.userDataSource = userDataSource
-        setupFriends()
+        if profile != nil {
+            setupFriends()
+        }
         bindProfile()
     }
 
     // MARK: - Приватные методы
     func setupFriends() {
+        guard let profile = profile else {
+            print("⚠️ FriendsViewModel: profile не установлен, пропускаем setupFriends")
+            return
+        }
         self.friends = userDataSource.getDemoFriends(friendIds: profile.profile.friends)
         print("🆕 FriendsViewModel: setupFriends с друзьями: \(friends.map { $0.id })")
     }
 
     private func bindProfile() {
-        profile.$profile
+        $profile
             .sink { [weak self] newProfile in
-                guard let self = self else { return }
-                self.friends = self.userDataSource.getDemoFriends(friendIds: newProfile.friends)
-                print("🔔 FriendsViewModel: список друзей обновлен: \(self.friends.map { $0.id })")
+                guard let self = self, let profile = newProfile else { return }
+                // Подписываемся на изменения profile.profile при установке нового profile
+                profile.$profile
+                    .sink { [weak self] newProfile in
+                        guard let self = self else { return }
+                        self.friends = self.userDataSource.getDemoFriends(friendIds: newProfile.friends)
+                        self.objectWillChange.send()
+                        print("🔔 FriendsViewModel: список друзей обновлен: \(self.friends.map { $0.id })")
+                    }
+                    .store(in: &self.cancellables)
             }
             .store(in: &cancellables)
     }

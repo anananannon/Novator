@@ -3,10 +3,11 @@ import SwiftUI
 struct FriendsView: View {
     @StateObject private var viewModel: FriendsViewModel
     @EnvironmentObject var userProfileViewModel: UserProfileViewModel
-    @State var showSheetFriends = false
+    @State private var showSheetFriends = false
 
     init() {
-        _viewModel = StateObject(wrappedValue: FriendsViewModel(profile: UserProfileViewModel()))
+        // Используем userProfileViewModel из EnvironmentObject
+        _viewModel = StateObject(wrappedValue: FriendsViewModel(profile: nil))
     }
 
     var body: some View {
@@ -42,18 +43,29 @@ struct FriendsView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showSheetFriends) {
+            .sheet(isPresented: $showSheetFriends, onDismiss: {
+                // Обновляем друзей при закрытии sheet
+                viewModel.setupFriends()
+            }) {
                 FriendRequestsView()
                     .presentationDetents([.height(500)])
                     .presentationCornerRadius(20)
                     .environmentObject(userProfileViewModel)
             }
             .onAppear {
+                // Устанавливаем profile из EnvironmentObject
                 viewModel.profile = userProfileViewModel
                 viewModel.setupFriends()
             }
+            .onReceive(userProfileViewModel.$profile) { newProfile in
+                // Реактивно обновляем друзей
+                viewModel.friends = userDataSource.getDemoFriends(friendIds: newProfile.friends)
+                print("🔔 FriendsView: список друзей обновлен: \(viewModel.friends.map { $0.id })")
+            }
         }
     }
+
+    private let userDataSource: UserDataSourceProtocol = UserDataSource()
 }
 
 #Preview {
