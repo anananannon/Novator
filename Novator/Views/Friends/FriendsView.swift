@@ -43,7 +43,10 @@ struct FriendsView: View {
                 }
             }
             .sheet(isPresented: $showSheetFriends) {
-                Text("тут заявки") // это не трогай
+                FriendRequestsView()
+                    .presentationDetents([.height(500)])
+                    .presentationCornerRadius(20)
+                    .environmentObject(userProfileViewModel)
             }
             .onAppear {
                 viewModel.profile = userProfileViewModel

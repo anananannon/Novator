@@ -16,6 +16,7 @@
 		AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F42E609C6900942C3E /* PrimaryButton.swift */; };
 		AB7497D62E6F1C8A00B4051F /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497D52E6F1C8A00B4051F /* FriendsViewModel.swift */; };
 		AB7497D82E6F1CAF00B4051F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497D72E6F1CAF00B4051F /* FriendRow.swift */; };
+		AB7497DA2E6F250500B4051F /* FriendRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497D92E6F250500B4051F /* FriendRequestsView.swift */; };
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
 		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
@@ -74,6 +75,7 @@
 		AB35A8F42E609C6900942C3E /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		AB7497D52E6F1C8A00B4051F /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		AB7497D72E6F1CAF00B4051F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
+		AB7497D92E6F250500B4051F /* FriendRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsView.swift; sourceTree = "<group>"; };
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 			children = (
 				AB1AFD102E6F09EA00DDD19D /* FriendsView.swift */,
 				AB7497D72E6F1CAF00B4051F /* FriendRow.swift */,
+				AB7497D92E6F250500B4051F /* FriendRequestsView.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
 				AB35A8F32E609C5400942C3E /* StatView.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,
+				AB7497DA2E6F250500B4051F /* FriendRequestsView.swift in Sources */,
 				ABAAA5A82E6C90A2006E7DA4 /* AchievementsViewModel.swift in Sources */,
 				ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */,
 				ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */,

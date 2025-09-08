@@ -22,11 +22,13 @@ class UserProfileViewModel: ObservableObject {
     }
 
     init() {
-//         UserDefaults.standard.removeObject(forKey: "userProfile") // удаляет дпнные (на всякий случай)
+        // Для отладки: раскомментировать для сброса профиля
+        // UserDefaults.standard.removeObject(forKey: "userProfile")
+        
         if let data = UserDefaults.standard.data(forKey: "userProfile"),
            let savedProfile = try? JSONDecoder().decode(UserProfile.self, from: data) {
             self.profile = savedProfile
-            print("✅ Загружен профиль: \(savedProfile.pendingFriendRequests)")
+            print("✅ Загружен профиль: \(savedProfile.pendingFriendRequests), друзья: \(savedProfile.friends), входящие заявки: \(savedProfile.incomingFriendRequests)")
         } else {
             self.profile = UserProfile(
                 firstName: "Имя",
@@ -42,18 +44,23 @@ class UserProfileViewModel: ObservableObject {
                     UUID(uuidString: "550E8400-E29B-41D4-A716-446655440001")!  // Илон
                 ],
                 pendingFriendRequests: [],
+                incomingFriendRequests: [
+                    UUID(uuidString: "550E8400-E29B-41D4-A716-446655440002")!, // Иван
+                    UUID(uuidString: "550E8400-E29B-41D4-A716-446655440003")!  // Джек
+                ],
                 completedTasks: [],
                 achievements: [],
                 completedLessons: []
             )
-            print("🆕 Создан новый профиль")
+            print("🆕 Создан новый профиль с друзьями: \(self.profile.friends), входящими заявками: \(self.profile.incomingFriendRequests)")
+            saveProfile()
         }
     }
 
     func saveProfile() {
         if let data = try? JSONEncoder().encode(profile) {
             UserDefaults.standard.set(data, forKey: "userProfile")
-            print("✅ Профиль сохранён в UserDefaults: \(profile.pendingFriendRequests)")
+            print("✅ Профиль сохранён в UserDefaults: \(profile.pendingFriendRequests), друзья: \(profile.friends), входящие заявки: \(profile.incomingFriendRequests)")
         } else {
             print("❌ Ошибка кодирования профиля")
         }
@@ -109,12 +116,24 @@ class UserProfileViewModel: ObservableObject {
     }
 
     func acceptFriendRequest(from userId: UUID) {
-        if !profile.friends.contains(userId) {
+        if !profile.friends.contains(userId) && profile.incomingFriendRequests.contains(userId) {
             profile.friends.append(userId)
             profile.friendsCount = profile.friends.count
-            profile.pendingFriendRequests.removeAll { $0 == userId }
+            profile.incomingFriendRequests.removeAll { $0 == userId }
             saveProfile()
             print("✅ Пользователь \(userId) добавлен в друзья")
+        } else {
+            print("⚠️ Заявка не принята: пользователь уже в друзьях или заявка не найдена")
         }
     }
-}  
+
+    func rejectFriendRequest(from userId: UUID) {
+        if profile.incomingFriendRequests.contains(userId) {
+            profile.incomingFriendRequests.removeAll { $0 == userId }
+            saveProfile()
+            print("❌ Заявка от пользователя \(userId) отклонена")
+        } else {
+            print("⚠️ Заявка не отклонена: заявка не найдена")
+        }
+    }
+}
