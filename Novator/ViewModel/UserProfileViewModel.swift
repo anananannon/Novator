@@ -1,8 +1,10 @@
 import Foundation
 import SwiftUI
+
 class UserProfileViewModel: ObservableObject {
     @Published var profile: UserProfile
     @AppStorage("appTheme") var theme: Theme = .system
+
     enum Theme: String, CaseIterable {
         case light
         case dark
@@ -19,9 +21,11 @@ class UserProfileViewModel: ObservableObject {
         }
     }
     init() {
+//         UserDefaults.standard.removeObject(forKey: "userProfile") // удаляет дпнные (на всякий случай)
         if let data = UserDefaults.standard.data(forKey: "userProfile"),
            let savedProfile = try? JSONDecoder().decode(UserProfile.self, from: data) {
             self.profile = savedProfile
+            print("✅ Загружен профиль: \(savedProfile.pendingFriendRequests)")
         } else {
             self.profile = UserProfile(
                 firstName: "Имя",
@@ -32,17 +36,25 @@ class UserProfileViewModel: ObservableObject {
                 raitingPoints: 0,
                 streak: 0,
                 friendsCount: 0,
+                friends: [],
+                pendingFriendRequests: [],
                 completedTasks: [],
                 achievements: [],
                 completedLessons: []
             )
+            print("🆕 Создан новый профиль")
         }
     }
+
     func saveProfile() {
         if let data = try? JSONEncoder().encode(profile) {
             UserDefaults.standard.set(data, forKey: "userProfile")
+            print("✅ Профиль сохранён в UserDefaults: \(profile.pendingFriendRequests)")
+        } else {
+            print("❌ Ошибка кодирования профиля")
         }
     }
+
     func updateProfile(firstName: String, lastName: String, username: String, avatar: Data?) {
         profile.firstName = firstName.trimmingCharacters(in: .whitespaces)
         profile.lastName = lastName.trimmingCharacters(in: .whitespaces)
@@ -50,15 +62,17 @@ class UserProfileViewModel: ObservableObject {
         profile.avatar = avatar
         saveProfile()
     }
-    // Other methods remain unchanged
+
     func addStars(_ stars: Int) {
         profile.stars += stars
         saveProfile()
     }
+
     func addRaitingPoints(_ raitingPoints: Int) {
         profile.raitingPoints += raitingPoints
         saveProfile()
     }
+
     func completeTask(_ taskId: UUID) {
         if !profile.completedTasks.contains(taskId) {
             profile.completedTasks.append(taskId)
@@ -68,13 +82,25 @@ class UserProfileViewModel: ObservableObject {
             print("⚠️ Задача \(taskId) уже есть. Пропускаем.")
         }
     }
+
     func completeLesson(_ lessonId: String) {
         if !profile.completedLessons.contains(lessonId) {
             profile.completedLessons.append(lessonId)
             saveProfile()
         }
     }
+
     func isLessonCompleted(_ lessonId: String) -> Bool {
         profile.completedLessons.contains(lessonId)
+    }
+
+    func sendFriendRequest(to userId: UUID) {
+        if !profile.friends.contains(userId) && !profile.pendingFriendRequests.contains(userId) && userId != profile.id {
+            profile.pendingFriendRequests.append(userId)
+            saveProfile()
+            print("📩 Отправлена заявка в друзья пользователю с ID: \(userId), pendingFriendRequests: \(profile.pendingFriendRequests)")
+        } else {
+            print("⚠️ Заявка не отправлена: пользователь уже в друзьях, заявка уже отправлена или это текущий пользователь")
+        }
     }
 }

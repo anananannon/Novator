@@ -2,8 +2,9 @@ import SwiftUI
 
 struct ProfileLookView: View {
     let user: UserProfile
-    
+    @EnvironmentObject var userProfileViewModel: UserProfileViewModel
     @State private var showStreakPopover = false
+    @State private var isFriendRequestSent = false // Отправка заявки
     
     private let gridSpacing: CGFloat = 7
     private let sidePadding: CGFloat = 17
@@ -19,60 +20,63 @@ struct ProfileLookView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 14) {
-                    // MARK: - Аватар с анимацией
-                    TopProfileHeader(user: user)
-
-                    // MARK: - Действия
-                    actionButtons
-
-                    // MARK: - Инфо о пользователе
-                    userInfo
-
-                    // MARK: - Достижения
-                    if !unlockedAchievements.isEmpty {
-                        Section(header: sectionHeader(title: "ДОСТИЖЕНИЯ")) {
-                            LazyVGrid(
-                                columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
-                                spacing: gridSpacing
-                            ) {
-                                ForEach(unlockedAchievements) { achievement in
-                                    AchievementSquare(
-                                        achievement: achievement,
-                                        isUnlocked: true,
-                                        size: itemSize
-                                    )
-                                }
+        ScrollView {
+            VStack(spacing: 14) {
+                TopProfileHeader(user: user)
+                actionButtons
+                userInfo
+                if !unlockedAchievements.isEmpty {
+                    Section(header: sectionHeader(title: "ДОСТИЖЕНИЯ")) {
+                        LazyVGrid(
+                            columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),
+                            spacing: gridSpacing
+                        ) {
+                            ForEach(unlockedAchievements) { achievement in
+                                AchievementSquare(
+                                    achievement: achievement,
+                                    isUnlocked: true,
+                                    size: itemSize
+                                )
                             }
-                            .padding(.horizontal, sidePadding)
                         }
+                        .padding(.horizontal, sidePadding)
                     }
-
-                    Spacer()
                 }
+                Spacer()
             }
-            .background(Color("ProfileBackground"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { toolbarContent }
+        }
+        .background(Color("ProfileBackground"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar { toolbarContent }
+        .onAppear {
+            let isSent = userProfileViewModel.profile.pendingFriendRequests.contains(user.id)
+            print("🔔 ProfileLookView onAppear: user.id = \(user.id), pendingFriendRequests = \(userProfileViewModel.profile.pendingFriendRequests), isFriendRequestSent = \(isSent)")
+            isFriendRequestSent = isSent
         }
     }
 
     // MARK: - Buttons
     private var actionButtons: some View {
         HStack(spacing: 12) {
-            Button {
-                // add friend action
-            } label: {
-                VStack(spacing: 5) {
-                    Image(systemName: "person.fill.badge.plus")
-                        .font(.system(size: 21))
-                    Text("Добавить").font(.system(size: 11))
+            // Показываем кнопку "Добавить" только если это не собственный профиль
+            if user.id != userProfileViewModel.profile.id {
+                Button {
+                    if !isFriendRequestSent {
+                        userProfileViewModel.sendFriendRequest(to: user.id)
+                        // Обновляем isFriendRequestSent только если заявка действительно отправлена
+                        isFriendRequestSent = userProfileViewModel.profile.pendingFriendRequests.contains(user.id)
+                    }
+                } label: {
+                    VStack(spacing: 5) {
+                        Image(systemName: isFriendRequestSent ? "person.fill.checkmark" : "person.fill.badge.plus")
+                            .font(.system(size: 21))
+                        Text(isFriendRequestSent ? "Заявка отправлена" : "Добавить").font(.system(size: 11))
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 70)
+                    .background(isFriendRequestSent ? Color.gray.opacity(0.5) : Color("SectionBackground"))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
-                .frame(maxWidth: .infinity, minHeight: 70)
-                .background(Color("SectionBackground"))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .disabled(isFriendRequestSent)
             }
 
             Button {

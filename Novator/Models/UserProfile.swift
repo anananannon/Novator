@@ -9,6 +9,8 @@ struct UserProfile: Codable, Identifiable {
     var raitingPoints: Int
     var streak: Int
     var friendsCount: Int
+    var friends: [UUID] // List of friend IDs
+    var pendingFriendRequests: [UUID] // Исходящие заявки (кому ты отправил)
     var completedTasks: [UUID]
     var achievements: [String]
     var completedLessons: [String]
@@ -16,7 +18,7 @@ struct UserProfile: Codable, Identifiable {
         "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
     }
 
-    init(id: UUID = UUID(), firstName: String = "Имя", lastName: String = "", username: String = "@username", avatar: Data? = nil, stars: Int = 0, raitingPoints: Int = 0, streak: Int = 0, friendsCount: Int = 0, completedTasks: [UUID] = [], achievements: [String] = [], completedLessons: [String] = []) {
+    init(id: UUID = UUID(), firstName: String = "Имя", lastName: String = "", username: String = "@username", avatar: Data? = nil, stars: Int = 0, raitingPoints: Int = 0, streak: Int = 0, friendsCount: Int = 0, friends: [UUID] = [], pendingFriendRequests: [UUID] = [], completedTasks: [UUID] = [], achievements: [String] = [], completedLessons: [String] = []) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
@@ -26,6 +28,8 @@ struct UserProfile: Codable, Identifiable {
         self.raitingPoints = raitingPoints
         self.streak = streak
         self.friendsCount = friendsCount
+        self.friends = friends
+        self.pendingFriendRequests = pendingFriendRequests
         self.completedTasks = completedTasks
         self.achievements = achievements
         self.completedLessons = completedLessons
