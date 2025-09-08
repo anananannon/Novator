@@ -38,3 +38,18 @@ enum ProfileNavigation {
         ProfileNavigationItem(title: "Скачанные файлы", imageName: "folder", imageSize: 18, destinationType: .downloadedFiles)
     ]
 }
+
+extension ProfileNavigationItem.DestinationType {
+    var title: String {
+        switch self {
+        case .settings: return "Настройки"
+        case .statistics: return "Статистика"
+        case .store: return "Магазин"
+        case .friends: return "Друзья"
+        case .chats: return "Чаты"
+        case .privacy: return "Конфиденциальность"
+        case .connectedDevices: return "Подключенные устройства"
+        case .downloadedFiles: return "Скачанные файлы"
+        }
+    }
+}

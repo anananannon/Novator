@@ -20,6 +20,7 @@ class UserProfileViewModel: ObservableObject {
             }
         }
     }
+
     init() {
 //         UserDefaults.standard.removeObject(forKey: "userProfile") // удаляет дпнные (на всякий случай)
         if let data = UserDefaults.standard.data(forKey: "userProfile"),
@@ -31,12 +32,15 @@ class UserProfileViewModel: ObservableObject {
                 firstName: "Имя",
                 lastName: "",
                 username: "@username",
-                avatar: nil, // Initialize with nil for default avatar
+                avatar: nil,
                 stars: 0,
                 raitingPoints: 0,
                 streak: 0,
-                friendsCount: 0,
-                friends: [],
+                friendsCount: 2,
+                friends: [
+                    UUID(uuidString: "550E8400-E29B-41D4-A716-446655440000")!, // Павел
+                    UUID(uuidString: "550E8400-E29B-41D4-A716-446655440001")!  // Илон
+                ],
                 pendingFriendRequests: [],
                 completedTasks: [],
                 achievements: [],
@@ -103,4 +107,14 @@ class UserProfileViewModel: ObservableObject {
             print("⚠️ Заявка не отправлена: пользователь уже в друзьях, заявка уже отправлена или это текущий пользователь")
         }
     }
-}
+
+    func acceptFriendRequest(from userId: UUID) {
+        if !profile.friends.contains(userId) {
+            profile.friends.append(userId)
+            profile.friendsCount = profile.friends.count
+            profile.pendingFriendRequests.removeAll { $0 == userId }
+            saveProfile()
+            print("✅ Пользователь \(userId) добавлен в друзья")
+        }
+    }
+}  

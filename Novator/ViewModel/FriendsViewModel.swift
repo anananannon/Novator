@@ -1,41 +1,28 @@
 import SwiftUI
 import Combine
 
-// MARK: - ViewModel рейтинга
-final class RatingViewModel: ObservableObject {
+final class FriendsViewModel: ObservableObject {
     // MARK: - Input
     @ObservedObject var profile: UserProfileViewModel
 
     // MARK: - Output
-    @Published var users: [UserProfile] = []
     @Published var friends: [UserProfile] = []
-    @Published var pickerMode: Int = 0
 
-    // MARK: - Сортировка
-    var sortedUsers: [UserProfile] {
-        ([profile.profile] + users).sorted { $0.raitingPoints > $1.raitingPoints }
-    }
-
-    var sortedFriends: [UserProfile] {
-        ([profile.profile] + friends).sorted { $0.raitingPoints > $1.raitingPoints }
-    }
-
-    private var cancellables = Set<AnyCancellable>()
     private let userDataSource: UserDataSourceProtocol
+    private var cancellables = Set<AnyCancellable>()
 
     // MARK: - Инициализация
     init(profile: UserProfileViewModel, userDataSource: UserDataSourceProtocol = UserDataSource()) {
         self.profile = profile
         self.userDataSource = userDataSource
-        setupData()
+        setupFriends()
         bindProfile()
     }
 
     // MARK: - Приватные методы
-    private func setupData() {
-        self.users = userDataSource.getDemoUsers()
+    func setupFriends() {
         self.friends = userDataSource.getDemoFriends(friendIds: profile.profile.friends)
-        print("🆕 RatingViewModel: setupData с пользователями: \(users.map { $0.id }), друзьями: \(friends.map { $0.id })")
+        print("🆕 FriendsViewModel: setupFriends с друзьями: \(friends.map { $0.id })")
     }
 
     private func bindProfile() {
@@ -43,8 +30,7 @@ final class RatingViewModel: ObservableObject {
             .sink { [weak self] newProfile in
                 guard let self = self else { return }
                 self.friends = self.userDataSource.getDemoFriends(friendIds: newProfile.friends)
-                self.objectWillChange.send()
-                print("🔔 RatingViewModel: список друзей обновлен: \(self.friends.map { $0.id })")
+                print("🔔 FriendsViewModel: список друзей обновлен: \(self.friends.map { $0.id })")
             }
             .store(in: &cancellables)
     }

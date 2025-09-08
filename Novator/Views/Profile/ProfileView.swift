@@ -17,13 +17,12 @@ struct ProfileView: View {
                     ProfileEditView(profile: profile)
                 }
                 .preferredColorScheme(profile.theme.colorScheme)
+                .environmentObject(profile)
         }
     }
-}
 
-// MARK: - Content
-private extension ProfileView {
-    var content: some View {
+
+    private var content: some View {
         List {
             profileHeader
             section(ProfileNavigation.section1)
@@ -31,11 +30,8 @@ private extension ProfileView {
             section(ProfileNavigation.section3)
         }
     }
-}
 
-// MARK: - Header
-private extension ProfileView {
-    var profileHeader: some View {
+    private var profileHeader: some View {
         Button(action: { showingEditView = true }) {
             HStack {
                 if let avatarData = profile.profile.avatar, let uiImage = UIImage(data: avatarData) {
@@ -75,11 +71,8 @@ private extension ProfileView {
             .padding(.vertical, 8)
         }
     }
-}
 
-// MARK: - Sections
-private extension ProfileView {
-    func section(_ items: [ProfileNavigationItem]) -> some View {
+    private func section(_ items: [ProfileNavigationItem]) -> some View {
         Section {
             ForEach(items) { item in
                 SectionRow(item: item, profile: profile)
@@ -140,25 +133,9 @@ private struct SectionRow: View {
     }
 }
 
-// MARK: - Preview
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView(profile: UserProfileViewModel())
-    }
-}
-
-// MARK: - Extensions
-extension ProfileNavigationItem.DestinationType {
-    var title: String {
-        switch self {
-        case .settings: return "Настройки"
-        case .statistics: return "Статистика"
-        case .store: return "Магазин"
-        case .friends: return "Друзья"
-        case .chats: return "Чаты"
-        case .privacy: return "Конфиденциальность"
-        case .connectedDevices: return "Подключенные устройства"
-        case .downloadedFiles: return "Скачанные файлы"
-        }
+            .environmentObject(UserProfileViewModel())
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 
 protocol UserDataSourceProtocol {
     func getDemoUsers() -> [UserProfile]
-    func getDemoFriends() -> [UserProfile]
+    func getDemoFriends(friendIds: [UUID]) -> [UserProfile]
 }
 
 class UserDataSource: UserDataSourceProtocol {
@@ -24,7 +24,7 @@ class UserDataSource: UserDataSourceProtocol {
                 raitingPoints: 120041,
                 streak: 5,
                 friendsCount: 10,
-                friends: [],
+                friends: [elonId, ivanId],
                 pendingFriendRequests: [],
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
@@ -40,7 +40,7 @@ class UserDataSource: UserDataSourceProtocol {
                 raitingPoints: 22709,
                 streak: 3,
                 friendsCount: 8,
-                friends: [],
+                friends: [pavelId],
                 pendingFriendRequests: [],
                 completedTasks: [],
                 achievements: []
@@ -55,7 +55,7 @@ class UserDataSource: UserDataSourceProtocol {
                 raitingPoints: 910,
                 streak: 7,
                 friendsCount: 12,
-                friends: [],
+                friends: [pavelId],
                 pendingFriendRequests: [],
                 completedTasks: [],
                 achievements: []
@@ -78,8 +78,8 @@ class UserDataSource: UserDataSourceProtocol {
         ]
     }
 
-    func getDemoFriends() -> [UserProfile] {
-        // В данном случае возвращаем пустой массив, но можно добавить логику для друзей
-        return []
+    func getDemoFriends(friendIds: [UUID]) -> [UserProfile] {
+        let allUsers = getDemoUsers()
+        return allUsers.filter { friendIds.contains($0.id) }
     }
 }
