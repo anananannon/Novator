@@ -132,6 +132,8 @@ private struct SectionRow: View {
             SettingsView(profile: profile)
         case .store:
             StoreView(profile: profile)
+        case .friends:
+            FriendsView()
         default:
             Text("\(item.destinationType.title) View")
         }
