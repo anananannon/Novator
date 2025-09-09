@@ -105,6 +105,8 @@ class UserProfileViewModel: ObservableObject {
         profile.completedLessons.contains(lessonId)
     }
 
+    
+    // Отправляет заявку в друзья
     func sendFriendRequest(to userId: UUID) {
         if !profile.friends.contains(userId) && !profile.pendingFriendRequests.contains(userId) && userId != profile.id {
             profile.pendingFriendRequests.append(userId)
@@ -114,7 +116,19 @@ class UserProfileViewModel: ObservableObject {
             print("⚠️ Заявка не отправлена: пользователь уже в друзьях, заявка уже отправлена или это текущий пользователь")
         }
     }
+    
+    // Убирает отправленную заявку в друзья
+    func cancelFriendRequest(to userId: UUID) {
+        if profile.pendingFriendRequests.contains(userId) {
+            profile.pendingFriendRequests.removeAll { $0 == userId }
+            saveProfile()
+            print("❌ Заявка в друзья пользователю \(userId) отменена")
+        } else {
+            print("⚠️ Заявка не найдена для пользователя \(userId)")
+        }
+    }
 
+    // Принимает приходяшие заявки в друзья
     func acceptFriendRequest(from userId: UUID) {
         if !profile.friends.contains(userId) && profile.incomingFriendRequests.contains(userId) {
             profile.friends.append(userId)
@@ -127,6 +141,8 @@ class UserProfileViewModel: ObservableObject {
         }
     }
 
+    
+    // Не принимает приходящие заявки в друзья
     func rejectFriendRequest(from userId: UUID) {
         if profile.incomingFriendRequests.contains(userId) {
             profile.incomingFriendRequests.removeAll { $0 == userId }

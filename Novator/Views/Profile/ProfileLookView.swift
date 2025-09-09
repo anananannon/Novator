@@ -108,6 +108,17 @@ struct ProfileLookView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .disabled(isFriend || isFriendRequestSent || hasIncomingRequest)
+                    .contextMenu {
+                        if isFriendRequestSent {
+                            Button {
+                                userProfileViewModel.cancelFriendRequest(to: user.id)
+                                updateStates() // Обновляем состояния после отмены
+                            } label: {
+                                Label("Отменить заявку", systemImage: "xmark")
+                                    
+                            }
+                        }
+                    }
                 }
             }
 

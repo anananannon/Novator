@@ -59,14 +59,6 @@ struct SettingsView: View {
                     }
                 }
             } label: {
-                //            HStack {
-                //                Image(systemName: "paintpalette.fill")
-                //                    .font(.system(size: 16))
-                //                    .foregroundColor(Color("AppRed"))
-                //                Text("Тема приложения")
-                //                    .font(.body)
-                //                    .foregroundColor(.primary)
-                //                Spacer()
                 Text(viewModel.selectedTheme.displayName)
                     .font(.body)
                     .foregroundColor(.gray)
