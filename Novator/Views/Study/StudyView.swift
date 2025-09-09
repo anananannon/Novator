@@ -28,7 +28,7 @@ struct StudyView: View {
             GeometryReader { geometry in
                 ScrollViewReader { proxy in
                     ScrollView {
-                        VStack(spacing: 20) { // Используем VStack, как в рабочей версии
+                        VStack(spacing: 20) { // Используем VStack
                             let lessons = reversedLessons
                             ForEach(Array(lessons.enumerated()), id: \.offset) { index, lesson in
                                 VStack(spacing: 20) {
@@ -41,6 +41,7 @@ struct StudyView: View {
                                     
                                     LessonRow(
                                         lesson: lesson,
+                                        index: index, // Передаём индекс
                                         isEvenIndex: index.isMultiple(of: 2),
                                         isExpanded: activeButtons.contains(lesson.id),
                                         nextIncompleteLessonId: nextIncompleteLessonId,
@@ -68,13 +69,13 @@ struct StudyView: View {
                         if !hasScrolledOnFirstAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 print("🔔 onAppear: nextIncompleteLessonId = \(String(describing: nextIncompleteLessonId))")
-                                print("� Bellamy TaskManager.lessons: \(TaskManager.lessons.map { $0.id })")
+                                print("🔔 TaskManager.lessons: \(TaskManager.lessons.map { $0.id })")
                                 if let targetId = nextIncompleteLessonId {
                                     print("🔔 Прокрутка к уроку: \(targetId)")
                                     withAnimation(.spring(response: 0.2)) {
-                                        proxy.scrollTo(targetId, anchor: .bottom)
+                                        proxy.scrollTo(targetId, anchor: .center) // Вернул .center, так как .bottom может обрезать
                                     }
-                                    hasScrolledOnFirstAppear = true // Отмечаем, что прокрутка выполнена
+                                    hasScrolledOnFirstAppear = true
                                 } else {
                                     print("⚠️ Прокрутка не выполнена: nextIncompleteLessonId is nil")
                                 }
@@ -84,7 +85,6 @@ struct StudyView: View {
                         }
                     }
                     .onChange(of: nextIncompleteLessonId) { newValue in
-                        // Прокрутка при изменении nextIncompleteLessonId (после завершения урока)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             print("🔔 onChange: nextIncompleteLessonId = \(String(describing: newValue))")
                             if let targetId = newValue {
@@ -184,6 +184,7 @@ private extension StudyView {
 // MARK: - LessonRow
 private struct LessonRow: View {
     let lesson: Lesson
+    let index: Int // Добавляем индекс
     let isEvenIndex: Bool
     let isExpanded: Bool
     let nextIncompleteLessonId: String?
@@ -217,7 +218,7 @@ private extension LessonRow {
             )
 
             LessonSquare(
-                idText: lesson.id,
+                index: index, // Передаём индекс вместо idText
                 isCompleted: isCompleted,
                 isNextIncomplete: (lesson.id == nextIncompleteLessonId),
                 action: onTapSquare
@@ -269,10 +270,16 @@ private struct StatsOverlay: View {
 }
 
 private struct LessonSquare: View {
-    let idText: String
+    let index: Int // Заменяем idText на index
     let isCompleted: Bool
     let isNextIncomplete: Bool
     let action: () -> Void
+
+    // Логика выбора SF Symbol по индексу
+    private var symbolName: String {
+        let symbolCycle = ["x.squareroot", "sum", "function"]
+        return symbolCycle[index % 3] // Циклическое повторение
+    }
 
     var body: some View {
         Button(action: action) {
@@ -280,10 +287,15 @@ private struct LessonSquare: View {
                 .fill(fillColor)
                 .frame(width: UIConstants.lessonSquareSize, height: UIConstants.lessonSquareSize)
                 .scaleEffect(isNextIncomplete ? 1 : 0.96)
-                .overlay { Text(idText).font(.headline).foregroundColor(textColor) }
+                .overlay {
+                    Image(systemName: symbolName)
+                        .font(.system(size: 24)) // Размер SF Symbol
+                        .foregroundColor(textColor)
+                }
         }
         .animation(.spring(response: 0.3), value: isNextIncomplete)
         .accessibilityAddTraits(.isButton)
+        .accessibilityLabel("Урок с символом \(symbolName)")
     }
 
     private var fillColor: Color {
