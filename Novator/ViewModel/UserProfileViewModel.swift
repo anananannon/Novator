@@ -4,6 +4,7 @@ import SwiftUI
 class UserProfileViewModel: ObservableObject {
     @Published var profile: UserProfile
     @AppStorage("appTheme") var theme: Theme = .system
+    var userDataSource: UserDataSourceProtocol? // Добавляем свойство для доступа к UserDataSource
 
     enum Theme: String, CaseIterable {
         case light
@@ -21,7 +22,9 @@ class UserProfileViewModel: ObservableObject {
         }
     }
 
-    init() {
+    init(userDataSource: UserDataSourceProtocol? = UserDataSource()) {
+        self.userDataSource = userDataSource
+        
         // Для отладки: раскомментировать для сброса профиля
         // UserDefaults.standard.removeObject(forKey: "userProfile")
         
@@ -116,17 +119,6 @@ class UserProfileViewModel: ObservableObject {
             print("⚠️ Заявка не отправлена: пользователь уже в друзьях, заявка уже отправлена или это текущий пользователь")
         }
     }
-    
-    // Убирает отправленную заявку в друзья
-    func cancelFriendRequest(to userId: UUID) {
-        if profile.pendingFriendRequests.contains(userId) {
-            profile.pendingFriendRequests.removeAll { $0 == userId }
-            saveProfile()
-            print("❌ Заявка в друзья пользователю \(userId) отменена")
-        } else {
-            print("⚠️ Заявка не найдена для пользователя \(userId)")
-        }
-    }
 
     // Принимает приходяшие заявки в друзья
     func acceptFriendRequest(from userId: UUID) {
@@ -150,6 +142,40 @@ class UserProfileViewModel: ObservableObject {
             print("❌ Заявка от пользователя \(userId) отклонена")
         } else {
             print("⚠️ Заявка не отклонена: заявка не найдена")
+        }
+    }
+
+    func cancelFriendRequest(to userId: UUID) {
+        if profile.pendingFriendRequests.contains(userId) {
+            profile.pendingFriendRequests.removeAll { $0 == userId }
+            saveProfile()
+            print("❌ Заявка в друзья пользователю \(userId) отменена")
+        } else {
+            print("⚠️ Заявка не найдена для пользователя \(userId)")
+        }
+    }
+
+    func removeFriend(_ userId: UUID) {
+        if profile.friends.contains(userId) {
+            profile.friends.removeAll { $0 == userId }
+            profile.friendsCount = profile.friends.count
+            saveProfile()
+            print("✅ Пользователь \(userId) удалён из друзей текущего пользователя")
+            
+            // Обновляем данные другого пользователя
+            if let userDataSource = userDataSource {
+                if let friendProfile = userDataSource.getDemoUsers().first(where: { $0.id == userId }) {
+                    var updatedFriendProfile = friendProfile
+                    updatedFriendProfile.friends.removeAll { $0 == profile.id }
+                    updatedFriendProfile.friendsCount = updatedFriendProfile.friends.count
+                    userDataSource.updateUserProfile(updatedFriendProfile)
+                    print("✅ Пользователь \(profile.id) удалён из друзей пользователя \(userId)")
+                } else {
+                    print("⚠️ Пользователь \(userId) не найден в UserDataSource")
+                }
+            }
+        } else {
+            print("⚠️ Пользователь \(userId) не найден в списке друзей")
         }
     }
 }

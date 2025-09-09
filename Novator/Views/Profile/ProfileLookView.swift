@@ -3,10 +3,14 @@ import SwiftUI
 struct ProfileLookView: View {
     let user: UserProfile
     @EnvironmentObject var userProfileViewModel: UserProfileViewModel
+    
     @State private var showStreakPopover = false
+    @State private var showConfirmationDialog = false
+    
     @State private var isFriendRequestSent = false // Отправка заявки
     @State private var isFriend = false // Статус друга
     @State private var hasIncomingRequest = false // Входящая заявка
+    
 
     private let gridSpacing: CGFloat = 7
     private let sidePadding: CGFloat = 17
@@ -114,11 +118,29 @@ struct ProfileLookView: View {
                                 userProfileViewModel.cancelFriendRequest(to: user.id)
                                 updateStates() // Обновляем состояния после отмены
                             } label: {
-                                Label("Отменить заявку", systemImage: "xmark")
-                                    
+                                Label("Отклонить заявку", systemImage: "person.fill.xmark")
+                            }
+                        }
+                        if isFriend {
+                            Button {
+                                showConfirmationDialog.toggle()
+                            } label: {
+                                Label("Удалить из друзей", systemImage: "person.fill.xmark")
                             }
                         }
                     }
+                    .confirmationDialog(
+                        Text("Вы точно хотите удалить этого человека из друзей?"),
+                        isPresented: $showConfirmationDialog,
+                        titleVisibility: .visible,
+                        actions: {
+                            Button("Удалить", role: .destructive) {
+                                userProfileViewModel.removeFriend(user.id)
+                                updateStates() // Обновляем состояния после удаления
+                            }
+                            Button("Отмена", role: .cancel) {}
+                            
+                        })
                 }
             }
 

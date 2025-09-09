@@ -3,10 +3,17 @@ import Foundation
 protocol UserDataSourceProtocol {
     func getDemoUsers() -> [UserProfile]
     func getDemoFriends(friendIds: [UUID]) -> [UserProfile]
+    func updateUserProfile(_ profile: UserProfile)
 }
 
 class UserDataSource: UserDataSourceProtocol {
-    func getDemoUsers() -> [UserProfile] {
+    private var demoUsers: [UserProfile] = [] // Храним пользователей в памяти
+
+    init() {
+        demoUsers = loadDemoUsers()
+    }
+
+    private func loadDemoUsers() -> [UserProfile] {
         // Фиксированные UUID для пользователей
         let pavelId = UUID(uuidString: "550E8400-E29B-41D4-A716-446655440000")!
         let elonId = UUID(uuidString: "550E8400-E29B-41D4-A716-446655440001")!
@@ -78,8 +85,20 @@ class UserDataSource: UserDataSourceProtocol {
         ]
     }
 
+    func getDemoUsers() -> [UserProfile] {
+        return demoUsers
+    }
+
     func getDemoFriends(friendIds: [UUID]) -> [UserProfile] {
-        let allUsers = getDemoUsers()
-        return allUsers.filter { friendIds.contains($0.id) }
+        return demoUsers.filter { friendIds.contains($0.id) }
+    }
+
+    func updateUserProfile(_ profile: UserProfile) {
+        if let index = demoUsers.firstIndex(where: { $0.id == profile.id }) {
+            demoUsers[index] = profile
+            print("✅ Профиль пользователя \(profile.id) обновлён в UserDataSource")
+        } else {
+            print("⚠️ Пользователь \(profile.id) не найден в UserDataSource")
+        }
     }
 }
