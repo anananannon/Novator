@@ -27,6 +27,7 @@ struct FriendRow: View {
                 Divider()
             }
         }
+        .background(.black.opacity(0.000001))
     }
 }
 

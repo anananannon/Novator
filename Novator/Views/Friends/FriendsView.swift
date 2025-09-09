@@ -49,7 +49,7 @@ struct FriendsView: View {
             }) {
                 FriendRequestsView()
                     .presentationDetents([.height(500)])
-                    .presentationCornerRadius(20)
+                    .presentationCornerRadius(15)
                     .environmentObject(userProfileViewModel)
             }
             .onAppear {

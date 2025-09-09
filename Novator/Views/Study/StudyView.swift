@@ -8,13 +8,12 @@ struct StudyView: View {
     @Binding var selectedTab: Int
 
     @State private var navigationPath = NavigationPath()
-    
     @State private var showStarsPopover = false
     @State private var showRaitingPopover = false
-    
     @State private var selectedLesson: Lesson? = nil
     @State private var activeButtons: Set<String> = []
     @State private var nextIncompleteLessonId: String?
+    @State private var hasScrolledOnFirstAppear = false // Флаг для первого появления
 
     // MARK: Init
     init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
@@ -27,38 +26,78 @@ struct StudyView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             GeometryReader { geometry in
-                ScrollView {
-                    LazyVStack(spacing: 20) {
-                        let lessons = reversedLessons
-                        ForEach(Array(lessons.enumerated()), id: \.offset) { index, lesson in
-                            VStack(spacing: 20) {
-                                if shouldShowDivider(before: lesson) {
-                                    Divider()
-                                        .frame(height: 1.5)
-                                        .background(Color("AppRed"))
-                                        .padding(.horizontal, 10)
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        VStack(spacing: 20) { // Используем VStack, как в рабочей версии
+                            let lessons = reversedLessons
+                            ForEach(Array(lessons.enumerated()), id: \.offset) { index, lesson in
+                                VStack(spacing: 20) {
+                                    if shouldShowDivider(before: lesson) {
+                                        Divider()
+                                            .frame(height: 1.5)
+                                            .background(Color("AppRed"))
+                                            .padding(.horizontal, 10)
+                                    }
+                                    
+                                    LessonRow(
+                                        lesson: lesson,
+                                        isEvenIndex: index.isMultiple(of: 2),
+                                        isExpanded: activeButtons.contains(lesson.id),
+                                        nextIncompleteLessonId: nextIncompleteLessonId,
+                                        isCompleted: profile.isLessonCompleted(lesson.id),
+                                        onTapSquare: { handleSquareTap(for: lesson) }
+                                    )
+                                    .padding(.horizontal, 30)
+                                    .id(lesson.id)
+                                    .onAppear {
+                                        print("🔔 Rendered lesson: id = \(lesson.id), index = \(index)")
+                                    }
                                 }
-
-                                LessonRow(
-                                    lesson: lesson,
-                                    isEvenIndex: index.isMultiple(of: 2),
-                                    isExpanded: activeButtons.contains(lesson.id),
-                                    nextIncompleteLessonId: nextIncompleteLessonId,
-                                    isCompleted: profile.isLessonCompleted(lesson.id),
-                                    onTapSquare: { handleSquareTap(for: lesson) }
-                                )
-                                .padding(.horizontal, 30)
+                            }
+                        }
+                        .animation(.spring(response: 0.2), value: activeButtons)
+                        .frame(maxWidth: .infinity, minHeight: geometry.size.height)
+                        .padding()
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar { toolbarContent }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture { if !activeButtons.isEmpty { activeButtons.removeAll() } }
+                    .onAppear {
+                        // Прокрутка только при первом появлении
+                        if !hasScrolledOnFirstAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                print("🔔 onAppear: nextIncompleteLessonId = \(String(describing: nextIncompleteLessonId))")
+                                print("� Bellamy TaskManager.lessons: \(TaskManager.lessons.map { $0.id })")
+                                if let targetId = nextIncompleteLessonId {
+                                    print("🔔 Прокрутка к уроку: \(targetId)")
+                                    withAnimation(.spring(response: 0.2)) {
+                                        proxy.scrollTo(targetId, anchor: .bottom)
+                                    }
+                                    hasScrolledOnFirstAppear = true // Отмечаем, что прокрутка выполнена
+                                } else {
+                                    print("⚠️ Прокрутка не выполнена: nextIncompleteLessonId is nil")
+                                }
+                            }
+                        } else {
+                            print("🔔 onAppear: Прокрутка пропущена, так как уже выполнена")
+                        }
+                    }
+                    .onChange(of: nextIncompleteLessonId) { newValue in
+                        // Прокрутка при изменении nextIncompleteLessonId (после завершения урока)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            print("🔔 onChange: nextIncompleteLessonId = \(String(describing: newValue))")
+                            if let targetId = newValue {
+                                print("🔔 Прокрутка к уроку: \(targetId)")
+                                withAnimation(.spring(response: 0.04)) {
+                                    proxy.scrollTo(targetId, anchor: .center)
+                                }
+                            } else {
+                                print("⚠️ Прокрутка не выполнена: nextIncompleteLessonId is nil")
                             }
                         }
                     }
-                    .animation(.spring(response: 0.2), value: activeButtons)
-                    .frame(maxWidth: .infinity, minHeight: geometry.size.height)
-                    .padding()
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar { toolbarContent }
                 }
-                .contentShape(Rectangle())
-                .onTapGesture { if !activeButtons.isEmpty { activeButtons.removeAll() } }
             }
         }
         .fullScreenCover(item: $selectedLesson) { lesson in
@@ -93,10 +132,11 @@ private extension StudyView {
     }
 
     static func computeNextIncompleteLessonId(for profile: UserProfileViewModel) -> String? {
-        TaskManager.lessons
+        let incompleteLesson = TaskManager.lessons
             .sorted { (Int($0.id) ?? 0) < (Int($1.id) ?? 0) }
-            .first { !profile.isLessonCompleted($0.id) }?
-            .id
+            .first { !profile.isLessonCompleted($0.id) }
+        print("🔔 computeNextIncompleteLessonId: lessons count = \(TaskManager.lessons.count), incomplete lesson = \(String(describing: incompleteLesson?.id))")
+        return incompleteLesson?.id
     }
 
     func handleSquareTap(for lesson: Lesson) {
