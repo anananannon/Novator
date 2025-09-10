@@ -25,11 +25,13 @@ struct ProfileView: View {
     private var content: some View {
         List {
             profileHeader
+            section(ProfileNavigation.section0)
             section(ProfileNavigation.section1)
             section(ProfileNavigation.section2)
             section(ProfileNavigation.section3)
             section(ProfileNavigation.section4)
         }
+        .scrollIndicators(.hidden)
     }
 
     private var profileHeader: some View {
@@ -122,8 +124,9 @@ private struct SectionRow: View {
     @ViewBuilder
     private var destinationView: some View {
         switch item.destinationType {
-//        case .myprofile:
-//            MyProfileView()
+        case .myprofile:
+            MyProfileView()
+                .environmentObject(profile)
         case .settings:
             SettingsView(profile: profile)
         case .store:

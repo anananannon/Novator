@@ -25,7 +25,7 @@ struct ProfileNavigationItem: Identifiable {
 
 enum ProfileNavigation {
     static let section0: [ProfileNavigationItem] = [
-        ProfileNavigationItem(title: "Мой профиль", imageName: "person.crop.square.fill", imageSize: 21, destinationType: .myprofile)
+        ProfileNavigationItem(title: "Мой профиль", imageName: /*"person.crop.square"*/ "person.crop.circle", imageSize: 24, destinationType: .myprofile)
     ]
     
     static let section1: [ProfileNavigationItem] = [
