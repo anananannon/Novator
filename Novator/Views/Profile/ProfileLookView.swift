@@ -253,8 +253,8 @@ private struct TopProfileHeader: View {
             .frame(maxWidth: .infinity)
         }
         .frame(height: 140)
-        .padding(.top, 30)
-        .padding(.bottom, 5)
+        .padding(.top, 20)
+        .padding(.bottom, 15)
     }
 }
 

@@ -19,7 +19,7 @@ struct RatingView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItem(placement: .topBarLeading) {
                         Menu {
                             Picker(selection: $viewModel.pickerMode,
                                    label: Image(systemName: "person")) {
@@ -27,13 +27,12 @@ struct RatingView: View {
                                 Text("Друзья").tag(1)
                             }.pickerStyle(.automatic)
                         } label: {
-                            Image(systemName: "list.bullet")
+                            Text("Сортировка")
                         }
                     }
                 }
-                .toolbarBackground(Color("ProfileBackground"), for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
             }
+            .background(Color("ProfileBackground")).ignoresSafeArea()
             .navigationTitle("Рейтинг")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -61,7 +60,7 @@ struct RatingView: View {
                 }
             }
         }
-        .background(Color("ProfileBackground"))
+//        .background(Color("ProfileBackground")).ignoresSafeArea()
     }
 }
 

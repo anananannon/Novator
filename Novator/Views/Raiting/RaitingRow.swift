@@ -10,8 +10,8 @@ struct RatingRowView: View {
     private var rankColor: Color {
         switch rank {
         case 1: return Color.yellow
-        case 2: return Color.gray
-        case 3: return Color.brown
+        case 2: return Color.gray.opacity(0.5)
+        case 3: return Color.orange.opacity(0.5)
         default: return .clear
         }
     }
@@ -26,7 +26,7 @@ struct RatingRowView: View {
                     .overlay(
                         Text("\(rank)")
                             .font(.system(.subheadline))
-                            .foregroundColor(rank <= 3 ? .primary : .gray)
+                            .foregroundColor(rank <= 3 ? .white : .gray)
                     )
             }
             .padding(.leading, 9)

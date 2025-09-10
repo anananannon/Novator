@@ -28,6 +28,7 @@ struct ProfileView: View {
             section(ProfileNavigation.section1)
             section(ProfileNavigation.section2)
             section(ProfileNavigation.section3)
+            section(ProfileNavigation.section4)
         }
     }
 
@@ -121,6 +122,8 @@ private struct SectionRow: View {
     @ViewBuilder
     private var destinationView: some View {
         switch item.destinationType {
+//        case .myprofile:
+//            MyProfileView()
         case .settings:
             SettingsView(profile: profile)
         case .store:
