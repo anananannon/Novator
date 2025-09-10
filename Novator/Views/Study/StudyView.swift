@@ -101,7 +101,7 @@ struct StudyView: View {
             }
         }
         .fullScreenCover(item: $selectedLesson) { lesson in
-            TaskDetailView(profile: profile, lessonId: lesson.id)
+            TaskDetailView(profile: profile, lessonId: lesson.id, lessonStars: lesson.lessonStars, lessonRaitingPoints: lesson.lessonRaitingPoints)
                 .onDisappear {
                     activeButtons.removeAll()
                     nextIncompleteLessonId = Self.computeNextIncompleteLessonId(for: profile)

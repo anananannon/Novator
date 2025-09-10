@@ -8,8 +8,14 @@ struct TaskDetailView: View {
     @State private var showContent = false
     @State private var showAcceptSheet = false
     let lessonId: String
-    init(profile: UserProfileViewModel, lessonId: String) {
+    let lessonStars: Int // New property
+    let lessonRaitingPoints: Int
+    
+    
+    init(profile: UserProfileViewModel, lessonId: String, lessonStars: Int, lessonRaitingPoints: Int) {
         self.lessonId = lessonId
+        self.lessonStars = lessonStars
+        self.lessonRaitingPoints = lessonRaitingPoints
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile, lessonId: lessonId))
     }
     var body: some View {
@@ -175,12 +181,55 @@ private extension TaskDetailView {
     }
     // MARK: - No Task
     var noTaskView: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Text("Урок пройден!")
-                .font(.system(.title2))
+        VStack(spacing: 14) {
+            Text("Урок выполнен!")
+                .font(.system(size: 30))
                 .foregroundColor(Color("AppRed"))
+                .padding(.top, 20)
+            Text("За 1:47") // Тут будет время, сколько пользователь потратил на экран с вопросами и ответами
+                .font(.system(size: 16))
+                .foregroundColor(Color("AppRed"))
+                .opacity(0.8)
             Spacer()
+
+            Text("Поздравляем! Вы получили:")
+                .font(.system(size: 15))
+                .frame(maxWidth: 150, maxHeight: 50)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+            
+            RoundedRectangle(cornerRadius: 15).fill(Color("TaskBackground"))
+                .frame(maxWidth: 250, maxHeight: 89)
+                .overlay {
+                    HStack(spacing: 3) {
+                        RoundedRectangle(cornerRadius: 12).fill(Color.invertedPrimary(systemColorScheme))
+                            .frame(maxWidth: 120, maxHeight: 83)
+                            .overlay {
+                                VStack {
+                                    Image(systemName: "star.fill")
+                                        .foregroundColor(Color("AppRed"))
+                                    Spacer()
+                                    Text("\(lessonStars)")
+                                }
+                                .font(.system(size: 17))
+                                .padding()
+                            }
+                        RoundedRectangle(cornerRadius: 12).fill(Color.invertedPrimary(systemColorScheme))
+                            .frame(maxWidth: 120, maxHeight: 83)
+                            .overlay {
+                                VStack {
+                                    Image(systemName: "crown.fill")
+                                        .foregroundColor(Color("AppRed"))
+                                    Spacer()
+                                    Text("\(lessonRaitingPoints)")
+                                }
+                                .font(.system(size: 17))
+                                .padding()
+                            }
+                    }
+                }
+                .padding(.bottom, 40)
+            
             Button {
                 dismiss()
             } label: {
@@ -236,5 +285,11 @@ private extension TaskDetailView {
                 .disabled(viewModel.showResult) // визуально блокируем
             }
         }
+    }
+}
+
+extension Color {
+    static func invertedPrimary(_ systemColorScheme: ColorScheme) -> Color {
+        systemColorScheme == .light ? .white : .black
     }
 }
