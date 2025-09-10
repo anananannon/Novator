@@ -34,12 +34,23 @@ struct FriendsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showSheetFriends.toggle()
-                    } label: {
-                        Image(systemName: "person.2.square.stack.fill")
-                            .font(.system(size: 18))
-                            .foregroundColor(Color("AppRed"))
+                    
+                    HStack(spacing: 0) {
+                        if userProfileViewModel.profile.incomingFriendRequests.count >= 1 {
+                            Text("\(userProfileViewModel.profile.incomingFriendRequests.count)")
+                                .font(.system(size: 12))
+                                .foregroundColor(.white)
+                                .frame(width: 20, height: 20)
+                                .background(Color("AppRed"), in: Circle())
+                        }
+                        
+                        Button {
+                            showSheetFriends.toggle()
+                        } label: {
+                            Image(systemName: "person.2.square.stack.fill")
+                                .font(.system(size: 18))
+                                .foregroundColor(Color("AppRed"))
+                        }
                     }
                 }
             }

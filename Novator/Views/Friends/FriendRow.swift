@@ -2,6 +2,8 @@ import SwiftUI
 
 struct FriendRow: View {
     let user: UserProfile
+    
+    @State private var isPressed = false
 
     var body: some View {
         HStack {
@@ -9,20 +11,20 @@ struct FriendRow: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 35, height: 35)
+                    .frame(width: 37, height: 37)
                     .clipShape(Circle())
                     .padding(.leading, 10)
             } else {
-                Image(systemName: "person.circle")
-                    .font(.system(size: 35))
+                Image(systemName: "person.circle.fill")
+                    .font(.system(size: 37))
                     .foregroundColor(Color("AppRed"))
                     .padding(.leading, 10)
             }
             VStack(alignment: .leading) {
                 Text(user.fullName)
-                    .font(.system(size: 15))
+                    .font(.system(size: 16))
                 Text("Уровень \(user.completedLessons.count)")
-                    .font(.system(size: 11))
+                    .font(.system(size: 13))
                     .foregroundColor(.secondary)
                 Divider()
             }
