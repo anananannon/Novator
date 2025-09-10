@@ -41,7 +41,7 @@ struct StudyView: View {
                                     
                                     LessonRow(
                                         lesson: lesson,
-                                        index: index, // Передаём индекс
+                                        index: index,
                                         isEvenIndex: index.isMultiple(of: 2),
                                         isExpanded: activeButtons.contains(lesson.id),
                                         nextIncompleteLessonId: nextIncompleteLessonId,
@@ -73,7 +73,7 @@ struct StudyView: View {
                                 if let targetId = nextIncompleteLessonId {
                                     print("🔔 Прокрутка к уроку: \(targetId)")
                                     withAnimation(.spring(response: 0.2)) {
-                                        proxy.scrollTo(targetId, anchor: .center) // Вернул .center, так как .bottom может обрезать
+                                        proxy.scrollTo(targetId, anchor: .center)
                                     }
                                     hasScrolledOnFirstAppear = true
                                 } else {
@@ -184,7 +184,7 @@ private extension StudyView {
 // MARK: - LessonRow
 private struct LessonRow: View {
     let lesson: Lesson
-    let index: Int // Добавляем индекс
+    let index: Int
     let isEvenIndex: Bool
     let isExpanded: Bool
     let nextIncompleteLessonId: String?
@@ -218,9 +218,11 @@ private extension LessonRow {
             )
 
             LessonSquare(
-                index: index, // Передаём индекс вместо idText
+                index: index,
                 isCompleted: isCompleted,
                 isNextIncomplete: (lesson.id == nextIncompleteLessonId),
+                isExpanded: isExpanded, // Передаём isExpanded
+                isEvenIndex: isEvenIndex, // Передаём isEvenIndex
                 action: onTapSquare
             )
             .padding(.horizontal, 3)
@@ -270,15 +272,21 @@ private struct StatsOverlay: View {
 }
 
 private struct LessonSquare: View {
-    let index: Int // Заменяем idText на index
+    let index: Int
     let isCompleted: Bool
     let isNextIncomplete: Bool
+    let isExpanded: Bool // Новый параметр
+    let isEvenIndex: Bool // Новый параметр
     let action: () -> Void
 
-    // Логика выбора SF Symbol по индексу
+    // Логика выбора SF Symbol
     private var symbolName: String {
-        let symbolCycle = ["x.squareroot", "sum", "function"]
-        return symbolCycle[index % 3] // Циклическое повторение
+        if isExpanded {
+            return isEvenIndex ? "arrowtriangle.right.fill" : "arrowtriangle.left.fill"
+        } else {
+            let symbolCycle = ["x.squareroot", "sum", "function"]
+            return symbolCycle[index % 3]
+        }
     }
 
     var body: some View {
@@ -289,8 +297,9 @@ private struct LessonSquare: View {
                 .scaleEffect(isNextIncomplete ? 1 : 0.96)
                 .overlay {
                     Image(systemName: symbolName)
-                        .font(.system(size: 24)) // Размер SF Symbol
+                        .font(.system(size: 20))
                         .foregroundColor(textColor)
+                        .contentTransition(.symbolEffect(.replace, options: .speed(2)))
                 }
         }
         .animation(.spring(response: 0.3), value: isNextIncomplete)
