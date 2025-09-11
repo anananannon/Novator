@@ -77,7 +77,6 @@ private extension TaskDetailView {
                         insertion: .move(edge: .trailing), // новый появляется справа + плавно !!!Этот комментарий не убирать
                         removal: .move(edge: .leading)     // старый уходит влево + плавно растворяется !!!Этот комментарий не убирать
                     ))
-                    .opacity(<#T##opacity: Double##Double#>)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.currentTask?.id)
                     .preferredColorScheme(viewModel.profile.theme.colorScheme)
             } else {
