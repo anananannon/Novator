@@ -18,6 +18,7 @@
 		AB7497D82E6F1CAF00B4051F /* FriendRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497D72E6F1CAF00B4051F /* FriendRow.swift */; };
 		AB7497DA2E6F250500B4051F /* FriendRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497D92E6F250500B4051F /* FriendRequestsView.swift */; };
 		AB7497DC2E71E02700B4051F /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DB2E71E02700B4051F /* MyProfileView.swift */; };
+		AB7497DE2E73188400B4051F /* CustomCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */; };
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
 		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
@@ -78,6 +79,7 @@
 		AB7497D72E6F1CAF00B4051F /* FriendRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRow.swift; sourceTree = "<group>"; };
 		AB7497D92E6F250500B4051F /* FriendRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsView.swift; sourceTree = "<group>"; };
 		AB7497DB2E71E02700B4051F /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRadius.swift; sourceTree = "<group>"; };
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,7 @@
 			children = (
 				AB35A8F22E609C5400942C3E /* StatView.swift */,
 				AB35A8F42E609C6900942C3E /* PrimaryButton.swift */,
+				AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				AB0E5E372E698F5B0057D2E5 /* ProfileLookView.swift in Sources */,
 				AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */,
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
+				AB7497DE2E73188400B4051F /* CustomCornerRadius.swift in Sources */,
 				AB7497D62E6F1C8A00B4051F /* FriendsViewModel.swift in Sources */,
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
 				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,

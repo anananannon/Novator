@@ -50,9 +50,11 @@ private extension TaskDetailView {
     }
     var contentView: some View {
         VStack(spacing: 20) {
-            headerView
-            Spacer()
             if let task = viewModel.currentTask {
+                
+                headerView
+                Spacer()
+                
                 taskContentView(task: task)
                     .id(task.id)
                     .transition(.asymmetric(
@@ -183,57 +185,42 @@ private extension TaskDetailView {
     var noTaskView: some View {
         VStack(spacing: 14) {
             Text("Урок выполнен!")
-                .font(.system(size: 30))
+                .font(.system(size: 25))
                 .foregroundColor(Color("AppRed"))
                 .padding(.top, 20)
-            Text("За 1:47") // Тут будет время, сколько пользователь потратил на экран с вопросами и ответами
-                .font(.system(size: 16))
-                .foregroundColor(Color("AppRed"))
-                .opacity(0.8)
-            Spacer()
-
-            Text("Поздравляем! Вы получили:")
-                .font(.system(size: 15))
-                .frame(maxWidth: 150, maxHeight: 50)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-            
-            RoundedRectangle(cornerRadius: 15).fill(Color("TaskBackground"))
-                .frame(maxWidth: 250, maxHeight: 89)
+                
+            RoundedRectangle(cornerRadius: 30)
+                .stroke(Color("AppRed"), lineWidth: 1)
+                .frame(width: 310, height: 395)
                 .overlay {
-                    HStack(spacing: 3) {
-                        RoundedRectangle(cornerRadius: 12).fill(Color.invertedPrimary(systemColorScheme))
-                            .frame(maxWidth: 120, maxHeight: 83)
+                    VStack(spacing: 0) {
+                        Color("AppRed") // Тут надо убрать нижние радиусы
+                            .cornerRadius(30, corners: [.topLeft, .topRight]) // только верхние углы
+                            .frame(width: 310, height: 96)
                             .overlay {
-                                VStack {
-                                    Image(systemName: "star.fill")
-                                        .foregroundColor(Color("AppRed"))
-                                    Spacer()
-                                    Text("\(lessonStars)")
-                                }
-                                .font(.system(size: 17))
-                                .padding()
+                                Text("NOVATOR\nPREMIUM")
+                                    .font(.system(size: 26, weight: .heavy))
+                                    .foregroundColor(Color.invertedPrimary(systemColorScheme))
                             }
-                        RoundedRectangle(cornerRadius: 12).fill(Color.invertedPrimary(systemColorScheme))
-                            .frame(maxWidth: 120, maxHeight: 83)
-                            .overlay {
-                                VStack {
-                                    Image(systemName: "crown.fill")
-                                        .foregroundColor(Color("AppRed"))
-                                    Spacer()
-                                    Text("\(lessonRaitingPoints)")
-                                }
-                                .font(.system(size: 17))
-                                .padding()
-                            }
+                        Spacer()
+                        Image("rocketNoTaskView")
+                            .frame(width: 248, height: 248)
+                            .padding(.bottom, 20)
                     }
                 }
-                .padding(.bottom, 40)
+                .padding(.top, 60)
+            Button("Отключить рекламу") {
+                
+            }
+            .font(.system(size: 13, weight: .medium))
+            .underline()
+            .foregroundColor(.primary)
             
+            Spacer()
             Button {
                 dismiss()
             } label: {
-                Label("Получить награды", systemImage: "shippingbox.fill")
+                Label("Продолжить", systemImage: "shippingbox.fill")
                     .font(.system(.title2))
                     .frame(maxWidth: 250, maxHeight: 50)
             }
