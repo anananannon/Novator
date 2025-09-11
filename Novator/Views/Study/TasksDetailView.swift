@@ -8,6 +8,7 @@ struct TaskDetailView: View {
     @Environment(\.colorScheme) private var systemColorScheme
     @State private var showContent = false
     @State private var showAcceptSheet = false
+    @State private var showNoTaskView = false // Состояние для анимации noTaskView
     let lessonId: String
     let lessonStars: Int
     let lessonRaitingPoints: Int
@@ -29,8 +30,19 @@ struct TaskDetailView: View {
                 .animation(.easeInOut(duration: 0.4).delay(0.2), value: showContent) // анимация въезда !!!Этот комментарий не убирать
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { showContent = true } // запускаем анимацию после небольшой задержки !!!Этот комментарий не убирать
+            print("🔔 TaskDetailView: onAppear triggered, currentTask = \(String(describing: viewModel.currentTask))")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                showContent = true
+                if viewModel.currentTask == nil {
+                    print("🔔 TaskDetailView: No tasks available, showing noTaskView")
+                    showNoTaskView = true
+                }
+            }
             viewModel.logAppear()
+        }
+        .onChange(of: viewModel.currentTask) { newValue in
+            print("🔔 TaskDetailView: currentTask changed to \(String(describing: newValue))")
+            showNoTaskView = newValue == nil
         }
         .sheet(isPresented: $showAcceptSheet) { acceptSheetContent }
         .navigationBarTitleDisplayMode(.inline)
@@ -49,6 +61,9 @@ private extension TaskDetailView {
                 Color.black.ignoresSafeArea()
             }
         }
+        .onAppear {
+            print("🔔 TaskDetailView: backgroundView rendered, theme = \(viewModel.profile.theme), systemColorScheme = \(systemColorScheme)")
+        }
     }
     
     var contentView: some View {
@@ -62,11 +77,15 @@ private extension TaskDetailView {
                         insertion: .move(edge: .trailing), // новый появляется справа + плавно !!!Этот комментарий не убирать
                         removal: .move(edge: .leading)     // старый уходит влево + плавно растворяется !!!Этот комментарий не убирать
                     ))
+                    .opacity(<#T##opacity: Double##Double#>)
                     .animation(.easeInOut(duration: 0.3), value: viewModel.currentTask?.id)
                     .preferredColorScheme(viewModel.profile.theme.colorScheme)
             } else {
                 noTaskView
             }
+        }
+        .onAppear {
+            print("🔔 TaskDetailView: contentView rendered, showContent = \(showContent)")
         }
     }
     
@@ -214,7 +233,7 @@ private extension TaskDetailView {
                 }
                 .padding(.top, 60)
             Button("Отключить рекламу") {
-                
+                print("🔔 TaskDetailView: Отключить рекламу tapped")
             }
             .font(.system(size: 13, weight: .medium))
             .underline()
@@ -229,6 +248,12 @@ private extension TaskDetailView {
                     .frame(maxWidth: 250, maxHeight: 50)
             }
             .buttonStyle(PrimaryButtonStyle())
+        }
+//        .offset(y: showNoTaskView ? 0 : 50)  Уменьшенный offset для плавного появления снизу
+        .opacity(showNoTaskView ? 1 : 0) // Плавное появление
+        .animation(.easeInOut(duration: 0.5).delay(0.5), value: showNoTaskView) // Плавная анимация
+        .onAppear {
+            print("🔔 TaskDetailView: noTaskView rendered, showNoTaskView = \(showNoTaskView)")
         }
     }
 }

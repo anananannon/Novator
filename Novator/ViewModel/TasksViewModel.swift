@@ -84,6 +84,7 @@ class TasksViewModel: ObservableObject {
         program?.nextTask()
         selectedAnswer = nil
         showResult = false
+        print("🔔 TasksViewModel: loadNextTask called, new currentTask = \(String(describing: currentTask?.id))")
     }
     
     private func isLessonCompleted(lessonId: String) -> Bool {
