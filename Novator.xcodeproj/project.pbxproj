@@ -19,6 +19,7 @@
 		AB7497DA2E6F250500B4051F /* FriendRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497D92E6F250500B4051F /* FriendRequestsView.swift */; };
 		AB7497DC2E71E02700B4051F /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DB2E71E02700B4051F /* MyProfileView.swift */; };
 		AB7497DE2E73188400B4051F /* CustomCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */; };
+		AB7497E02E73215500B4051F /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DF2E73215500B4051F /* StudyViewModel.swift */; };
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
 		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
@@ -80,6 +81,7 @@
 		AB7497D92E6F250500B4051F /* FriendRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsView.swift; sourceTree = "<group>"; };
 		AB7497DB2E71E02700B4051F /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
 		AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRadius.swift; sourceTree = "<group>"; };
+		AB7497DF2E73215500B4051F /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +266,7 @@
 				AB96B2A62E6068A900E65362 /* RatingViewModel.swift */,
 				ABAAA5A72E6C90A2006E7DA4 /* AchievementsViewModel.swift */,
 				AB7497D52E6F1C8A00B4051F /* FriendsViewModel.swift */,
+				AB7497DF2E73215500B4051F /* StudyViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -303,10 +306,10 @@
 			isa = PBXGroup;
 			children = (
 				AB907ED42E549B8C005592E3 /* ContentView.swift */,
+				AB35A8EF2E609C0700942C3E /* Study */,
 				AB1AFD0C2E6F090400DDD19D /* Store */,
 				AB1AFD0D2E6F092C00DDD19D /* Friends */,
 				AB1AFD0B2E6F08D500DDD19D /* Settings */,
-				AB35A8EF2E609C0700942C3E /* Study */,
 				ABC0ECA62E5DE38600534E0A /* Profile */,
 				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				ABE5C1282E647023009B2E0A /* Raiting */,
@@ -500,6 +503,7 @@
 				AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */,
 				AB1AFD0A2E6F077C00DDD19D /* UserDataSource.swift in Sources */,
 				AB9EEE0A2E5774DB002AECF7 /* Font+Extensions.swift in Sources */,
+				AB7497E02E73215500B4051F /* StudyViewModel.swift in Sources */,
 				AB7497D82E6F1CAF00B4051F /* FriendRow.swift in Sources */,
 				AB907F032E549FA2005592E3 /* TasksDetailView.swift in Sources */,
 				ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */,

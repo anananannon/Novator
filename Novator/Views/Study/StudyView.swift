@@ -3,36 +3,26 @@ import SwiftUI
 // MARK: - StudyView
 @MainActor
 struct StudyView: View {
-    // MARK: Observed & State
-    @ObservedObject var profile: UserProfileViewModel
+    // MARK: - Observed & State
+    @StateObject private var viewModel: StudyViewModel
     @Binding var selectedTab: Int
-
-    @State private var navigationPath = NavigationPath()
-    @State private var showStarsPopover = false
-    @State private var showRaitingPopover = false
-    @State private var selectedLesson: Lesson? = nil
-    @State private var activeButtons: Set<String> = []
-    @State private var nextIncompleteLessonId: String?
-    @State private var hasScrolledOnFirstAppear = false // Флаг для первого появления
-
-    // MARK: Init
+    
+    // MARK: - Init
     init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
-        self.profile = profile
+        self._viewModel = StateObject(wrappedValue: StudyViewModel(profile: profile))
         self._selectedTab = selectedTab
-        self._nextIncompleteLessonId = State(initialValue: Self.computeNextIncompleteLessonId(for: profile))
     }
-
-    // MARK: Body
+    
+    // MARK: - Body
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack(path: $viewModel.navigationPath) {
             GeometryReader { geometry in
                 ScrollViewReader { proxy in
                     ScrollView {
                         VStack(spacing: 20) { // Используем VStack
-                            let lessons = reversedLessons
-                            ForEach(Array(lessons.enumerated()), id: \.offset) { index, lesson in
+                            ForEach(Array(viewModel.reversedLessons.enumerated()), id: \.offset) { index, lesson in
                                 VStack(spacing: 20) {
-                                    if shouldShowDivider(before: lesson) {
+                                    if viewModel.shouldShowDivider(before: lesson) {
                                         Divider()
                                             .frame(height: 1.5)
                                             .background(Color("AppRed"))
@@ -43,10 +33,10 @@ struct StudyView: View {
                                         lesson: lesson,
                                         index: index,
                                         isEvenIndex: index.isMultiple(of: 2),
-                                        isExpanded: activeButtons.contains(lesson.id),
-                                        nextIncompleteLessonId: nextIncompleteLessonId,
-                                        isCompleted: profile.isLessonCompleted(lesson.id),
-                                        onTapSquare: { handleSquareTap(for: lesson) }
+                                        isExpanded: viewModel.activeButtons.contains(lesson.id),
+                                        nextIncompleteLessonId: viewModel.nextIncompleteLessonId,
+                                        isCompleted: viewModel.profile.isLessonCompleted(lesson.id),
+                                        onTapSquare: { viewModel.handleSquareTap(for: lesson) }
                                     )
                                     .padding(.horizontal, 30)
                                     .id(lesson.id)
@@ -56,26 +46,25 @@ struct StudyView: View {
                                 }
                             }
                         }
-                        .animation(.spring(response: 0.2), value: activeButtons)
+                        .animation(.spring(response: 0.2), value: viewModel.activeButtons)
                         .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                         .padding()
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar { toolbarContent }
                     }
                     .contentShape(Rectangle())
-                    .onTapGesture { if !activeButtons.isEmpty { activeButtons.removeAll() } }
+                    .onTapGesture { if !viewModel.activeButtons.isEmpty { viewModel.resetActiveButtons() } }
                     .onAppear {
-                        // Прокрутка только при первом появлении
-                        if !hasScrolledOnFirstAppear {
+                        if !viewModel.hasScrolledOnFirstAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                print("🔔 onAppear: nextIncompleteLessonId = \(String(describing: nextIncompleteLessonId))")
+                                print("🔔 onAppear: nextIncompleteLessonId = \(String(describing: viewModel.nextIncompleteLessonId))")
                                 print("🔔 TaskManager.lessons: \(TaskManager.lessons.map { $0.id })")
-                                if let targetId = nextIncompleteLessonId {
+                                if let targetId = viewModel.nextIncompleteLessonId {
                                     print("🔔 Прокрутка к уроку: \(targetId)")
                                     withAnimation(.spring(response: 0.2)) {
                                         proxy.scrollTo(targetId, anchor: .center)
                                     }
-                                    hasScrolledOnFirstAppear = true
+                                    viewModel.hasScrolledOnFirstAppear = true
                                 } else {
                                     print("⚠️ Прокрутка не выполнена: nextIncompleteLessonId is nil")
                                 }
@@ -84,7 +73,7 @@ struct StudyView: View {
                             print("🔔 onAppear: Прокрутка пропущена, так как уже выполнена")
                         }
                     }
-                    .onChange(of: nextIncompleteLessonId) { newValue in
+                    .onChange(of: viewModel.nextIncompleteLessonId) { newValue in
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             print("🔔 onChange: nextIncompleteLessonId = \(String(describing: newValue))")
                             if let targetId = newValue {
@@ -100,14 +89,14 @@ struct StudyView: View {
                 }
             }
         }
-        .fullScreenCover(item: $selectedLesson) { lesson in
-            TaskDetailView(profile: profile, lessonId: lesson.id, lessonStars: lesson.lessonStars, lessonRaitingPoints: lesson.lessonRaitingPoints)
+        .fullScreenCover(item: $viewModel.selectedLesson) { lesson in
+            TaskDetailView(profile: viewModel.profile, lessonId: lesson.id, lessonStars: lesson.lessonStars, lessonRaitingPoints: lesson.lessonRaitingPoints)
                 .onDisappear {
-                    activeButtons.removeAll()
-                    nextIncompleteLessonId = Self.computeNextIncompleteLessonId(for: profile)
+                    viewModel.resetActiveButtons()
+                    viewModel.updateNextIncompleteLessonId()
                 }
         }
-        .preferredColorScheme(profile.theme.colorScheme)
+        .preferredColorScheme(viewModel.profile.theme.colorScheme)
     }
 }
 
@@ -120,44 +109,15 @@ private enum UIConstants {
     static let squareCornerRadius: CGFloat = 20
 }
 
-// MARK: - Computeds & Helpers
-private extension StudyView {
-    var reversedLessons: [Lesson] {
-        Array(TaskManager.lessons.reversed())
-    }
-
-    func shouldShowDivider(before lesson: Lesson) -> Bool {
-        guard let id = Int(lesson.id) else { return false }
-        return id % 10 == 0
-    }
-
-    static func computeNextIncompleteLessonId(for profile: UserProfileViewModel) -> String? {
-        let incompleteLesson = TaskManager.lessons
-            .sorted { (Int($0.id) ?? 0) < (Int($1.id) ?? 0) }
-            .first { !profile.isLessonCompleted($0.id) }
-        print("🔔 computeNextIncompleteLessonId: lessons count = \(TaskManager.lessons.count), incomplete lesson = \(String(describing: incompleteLesson?.id))")
-        return incompleteLesson?.id
-    }
-
-    func handleSquareTap(for lesson: Lesson) {
-        if activeButtons.contains(lesson.id) {
-            selectedLesson = lesson
-            activeButtons.removeAll()
-        } else {
-            activeButtons = [lesson.id]
-        }
-    }
-}
-
 // MARK: - Toolbar
 private extension StudyView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button { showStarsPopover.toggle() } label: {
-                StatView(icon: "star.fill", value: "\(profile.profile.stars)")
+            Button { viewModel.showStarsPopover.toggle() } label: {
+                StatView(icon: "star.fill", value: "\(viewModel.profile.profile.stars)")
             }
-            .popover(isPresented: $showStarsPopover) {
+            .popover(isPresented: $viewModel.showStarsPopover) {
                 Text("Очки опыта - вы можете потратить их в магазине украшений профиля.")
                     .padding()
                     .foregroundColor(Color("AppRed"))
@@ -167,10 +127,10 @@ private extension StudyView {
         }
 
         ToolbarItem(placement: .topBarTrailing) {
-            Button { showRaitingPopover.toggle() } label: {
-                StatView(icon: "crown.fill", value: "\(profile.profile.raitingPoints)")
+            Button { viewModel.showRaitingPopover.toggle() } label: {
+                StatView(icon: "crown.fill", value: "\(viewModel.profile.profile.raitingPoints)")
             }
-            .popover(isPresented: $showRaitingPopover) {
+            .popover(isPresented: $viewModel.showRaitingPopover) {
                 Text("Очки рейтинга - с помощью них вы можете повышать свой рейтинг и получать уникальные подарки.")
                     .padding()
                     .foregroundColor(Color("AppRed"))
@@ -204,10 +164,7 @@ private struct LessonRow: View {
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Урок \(lesson.id)")
     }
-}
-
-// MARK: - LessonRow UI
-private extension LessonRow {
+    
     func content(alignment: HorizontalAlignmentEdge) -> some View {
         ZStack(alignment: alignment == .leading ? .leading : .trailing) {
             StatsOverlay(
@@ -221,8 +178,8 @@ private extension LessonRow {
                 index: index,
                 isCompleted: isCompleted,
                 isNextIncomplete: (lesson.id == nextIncompleteLessonId),
-                isExpanded: isExpanded, // Передаём isExpanded
-                isEvenIndex: isEvenIndex, // Передаём isEvenIndex
+                isExpanded: isExpanded,
+                isEvenIndex: isEvenIndex,
                 action: onTapSquare
             )
             .padding(.horizontal, 3)
@@ -275,11 +232,10 @@ private struct LessonSquare: View {
     let index: Int
     let isCompleted: Bool
     let isNextIncomplete: Bool
-    let isExpanded: Bool // Новый параметр
-    let isEvenIndex: Bool // Новый параметр
+    let isExpanded: Bool
+    let isEvenIndex: Bool
     let action: () -> Void
 
-    // Логика выбора SF Symbol
     private var symbolName: String {
         if isExpanded {
             return isEvenIndex ? "arrowtriangle.right.fill" : "arrowtriangle.left.fill"

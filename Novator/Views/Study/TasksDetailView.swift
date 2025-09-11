@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+
 // MARK: - TaskDetailView
 struct TaskDetailView: View {
     @StateObject private var viewModel: TasksViewModel
@@ -8,9 +9,8 @@ struct TaskDetailView: View {
     @State private var showContent = false
     @State private var showAcceptSheet = false
     let lessonId: String
-    let lessonStars: Int // New property
+    let lessonStars: Int
     let lessonRaitingPoints: Int
-    
     
     init(profile: UserProfileViewModel, lessonId: String, lessonStars: Int, lessonRaitingPoints: Int) {
         self.lessonId = lessonId
@@ -18,6 +18,7 @@ struct TaskDetailView: View {
         self.lessonRaitingPoints = lessonRaitingPoints
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile, lessonId: lessonId))
     }
+    
     var body: some View {
         ZStack {
             backgroundView
@@ -37,6 +38,7 @@ struct TaskDetailView: View {
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
     }
 }
+
 // MARK: - Views
 private extension TaskDetailView {
     var backgroundView: some View {
@@ -48,13 +50,12 @@ private extension TaskDetailView {
             }
         }
     }
+    
     var contentView: some View {
         VStack(spacing: 20) {
             if let task = viewModel.currentTask {
-                
                 headerView
                 Spacer()
-                
                 taskContentView(task: task)
                     .id(task.id)
                     .transition(.asymmetric(
@@ -108,11 +109,11 @@ private extension TaskDetailView {
         .presentationDetents([.height(300)])
         .presentationCornerRadius(20)
     }
+    
     // MARK: - Header
     var headerView: some View {
         HStack {
             Button {
-//                dismiss()
                 showAcceptSheet.toggle()
             } label: {
                 Image(systemName: "xmark")
@@ -130,6 +131,7 @@ private extension TaskDetailView {
             }
         }
     }
+    
     // MARK: - Task Content
     func taskContentView(task: AppTask) -> some View {
         VStack {
@@ -139,6 +141,7 @@ private extension TaskDetailView {
             resultAndActionView
         }
     }
+    
     // MARK: - Result & Action
     var resultAndActionView: some View {
         ZStack(alignment: .bottom) {
@@ -148,7 +151,6 @@ private extension TaskDetailView {
                 .overlay(resultOverlay)
                 .opacity(viewModel.showResult ? 1 : 0)
                 .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom)
-//                .animation(.easeOut(duration: 0.3), value: viewModel.showResult)
                 .animation(.spring(response: 0.3), value: viewModel.showResult)
                 .padding(.top)
             Button(action: viewModel.actionButtonTapped) {
@@ -161,6 +163,7 @@ private extension TaskDetailView {
             .padding(.bottom, 4)
         }
     }
+    
     var resultOverlay: some View {
         VStack(alignment: .leading) {
             Text("\(Image(systemName: viewModel.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")) \(viewModel.resultText)")
@@ -181,6 +184,7 @@ private extension TaskDetailView {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+    
     // MARK: - No Task
     var noTaskView: some View {
         VStack(spacing: 14) {
@@ -228,6 +232,7 @@ private extension TaskDetailView {
         }
     }
 }
+
 // MARK: - Subviews
 private extension TaskDetailView {
     struct ProgressBarView: View {
@@ -239,6 +244,7 @@ private extension TaskDetailView {
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
+    
     func taskQuestion(task: AppTask) -> some View {
         Text(task.question)
             .font(.system(.title3, design: .monospaced))
@@ -248,6 +254,7 @@ private extension TaskDetailView {
             .foregroundColor(.primary)
             .cornerRadius(16)
     }
+    
     @ViewBuilder
     func taskOptions(task: AppTask) -> some View {
         let options = task.options ?? []
@@ -275,6 +282,7 @@ private extension TaskDetailView {
     }
 }
 
+// MARK: - Color Extension
 extension Color {
     static func invertedPrimary(_ systemColorScheme: ColorScheme) -> Color {
         systemColorScheme == .light ? .white : .black
