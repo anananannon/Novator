@@ -24,7 +24,6 @@ struct TaskDetailView: View {
         ZStack {
             backgroundView
             contentView
-                .padding()
                 .offset(x: showContent ? 0 : UIScreen.main.bounds.width) // старт за экраном справа !!!Этот комментарий не убирать
                 .opacity(showContent ? 1 : 0) // добавляем плавное появление !!!Этот комментарий не убирать
                 .animation(.easeInOut(duration: 0.4).delay(0.2), value: showContent) // анимация въезда !!!Этот комментарий не убирать
@@ -148,6 +147,7 @@ private extension TaskDetailView {
                     .padding(.top, 3)
             }
         }
+        .padding()
     }
     
     // MARK: - Task Content
@@ -158,6 +158,7 @@ private extension TaskDetailView {
             taskOptions(task: task)
             resultAndActionView
         }
+        .padding()
     }
     
     // MARK: - Result & Action
@@ -248,9 +249,8 @@ private extension TaskDetailView {
             }
             .buttonStyle(PrimaryButtonStyle())
         }
-//        .offset(y: showNoTaskView ? 0 : 50)  Уменьшенный offset для плавного появления снизу
         .opacity(showNoTaskView ? 1 : 0) // Плавное появление
-        .animation(.easeInOut(duration: 0.5).delay(0.5), value: showNoTaskView) // Плавная анимация
+        .animation(.spring(response: 1).delay(0.8), value: showNoTaskView) // Плавная анимация
         .onAppear {
             print("🔔 TaskDetailView: noTaskView rendered, showNoTaskView = \(showNoTaskView)")
         }
