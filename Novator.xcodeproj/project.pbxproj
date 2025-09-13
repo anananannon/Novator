@@ -51,6 +51,7 @@
 		ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE080262E54DCD0007B9113 /* ProfileEditView.swift */; };
 		ABE5C12A2E647048009B2E0A /* RaitingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5C1292E647048009B2E0A /* RaitingRow.swift */; };
 		ABE5C12C2E649263009B2E0A /* AchievementSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5C12B2E649263009B2E0A /* AchievementSquare.swift */; };
+		ABEEB0952E75B74F00B5B47C /* SearchUsersSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEEB0942E75B74F00B5B47C /* SearchUsersSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		ABE080262E54DCD0007B9113 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		ABE5C1292E647048009B2E0A /* RaitingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaitingRow.swift; sourceTree = "<group>"; };
 		ABE5C12B2E649263009B2E0A /* AchievementSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementSquare.swift; sourceTree = "<group>"; };
+		ABEEB0942E75B74F00B5B47C /* SearchUsersSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUsersSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 				AB1AFD102E6F09EA00DDD19D /* FriendsView.swift */,
 				AB7497D72E6F1CAF00B4051F /* FriendRow.swift */,
 				AB7497D92E6F250500B4051F /* FriendRequestsView.swift */,
+				ABEEB0942E75B74F00B5B47C /* SearchUsersSheet.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				ABE0801B2E54D874007B9113 /* Task.swift in Sources */,
 				AB7497DE2E73188400B4051F /* CustomCornerRadius.swift in Sources */,
 				AB7497D62E6F1C8A00B4051F /* FriendsViewModel.swift in Sources */,
+				ABEEB0952E75B74F00B5B47C /* SearchUsersSheet.swift in Sources */,
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
 				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,
 				AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */,

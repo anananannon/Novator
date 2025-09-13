@@ -1,12 +1,24 @@
 import Foundation
+import SwiftUI
 import Combine
 
 final class FriendsViewModel: ObservableObject {
     // MARK: - Input
     @Published var profile: UserProfileViewModel? // Изменено на @Published для реактивности
+    @Published var searchQuery = "" // Новый: для поиска по username
 
     // MARK: - Output
     @Published var friends: [UserProfile] = []
+    // Computed: фильтрованные друзья по поиску
+    var filteredFriends: [UserProfile] {
+        if searchQuery.isEmpty {
+            return friends
+        }
+        return friends.filter { user in
+            user.username.localizedCaseInsensitiveContains(searchQuery) ||
+            user.fullName.localizedCaseInsensitiveContains(searchQuery) // Бонус: поиск по имени тоже
+        }
+    }
 
     private let userDataSource: UserDataSourceProtocol
     private var cancellables = Set<AnyCancellable>()

@@ -4,6 +4,7 @@ protocol UserDataSourceProtocol {
     func getDemoUsers() -> [UserProfile]
     func getDemoFriends(friendIds: [UUID]) -> [UserProfile]
     func updateUserProfile(_ profile: UserProfile)
+    func searchUsers(by query: String) async throws -> [UserProfile] // Новый метод
 }
 
 class UserDataSource: UserDataSourceProtocol {
@@ -36,7 +37,7 @@ class UserDataSource: UserDataSourceProtocol {
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-                privacySettings: PrivacySettings(showAchievements: false) // Теперь корректно
+                privacySettings: PrivacySettings(showAchievements: false)
             ),
             UserProfile(
                 id: elonId,
@@ -53,7 +54,7 @@ class UserDataSource: UserDataSourceProtocol {
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6"],
-                privacySettings: PrivacySettings() // По умолчанию: всё true
+                privacySettings: PrivacySettings()
             ),
             UserProfile(
                 id: ivanId,
@@ -106,6 +107,14 @@ class UserDataSource: UserDataSourceProtocol {
             print("✅ Профиль пользователя \(profile.id) обновлён в UserDataSource")
         } else {
             print("⚠️ Пользователь \(profile.id) не найден в UserDataSource")
+        }
+    }
+
+    func searchUsers(by query: String) async throws -> [UserProfile] {
+        guard !query.isEmpty else { return [] }
+        return demoUsers.filter { user in
+            user.username.localizedCaseInsensitiveContains(query) ||
+            user.fullName.localizedCaseInsensitiveContains(query)
         }
     }
 }

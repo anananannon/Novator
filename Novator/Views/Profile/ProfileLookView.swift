@@ -51,6 +51,7 @@ struct ProfileLookView: View {
                 Spacer()
             }
         }
+        .tint(Color("AppRed"))
         .background(Color("ProfileBackground"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { toolbarContent }
