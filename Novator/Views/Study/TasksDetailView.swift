@@ -210,7 +210,7 @@ private extension TaskDetailView {
             Text("Урок выполнен!")
                 .font(.system(size: 25))
                 .foregroundColor(Color("AppRed"))
-                .padding(.top, 20)
+                .padding(.top, 60)
                 
             RoundedRectangle(cornerRadius: 30)
                 .stroke(Color("AppRed"), lineWidth: 1)
@@ -231,7 +231,7 @@ private extension TaskDetailView {
                             .padding(.bottom, 20)
                     }
                 }
-                .padding(.top, 60)
+                .padding(.top, 40)
             Button("Отключить рекламу") {
                 print("🔔 TaskDetailView: Отключить рекламу tapped")
             }
@@ -248,9 +248,10 @@ private extension TaskDetailView {
                     .frame(maxWidth: 250, maxHeight: 50)
             }
             .buttonStyle(PrimaryButtonStyle())
+            .padding(.bottom, 20)
         }
         .opacity(showNoTaskView ? 1 : 0) // Плавное появление
-        .animation(.spring(response: 1).delay(0.8), value: showNoTaskView) // Плавная анимация
+        .animation(.spring(response: 0.6).delay(0.6), value: showNoTaskView) // Плавная анимация
         .onAppear {
             print("🔔 TaskDetailView: noTaskView rendered, showNoTaskView = \(showNoTaskView)")
         }
