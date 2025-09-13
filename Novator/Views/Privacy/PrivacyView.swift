@@ -28,28 +28,31 @@ struct PrivacyView: View {
     }
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Профиль")) {
-                    Toggle("Показывать достижения", isOn: showAchievementsBinding)
-                        .toggleStyle(SwitchToggleStyle(tint: Color("AppRed")))
-                }
-                
-                Section(header: Text("Друзья")) {
-                    Toggle("Показывать список друзей", isOn: showFriendsListBinding)
-                        .toggleStyle(SwitchToggleStyle(tint: Color("AppRed")))
-                }
-                
-                // Добавляйте новые секции/Toggle по мере расширения
-                // Section(header: Text("Статистика")) {
-                //     Toggle("Показывать статистику", isOn: showStatisticsBinding)
-                // }
-            }
-            .navigationTitle("Конфиденциальность")
-            .navigationBarTitleDisplayMode(.inline)
+         List {
+             Section(footer: Text("Отключите, если не хотите что бы другие пользователи видели ваши достижения.")) {
+                 Toggle("Показывать достижения", isOn: showAchievementsBinding)
+                     .toggleStyle(SwitchToggleStyle(tint: Color("AppRed")))
+             }
         }
+        .navigationTitle("Конфиденц.")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Добавляйте новые секции/Toggle по мере расширения
+// Section(header: Text("Статистика")) {
+//     Toggle("Показывать статистику", isOn: showStatisticsBinding)
+// }
+
+
+
+//              Section(header: Text("Друзья")) {
+//                    Toggle("Показывать список друзей", isOn: showFriendsListBinding)
+//                        .toggleStyle(SwitchToggleStyle(tint: Color("AppRed")))
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #Preview {
     PrivacyView()
