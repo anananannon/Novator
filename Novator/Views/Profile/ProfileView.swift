@@ -145,6 +145,9 @@ private struct SectionRow: View {
             StoreView(profile: profile)
         case .friends:
             FriendsView()
+        case .privacy: // Новое: PrivacyView
+            PrivacyView()
+                .environmentObject(profile)
         default:
             Text("\(item.destinationType.title) View")
         }

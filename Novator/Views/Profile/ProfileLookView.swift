@@ -31,7 +31,7 @@ struct ProfileLookView: View {
                 TopProfileHeader(user: user)
                 actionButtons
                 userInfo
-                if !unlockedAchievements.isEmpty {
+                if user.privacySettings.showAchievements && !unlockedAchievements.isEmpty { // Изменено: через privacySettings
                     Section(header: sectionHeader(title: "ДОСТИЖЕНИЯ")) {
                         LazyVGrid(
                             columns: Array(repeating: GridItem(.fixed(itemSize), spacing: gridSpacing), count: columns),

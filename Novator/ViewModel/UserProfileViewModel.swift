@@ -54,6 +54,7 @@ class UserProfileViewModel: ObservableObject {
                 completedTasks: [],
                 achievements: [],
                 completedLessons: []
+//                 privacySettings автоматически = PrivacySettings() из init UserProfile
             )
             print("🆕 Создан новый профиль с друзьями: \(self.profile.friends), входящими заявками: \(self.profile.incomingFriendRequests)")
             saveProfile()
@@ -177,5 +178,18 @@ class UserProfileViewModel: ObservableObject {
         } else {
             print("⚠️ Пользователь \(userId) не найден в списке друзей")
         }
+    }
+    
+    // Новые методы для privacy
+    func updatePrivacySettings(_ settings: PrivacySettings) {
+        profile.privacySettings = settings
+        saveProfile()
+        print("🔒 Настройки конфиденциальности обновлены")
+    }
+    
+    func toggleShowAchievements() {
+        profile.privacySettings.showAchievements.toggle()
+        saveProfile()
+        print("🔒 Достижения теперь \(profile.privacySettings.showAchievements ? "видны" : "скрыты")")
     }
 }

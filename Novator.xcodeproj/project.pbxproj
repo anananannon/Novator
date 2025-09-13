@@ -22,6 +22,7 @@
 		AB7497E02E73215500B4051F /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DF2E73215500B4051F /* StudyViewModel.swift */; };
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
 		AB82E7E32E759C8B0061DE27 /* PrivacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82E7E22E759C8B0061DE27 /* PrivacySettings.swift */; };
+		AB82E7E52E759D9F0061DE27 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82E7E42E759D9F0061DE27 /* PrivacyView.swift */; };
 		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
 		AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED42E549B8C005592E3 /* ContentView.swift */; };
@@ -85,6 +86,7 @@
 		AB7497DF2E73215500B4051F /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
 		AB82E7E22E759C8B0061DE27 /* PrivacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettings.swift; sourceTree = "<group>"; };
+		AB82E7E42E759D9F0061DE27 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB907ED22E549B8C005592E3 /* NovatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NovatorApp.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				AB82E7E22E759C8B0061DE27 /* PrivacySettings.swift */,
+				AB82E7E42E759D9F0061DE27 /* PrivacyView.swift */,
 			);
 			path = Privacy;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				ABAAA5A62E6C7819006E7DA4 /* Achievement.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,
 				AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */,
+				AB82E7E52E759D9F0061DE27 /* PrivacyView.swift in Sources */,
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
 				AB35A8F32E609C5400942C3E /* StatView.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,

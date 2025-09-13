@@ -35,7 +35,8 @@ class UserDataSource: UserDataSourceProtocol {
                 pendingFriendRequests: [],
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
-                completedLessons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
+                completedLessons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
+                privacySettings: PrivacySettings(showAchievements: false) // Теперь корректно
             ),
             UserProfile(
                 id: elonId,
@@ -50,7 +51,9 @@ class UserDataSource: UserDataSourceProtocol {
                 friends: [pavelId],
                 pendingFriendRequests: [],
                 completedTasks: [],
-                achievements: []
+                achievements: ["Test", "Test2", "Test3"],
+                completedLessons: ["1", "2", "3", "4", "5", "6"],
+                privacySettings: PrivacySettings() // По умолчанию: всё true
             ),
             UserProfile(
                 id: ivanId,
@@ -65,7 +68,9 @@ class UserDataSource: UserDataSourceProtocol {
                 friends: [pavelId],
                 pendingFriendRequests: [],
                 completedTasks: [],
-                achievements: []
+                achievements: [],
+                completedLessons: [],
+                privacySettings: PrivacySettings()
             ),
             UserProfile(
                 id: jackId,
@@ -80,7 +85,9 @@ class UserDataSource: UserDataSourceProtocol {
                 friends: [],
                 pendingFriendRequests: [],
                 completedTasks: [],
-                achievements: []
+                achievements: [],
+                completedLessons: [],
+                privacySettings: PrivacySettings()
             )
         ]
     }
