@@ -4,7 +4,7 @@ import Foundation
 // MARK: - ProfileView
 struct ProfileView: View {
     // MARK: - Properties
-    @ObservedObject var profile: UserProfileViewModel
+    @EnvironmentObject var profile: UserProfileViewModel
     @State private var showingEditView = false
     
     // MARK: - Body
@@ -18,6 +18,9 @@ struct ProfileView: View {
                 }
                 .preferredColorScheme(profile.theme.colorScheme)
                 .environmentObject(profile)
+                .onReceive(profile.$profile) { newProfile in
+                    print("🔔 ProfileView: профиль обновлён, incomingFriendRequests: \(newProfile.incomingFriendRequests.count)")
+                }
         }
     }
 
@@ -78,7 +81,7 @@ struct ProfileView: View {
     private func section(_ items: [ProfileNavigationItem]) -> some View {
         Section {
             ForEach(items) { item in
-                SectionRow(item: item, profile: profile)
+                SectionRow(item: item)
             }
         }
     }
@@ -105,7 +108,7 @@ private struct StatChip: View {
 
 private struct SectionRow: View {
     let item: ProfileNavigationItem
-    let profile: UserProfileViewModel
+    @EnvironmentObject var profile: UserProfileViewModel
     
     var body: some View {
         NavigationLink(destination: destinationView) {
@@ -117,6 +120,15 @@ private struct SectionRow: View {
                 Text(item.title)
                     .font(.system(.body))
                     .foregroundColor(.primary)
+                if item.destinationType == .friends {
+                    if profile.profile.incomingFriendRequests.count >= 1 {
+                        Spacer()
+                        Text("\(profile.profile.incomingFriendRequests.count)") 
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                            .frame(width: 20, height: 20)
+                    }
+                }
             }
         }
     }
@@ -141,7 +153,7 @@ private struct SectionRow: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(profile: UserProfileViewModel())
+        ProfileView()
             .environmentObject(UserProfileViewModel())
     }
 }

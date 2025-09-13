@@ -21,6 +21,7 @@
 		AB7497DE2E73188400B4051F /* CustomCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */; };
 		AB7497E02E73215500B4051F /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7497DF2E73215500B4051F /* StudyViewModel.swift */; };
 		AB81A1592E5873200000E1BD /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB81A1582E5873200000E1BD /* TasksViewModel.swift */; };
+		AB82E7E32E759C8B0061DE27 /* PrivacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82E7E22E759C8B0061DE27 /* PrivacySettings.swift */; };
 		AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8899912E5C9BBE00502FFF /* RatingView.swift */; };
 		AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED22E549B8C005592E3 /* NovatorApp.swift */; };
 		AB907ED52E549B8D005592E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB907ED42E549B8C005592E3 /* ContentView.swift */; };
@@ -83,6 +84,7 @@
 		AB7497DD2E73188400B4051F /* CustomCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRadius.swift; sourceTree = "<group>"; };
 		AB7497DF2E73215500B4051F /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
 		AB81A1582E5873200000E1BD /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
+		AB82E7E22E759C8B0061DE27 /* PrivacySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacySettings.swift; sourceTree = "<group>"; };
 		AB8899912E5C9BBE00502FFF /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		AB907ECF2E549B8C005592E3 /* Novator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Novator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB907ED22E549B8C005592E3 /* NovatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NovatorApp.swift; sourceTree = "<group>"; };
@@ -195,6 +197,14 @@
 			path = Study;
 			sourceTree = "<group>";
 		};
+		AB82E7E12E759C720061DE27 /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				AB82E7E22E759C8B0061DE27 /* PrivacySettings.swift */,
+			);
+			path = Privacy;
+			sourceTree = "<group>";
+		};
 		AB907EC62E549B8C005592E3 = {
 			isa = PBXGroup;
 			children = (
@@ -305,6 +315,7 @@
 		ABE080172E54D68D007B9113 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB82E7E12E759C720061DE27 /* Privacy */,
 				AB907ED42E549B8C005592E3 /* ContentView.swift */,
 				AB35A8EF2E609C0700942C3E /* Study */,
 				AB1AFD0C2E6F090400DDD19D /* Store */,
@@ -485,6 +496,7 @@
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
 				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,
 				AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */,
+				AB82E7E32E759C8B0061DE27 /* PrivacySettings.swift in Sources */,
 				ABE5C12C2E649263009B2E0A /* AchievementSquare.swift in Sources */,
 				ABAAA5A62E6C7819006E7DA4 /* Achievement.swift in Sources */,
 				ABE080212E54D8DD007B9113 /* TaskManager.swift in Sources */,

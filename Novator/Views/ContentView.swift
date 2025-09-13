@@ -30,7 +30,7 @@ struct ContentView: View {
                 .tag(2)
 
             // Профиль
-            ProfileView(profile: userProfileVM)
+            ProfileView()
                 .tabItem {
                     Label("Профиль", systemImage: "person.fill")
                 }
