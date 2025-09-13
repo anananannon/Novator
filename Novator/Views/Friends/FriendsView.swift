@@ -27,7 +27,7 @@ struct FriendsView: View {
                         .font(.system(size: 15))
                         .padding(.leading, 24)
                     }
-                    .padding(.top, 10)
+                    .padding(.top, 5)
                     Divider()
 
                     VStack {
