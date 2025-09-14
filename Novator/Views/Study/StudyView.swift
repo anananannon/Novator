@@ -23,10 +23,19 @@ struct StudyView: View {
                             ForEach(Array(viewModel.reversedLessons.enumerated()), id: \.offset) { index, lesson in
                                 VStack(spacing: 20) {
                                     if viewModel.shouldShowDivider(before: lesson) {
-                                        Divider()
-                                            .frame(height: 1.5)
-                                            .background(Color("AppRed"))
-                                            .padding(.horizontal, 10)
+                                        HStack {
+                                            Rectangle()
+                                                .frame(height: 1.5)
+                                                .foregroundColor(Color("AppRed"))
+                                                .frame(maxWidth: .infinity)
+                                            Text("\(Int(lesson.id) ?? 10) LVL")
+                                                .foregroundColor(Color("AppRed"))
+                                                .font(.system(size: 16, weight: .medium))
+                                            Rectangle()
+                                                .frame(height: 1.5)
+                                                .foregroundColor(Color("AppRed"))
+                                                .frame(maxWidth: .infinity)
+                                        }
                                     }
                                     
                                     LessonRow(
@@ -38,7 +47,7 @@ struct StudyView: View {
                                         isCompleted: viewModel.profile.isLessonCompleted(lesson.id),
                                         onTapSquare: { viewModel.handleSquareTap(for: lesson) }
                                     )
-                                    .padding(.horizontal, 30)
+                                    .padding(.horizontal, 40)
                                     .id(lesson.id)
                                     .onAppear {
                                         print("🔔 Rendered lesson: id = \(lesson.id), index = \(index)")
@@ -48,7 +57,6 @@ struct StudyView: View {
                         }
                         .animation(.spring(response: 0.2), value: viewModel.activeButtons)
                         .frame(maxWidth: .infinity, minHeight: geometry.size.height)
-                        .padding()
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar { toolbarContent }
                     }
