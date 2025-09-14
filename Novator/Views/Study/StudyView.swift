@@ -7,6 +7,8 @@ struct StudyView: View {
     @StateObject private var viewModel: StudyViewModel
     @Binding var selectedTab: Int
     
+    @State var showingPage = false
+    
     // MARK: - Init
     init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
         self._viewModel = StateObject(wrappedValue: StudyViewModel(profile: profile))
@@ -19,44 +21,47 @@ struct StudyView: View {
             GeometryReader { geometry in
                 ScrollViewReader { proxy in
                     ZStack(alignment: .top) {
-                        
                         // Наверху — панель переключения страниц
-                        RoundedRectangle(cornerRadius: 13).fill(Color(.systemGray6))
-                            .frame(height: 90)
-                            .padding(.all, 10)
-                            .overlay {
-                                HStack {
-                                    Button {
-                                        viewModel.goToPreviousPage()
-                                    } label: {
-                                        Image(systemName: "chevron.left")
+                        
+                        Button {
+                            showingPage.toggle()
+                        } label: {
+                            RoundedRectangle(cornerRadius: 13).fill(Color(.systemGray6))
+                                .frame(height: 100)
+                                .shadow(radius: 1)
+                                .overlay {
+                                    VStack {
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text("21/50")
+                                                    .font(.system(size: 17, design: .monospaced))
+                                                    .foregroundColor(.primary)
+                                                Text("Вы на 1 стадии")
+                                                    .font(.system(size: 15))
+                                                    .foregroundColor(.secondary)
+                                            }
+                                            Spacer()
+                                            Image("rocketSV")
+                                                .frame(width: 35, height: 35)
+                                            
+                                            
+                                        }
+                                        ProgressView(value: 0.35)
+                                            .frame(maxWidth: .infinity)
+                                            .scaleEffect(y: 2.5)
                                     }
-                                    .disabled(viewModel.currentPage == 0)
-                                    
-                                    Spacer()
-                                    
-                                    Text("Страница \(viewModel.currentPage + 1) / \(viewModel.lessonsByPage.count)")
-                                        .foregroundColor(Color("AppRed"))
-                                    
-                                    Spacer()
-                                    
-                                    Button {
-                                        viewModel.goToNextPage()
-                                    } label: {
-                                        Image(systemName: "chevron.right")
-                                    }
-                                    .disabled(viewModel.currentPage + 1 >= viewModel.lessonsByPage.count)
+                                    .padding(.horizontal, 10)
                                 }
-                                .padding(.horizontal)
-                            }
-                            .shadow(radius: 3)
-                            .zIndex(1)
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.all, 10)
+                        .zIndex(1)
                         
                         // Контент текущей страницы
                         ScrollView {
                             VStack(spacing: 20) {
                                 Color(.black).opacity(0.000001)
-                                    .frame(height: 100)
+                                    .frame(height: 105)
                                 
                                 ForEach(Array(viewModel.currentLessons.enumerated()), id: \.offset) { index, lesson in
                                     VStack(spacing: 20) {
@@ -99,6 +104,25 @@ struct StudyView: View {
                         .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar { toolbarContent }
+                        .sheet(isPresented: $showingPage) {
+                            VStack {
+                                Text("123")
+                                HStack {
+                                    Button {
+                                        viewModel.goToNextPage()
+                                    } label: {
+                                        Text("Перейти к следующей стадии")
+                                    }
+                                    Button {
+                                        viewModel.goToPreviousPage()
+                                    } label: {
+                                        Text("Перейти к предыдущей стадии")
+                                    }
+                                }
+                            }
+                            .presentationDetents([.height(500)])
+                            .presentationCornerRadius(20)
+                        }
                     }
                     .contentShape(Rectangle())
                     .onTapGesture { if !viewModel.activeButtons.isEmpty { viewModel.resetActiveButtons() } }

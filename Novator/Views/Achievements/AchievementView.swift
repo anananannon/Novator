@@ -81,15 +81,3 @@ struct AchievementsView: View {
         .background(Color("SectionBackground"))
     }
 }
-
-//// MARK: - ViewModel
-//final class AchievementsViewModel: ObservableObject {
-//    @Published var unlockedAchievements: [Achievement] = []
-//    @Published var lockedAchievements: [Achievement] = []
-//
-//    init(profile: UserProfileViewModel) {
-//        let userAchievements = profile.profile.achievements
-//        unlockedAchievements = AchievementManager.achievements.filter { userAchievements.contains($0.name) }
-//        lockedAchievements = AchievementManager.achievements.filter { !userAchievements.contains($0.name) }
-//    }
-//}
