@@ -18,43 +18,61 @@ struct StudyView: View {
         NavigationStack(path: $viewModel.navigationPath) {
             GeometryReader { geometry in
                 ScrollViewReader { proxy in
-                    ScrollView {
-                        VStack(spacing: 20) { // Используем VStack
-                            ForEach(Array(viewModel.reversedLessons.enumerated()), id: \.offset) { index, lesson in
-                                VStack(spacing: 20) {
-                                    if viewModel.shouldShowDivider(before: lesson) {
-                                        HStack {
-                                            Rectangle()
-                                                .frame(height: 1.5)
-                                                .foregroundColor(Color("AppRed"))
-                                                .frame(maxWidth: .infinity)
-                                            Text("\(Int(lesson.id) ?? 10) LVL")
-                                                .foregroundColor(Color("AppRed"))
-                                                .font(.system(size: 16, weight: .medium))
-                                            Rectangle()
-                                                .frame(height: 1.5)
-                                                .foregroundColor(Color("AppRed"))
-                                                .frame(maxWidth: .infinity)
+                    ZStack(alignment: .top) {
+                    
+                        RoundedRectangle(cornerRadius: 13).fill(Color(.systemGray6))
+                            .frame(height: 90)
+                            .padding(.all, 10)
+                            .overlay {
+                                Text("Кнопка для переключения между 50 уровнями")
+                                    .foregroundColor(Color("AppRed"))
+                            }
+                            .shadow(radius: 3)
+                            .zIndex(1)
+                        
+                        ScrollView {
+                            VStack(spacing: 20) { // Используем VStack
+                                
+                                Color(.black).opacity(0.000001)
+                                    .frame(height: 100)
+                                
+                                ForEach(Array(viewModel.reversedLessons.enumerated()), id: \.offset) { index, lesson in
+                                    VStack(spacing: 20) {
+                                        if viewModel.shouldShowDivider(before: lesson) {
+                                            HStack {
+                                                Rectangle()
+                                                    .frame(height: 1.5)
+                                                    .foregroundColor(Color("AppRed"))
+                                                    .frame(maxWidth: .infinity)
+                                                Text("\(Int(lesson.id) ?? 10) LVL")
+                                                    .foregroundColor(Color("AppRed"))
+                                                    .font(.system(size: 16, weight: .medium))
+                                                Rectangle()
+                                                    .frame(height: 1.5)
+                                                    .foregroundColor(Color("AppRed"))
+                                                    .frame(maxWidth: .infinity)
+                                            }
                                         }
-                                    }
-                                    
-                                    LessonRow(
-                                        lesson: lesson,
-                                        index: index,
-                                        isEvenIndex: index.isMultiple(of: 2),
-                                        isExpanded: viewModel.activeButtons.contains(lesson.id),
-                                        nextIncompleteLessonId: viewModel.nextIncompleteLessonId,
-                                        isCompleted: viewModel.profile.isLessonCompleted(lesson.id),
-                                        onTapSquare: { viewModel.handleSquareTap(for: lesson) }
-                                    )
-                                    .padding(.horizontal, 40)
-                                    .id(lesson.id)
-                                    .onAppear {
-                                        print("🔔 Rendered lesson: id = \(lesson.id), index = \(index)")
+                                        
+                                        LessonRow(
+                                            lesson: lesson,
+                                            index: index,
+                                            isEvenIndex: index.isMultiple(of: 2),
+                                            isExpanded: viewModel.activeButtons.contains(lesson.id),
+                                            nextIncompleteLessonId: viewModel.nextIncompleteLessonId,
+                                            isCompleted: viewModel.profile.isLessonCompleted(lesson.id),
+                                            onTapSquare: { viewModel.handleSquareTap(for: lesson) }
+                                        )
+                                        .padding(.horizontal, 40)
+                                        .id(lesson.id)
+                                        .onAppear {
+                                            print("🔔 Rendered lesson: id = \(lesson.id), index = \(index)")
+                                        }
                                     }
                                 }
                             }
                         }
+                        .zIndex(0)
                         .animation(.spring(response: 0.2), value: viewModel.activeButtons)
                         .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                         .navigationBarTitleDisplayMode(.inline)
