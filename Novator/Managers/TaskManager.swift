@@ -12,7 +12,7 @@ struct Lesson: Codable, Identifiable, Hashable {
     }
 }
 struct LearningProgram {
-    let tasks: [AppTask]
+    var tasks: [AppTask]
     let lessonId: String
     var currentIndex: Int
     init(tasks: [AppTask], lessonId: String) {
@@ -23,10 +23,6 @@ struct LearningProgram {
     }
     var currentTask: AppTask? {
         currentIndex < tasks.count ? tasks[currentIndex] : nil
-    }
-    mutating func nextTask() -> AppTask? {
-        currentIndex += 1
-        return currentTask
     }
 }
 class TaskManager {

@@ -81,9 +81,19 @@ class TasksViewModel: ObservableObject {
     }
     
     func loadNextTask() {
-        program?.nextTask()
+        guard var mutableProgram = program else { return }
+        if !isCorrect {
+            let oldIndex = mutableProgram.currentIndex
+            let taskToMove = mutableProgram.tasks.remove(at: oldIndex)
+            mutableProgram.tasks.append(taskToMove)
+            mutableProgram.currentIndex = oldIndex
+        } else {
+            mutableProgram.currentIndex += 1
+        }
+        program = mutableProgram
         selectedAnswer = nil
         showResult = false
+        isCorrect = false
         print("🔔 TasksViewModel: loadNextTask called, new currentTask = \(String(describing: currentTask?.id))")
     }
     
