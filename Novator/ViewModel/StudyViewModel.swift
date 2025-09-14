@@ -25,6 +25,14 @@ class StudyViewModel: ObservableObject {
         lessons.chunked(into: 50)
     }
     
+    var completedCountOnPage: Int {
+        currentLessons.filter { profile.isLessonCompleted($0.id) }.count
+    }
+
+    var totalCountOnPage: Int {
+        currentLessons.count
+    }
+    
     var currentLessons: [Lesson] {
         guard currentPage < lessonsByPage.count else { return [] }
         return lessonsByPage[currentPage].reversed()

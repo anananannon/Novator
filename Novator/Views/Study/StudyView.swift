@@ -26,19 +26,21 @@ struct StudyView: View {
                         Button {
                             showingPage.toggle()
                         } label: {
-                            RoundedRectangle(cornerRadius: 13).fill(Color(.systemGray6))
+                            RoundedRectangle(cornerRadius: 13).fill(.thinMaterial)
                                 .frame(height: 100)
-                                .shadow(radius: 1)
                                 .overlay {
                                     VStack {
                                         HStack {
                                             VStack(alignment: .leading) {
-                                                Text("21/50")
-                                                    .font(.system(size: 17, design: .monospaced))
-                                                    .foregroundColor(.primary)
-                                                Text("Вы на 1 стадии")
-                                                    .font(.system(size: 15))
-                                                    .foregroundColor(.secondary)
+                                                
+                                                
+                                                
+                                                Text("\(viewModel.completedCountOnPage)/50")
+                                                       .font(.system(size: 17, design: .monospaced))
+                                                       .foregroundColor(.primary)
+                                                   Text("Вы на \(viewModel.currentPage + 1) стадии")
+                                                       .font(.system(size: 15))
+                                                       .foregroundColor(.secondary)
                                             }
                                             Spacer()
                                             Image("rocketSV")
@@ -46,9 +48,12 @@ struct StudyView: View {
                                             
                                             
                                         }
-                                        ProgressView(value: 0.35)
-                                            .frame(maxWidth: .infinity)
-                                            .scaleEffect(y: 2.5)
+                                        ProgressView(
+                                            value: Double(viewModel.completedCountOnPage),
+                                            total: Double(viewModel.totalCountOnPage)
+                                        )
+                                        .frame(maxWidth: .infinity)
+                                        .scaleEffect(y: 2.5)
                                     }
                                     .padding(.horizontal, 10)
                                 }
@@ -105,23 +110,7 @@ struct StudyView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar { toolbarContent }
                         .sheet(isPresented: $showingPage) {
-                            VStack {
-                                Text("123")
-                                HStack {
-                                    Button {
-                                        viewModel.goToNextPage()
-                                    } label: {
-                                        Text("Перейти к следующей стадии")
-                                    }
-                                    Button {
-                                        viewModel.goToPreviousPage()
-                                    } label: {
-                                        Text("Перейти к предыдущей стадии")
-                                    }
-                                }
-                            }
-                            .presentationDetents([.height(500)])
-                            .presentationCornerRadius(20)
+                            showingPages(viewModel: viewModel)
                         }
                     }
                     .contentShape(Rectangle())
@@ -350,6 +339,54 @@ private struct LessonSquare: View {
         (isCompleted || isNextIncomplete) ? .white : .primary
     }
 }
+
+private struct showingPages: View {
+    
+    @ObservedObject var viewModel: StudyViewModel
+    
+    var body: some View {
+        
+        VStack {
+            Text("123")
+            Spacer()
+            HStack {
+                Button {
+                    viewModel.goToPreviousPage()
+                } label: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(viewModel.currentPage == 0 ? Color(.systemGray4) : Color("AppRed"))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .overlay {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                        }
+                }
+                .disabled(viewModel.currentPage == 0)
+                Button {
+                    viewModel.goToNextPage()
+                } label: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(viewModel.currentPage + 1 >= viewModel.lessonsByPage.count ? Color(.systemGray4) : Color("AppRed"))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .overlay {
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                        }
+                }
+                .disabled(viewModel.currentPage + 1 >= viewModel.lessonsByPage.count)
+            }
+        }
+        .padding(.horizontal, 30)
+        .presentationDetents([.height(500)])
+        .presentationCornerRadius(20)
+    }
+}
+
+
 
 // MARK: - Utilities
 private enum HorizontalAlignmentEdge { case leading, trailing }
