@@ -11,19 +11,34 @@ class StudyViewModel: ObservableObject {
     @Published var activeButtons: Set<String> = []
     @Published var nextIncompleteLessonId: String?
     @Published var hasScrolledOnFirstAppear = false
+    @Published var currentPage: Int = 0
     
     // MARK: - Dependencies
     let profile: UserProfileViewModel
     
     // MARK: - Computed Properties
-    var reversedLessons: [Lesson] {
-        Array(TaskManager.lessons.reversed())
+    var lessons: [Lesson] {
+        TaskManager.lessons.sorted { (Int($0.id) ?? 0) < (Int($1.id) ?? 0) }
+    }
+    
+    var lessonsByPage: [[Lesson]] {
+        lessons.chunked(into: 50)
+    }
+    
+    var currentLessons: [Lesson] {
+        guard currentPage < lessonsByPage.count else { return [] }
+        return lessonsByPage[currentPage].reversed()
     }
     
     // MARK: - Initialization
     init(profile: UserProfileViewModel) {
         self.profile = profile
         self.nextIncompleteLessonId = Self.computeNextIncompleteLessonId(for: profile)
+        
+        if let nextId = nextIncompleteLessonId,
+           let globalIndex = lessons.firstIndex(where: { $0.id == nextId }) {
+            currentPage = globalIndex / 50
+        }
     }
     
     // MARK: - Methods
@@ -55,5 +70,30 @@ class StudyViewModel: ObservableObject {
     
     func updateNextIncompleteLessonId() {
         nextIncompleteLessonId = Self.computeNextIncompleteLessonId(for: profile)
+        if let nextId = nextIncompleteLessonId,
+           let globalIndex = lessons.firstIndex(where: { $0.id == nextId }) {
+            currentPage = globalIndex / 50
+        }
+    }
+    
+    func goToNextPage() {
+        if currentPage + 1 < lessonsByPage.count {
+            currentPage += 1
+        }
+    }
+    
+    func goToPreviousPage() {
+        if currentPage > 0 {
+            currentPage -= 1
+        }
+    }
+}
+
+// MARK: - Helpers
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
     }
 }

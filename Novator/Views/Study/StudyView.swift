@@ -19,24 +19,46 @@ struct StudyView: View {
             GeometryReader { geometry in
                 ScrollViewReader { proxy in
                     ZStack(alignment: .top) {
-                    
+                        
+                        // Наверху — панель переключения страниц
                         RoundedRectangle(cornerRadius: 13).fill(Color(.systemGray6))
                             .frame(height: 90)
                             .padding(.all, 10)
                             .overlay {
-                                Text("Кнопка для переключения между 50 уровнями")
-                                    .foregroundColor(Color("AppRed"))
+                                HStack {
+                                    Button {
+                                        viewModel.goToPreviousPage()
+                                    } label: {
+                                        Image(systemName: "chevron.left")
+                                    }
+                                    .disabled(viewModel.currentPage == 0)
+                                    
+                                    Spacer()
+                                    
+                                    Text("Страница \(viewModel.currentPage + 1) / \(viewModel.lessonsByPage.count)")
+                                        .foregroundColor(Color("AppRed"))
+                                    
+                                    Spacer()
+                                    
+                                    Button {
+                                        viewModel.goToNextPage()
+                                    } label: {
+                                        Image(systemName: "chevron.right")
+                                    }
+                                    .disabled(viewModel.currentPage + 1 >= viewModel.lessonsByPage.count)
+                                }
+                                .padding(.horizontal)
                             }
                             .shadow(radius: 3)
                             .zIndex(1)
                         
+                        // Контент текущей страницы
                         ScrollView {
-                            VStack(spacing: 20) { // Используем VStack
-                                
+                            VStack(spacing: 20) {
                                 Color(.black).opacity(0.000001)
                                     .frame(height: 100)
                                 
-                                ForEach(Array(viewModel.reversedLessons.enumerated()), id: \.offset) { index, lesson in
+                                ForEach(Array(viewModel.currentLessons.enumerated()), id: \.offset) { index, lesson in
                                     VStack(spacing: 20) {
                                         if viewModel.shouldShowDivider(before: lesson) {
                                             HStack {
@@ -116,11 +138,16 @@ struct StudyView: View {
             }
         }
         .fullScreenCover(item: $viewModel.selectedLesson) { lesson in
-            TaskDetailView(profile: viewModel.profile, lessonId: lesson.id, lessonStars: lesson.lessonStars, lessonRaitingPoints: lesson.lessonRaitingPoints)
-                .onDisappear {
-                    viewModel.resetActiveButtons()
-                    viewModel.updateNextIncompleteLessonId()
-                }
+            TaskDetailView(
+                profile: viewModel.profile,
+                lessonId: lesson.id,
+                lessonStars: lesson.lessonStars,
+                lessonRaitingPoints: lesson.lessonRaitingPoints
+            )
+            .onDisappear {
+                viewModel.resetActiveButtons()
+                viewModel.updateNextIncompleteLessonId()
+            }
         }
         .preferredColorScheme(viewModel.profile.theme.colorScheme)
     }
@@ -151,7 +178,7 @@ private extension StudyView {
                     .presentationCompactAdaptation(.popover)
             }
         }
-
+        
         ToolbarItem(placement: .topBarTrailing) {
             Button { viewModel.showRaitingPopover.toggle() } label: {
                 StatView(icon: "crown.fill", value: "\(viewModel.profile.profile.raitingPoints)")
@@ -176,7 +203,7 @@ private struct LessonRow: View {
     let nextIncompleteLessonId: String?
     let isCompleted: Bool
     let onTapSquare: () -> Void
-
+    
     var body: some View {
         HStack {
             if isEvenIndex {
@@ -199,7 +226,7 @@ private struct LessonRow: View {
                 isVisible: isExpanded,
                 anchor: alignment == .leading ? .leading : .trailing
             )
-
+            
             LessonSquare(
                 index: index,
                 isCompleted: isCompleted,
@@ -221,7 +248,7 @@ private struct StatsOverlay: View {
     let crowns: Int
     let isVisible: Bool
     let anchor: UnitPoint
-
+    
     var body: some View {
         RoundedRectangle(cornerRadius: UIConstants.cornerRadius)
             .fill(Color("TaskBackground"))
@@ -238,7 +265,7 @@ private struct StatsOverlay: View {
             .scaleEffect(x: isVisible ? 1 : 0, anchor: anchor)
             .animation(.spring(response: 0.2), value: isVisible)
     }
-
+    
     private var stats: some View {
         VStack(alignment: .trailing) {
             HStack(spacing: 6) {
@@ -261,7 +288,7 @@ private struct LessonSquare: View {
     let isExpanded: Bool
     let isEvenIndex: Bool
     let action: () -> Void
-
+    
     private var symbolName: String {
         if isExpanded {
             return isEvenIndex ? "arrowtriangle.right.fill" : "arrowtriangle.left.fill"
@@ -270,7 +297,7 @@ private struct LessonSquare: View {
             return symbolCycle[index % 3]
         }
     }
-
+    
     var body: some View {
         Button(action: action) {
             RoundedRectangle(cornerRadius: UIConstants.squareCornerRadius)
@@ -288,13 +315,13 @@ private struct LessonSquare: View {
         .accessibilityAddTraits(.isButton)
         .accessibilityLabel("Урок с символом \(symbolName)")
     }
-
+    
     private var fillColor: Color {
         if isCompleted { return Color("AppRed") }
         if isNextIncomplete { return Color("AppRed") }
         return Color(.gray)
     }
-
+    
     private var textColor: Color {
         (isCompleted || isNextIncomplete) ? .white : .primary
     }
