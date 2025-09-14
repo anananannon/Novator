@@ -31,12 +31,10 @@ struct StudyView: View {
                                 .overlay {
                                     VStack {
                                         HStack {
+                                            
                                             VStack(alignment: .leading) {
-                                                
-                                                
-                                                
                                                 Text("\(viewModel.completedCountOnPage)/50")
-                                                       .font(.system(size: 17, design: .monospaced))
+                                                       .font(.system(size: 16, design: .monospaced))
                                                        .foregroundColor(.primary)
                                                    Text("Вы на \(viewModel.currentPage + 1) стадии")
                                                        .font(.system(size: 15))
@@ -46,7 +44,6 @@ struct StudyView: View {
                                             Image("rocketSV")
                                                 .frame(width: 35, height: 35)
                                             
-                                            
                                         }
                                         ProgressView(
                                             value: Double(viewModel.completedCountOnPage),
@@ -55,11 +52,12 @@ struct StudyView: View {
                                         .frame(maxWidth: .infinity)
                                         .scaleEffect(y: 2.5)
                                     }
-                                    .padding(.horizontal, 20)
+                                    .padding(.horizontal, 25)
                                 }
                         }
                         .buttonStyle(.plain)
-                        .padding(.all, 10)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 13)
                         .zIndex(1)
                         
                         // Контент текущей страницы
@@ -76,7 +74,7 @@ struct StudyView: View {
                                                     .frame(height: 1.5)
                                                     .foregroundColor(Color("AppRed"))
                                                     .frame(maxWidth: .infinity)
-                                                Text("\(Int(lesson.id) ?? 10) LVL")
+                                                Text("\(Int(lesson.id) ?? 10)")
                                                     .foregroundColor(Color("AppRed"))
                                                     .font(.system(size: 16, weight: .medium))
                                                 Rectangle()
@@ -109,6 +107,7 @@ struct StudyView: View {
                         .frame(maxWidth: .infinity, minHeight: geometry.size.height)
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar { toolbarContent }
+                        .scrollIndicators(.hidden)
                         .sheet(isPresented: $showingPage) {
                             showingPages(viewModel: viewModel)
                         }
@@ -135,11 +134,11 @@ struct StudyView: View {
                         }
                     }
                     .onChange(of: viewModel.nextIncompleteLessonId) { newValue in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                             print("🔔 onChange: nextIncompleteLessonId = \(String(describing: newValue))")
                             if let targetId = newValue {
                                 print("🔔 Прокрутка к уроку: \(targetId)")
-                                withAnimation(.spring(response: 0.04)) {
+                                withAnimation(.spring(response: 0.02)) {
                                     proxy.scrollTo(targetId, anchor: .center)
                                 }
                             } else {
