@@ -55,7 +55,7 @@ struct StudyView: View {
                                         .frame(maxWidth: .infinity)
                                         .scaleEffect(y: 2.5)
                                     }
-                                    .padding(.horizontal, 10)
+                                    .padding(.horizontal, 20)
                                 }
                         }
                         .buttonStyle(.plain)
