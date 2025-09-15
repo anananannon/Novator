@@ -116,12 +116,15 @@ class TasksViewModel: ObservableObject {
             completedTaskIds.forEach { profile.completeTask($0) }
             profile.completeLesson(lessonId)
 
+            // Проверяем достижения
+            AchievementManager.checkAchievements(for: profile)
+
             // Сброс локальных накопителей
             accumulatedStars = 0
             accumulatedRaitingPoints = 0
             completedTaskIds = []
 
-            print("✅ Lesson \(lessonId) полностью завершён. Начислены все очки.")
+            print("✅ Lesson \(lessonId) полностью завершён. Начислены все очки и проверены достижения.")
         }
     }
 
