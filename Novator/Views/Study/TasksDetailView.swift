@@ -9,17 +9,18 @@ struct TaskDetailView: View {
     @State private var showContent = false
     @State private var showAcceptSheet = false
     @State private var showNoTaskView = false // Состояние для анимации noTaskView
+    
     let lessonId: String
     let lessonStars: Int
     let lessonRaitingPoints: Int
-    
+
     init(profile: UserProfileViewModel, lessonId: String, lessonStars: Int, lessonRaitingPoints: Int) {
         self.lessonId = lessonId
         self.lessonStars = lessonStars
         self.lessonRaitingPoints = lessonRaitingPoints
         self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile, lessonId: lessonId))
     }
-    
+
     var body: some View {
         ZStack {
             backgroundView
@@ -52,6 +53,7 @@ struct TaskDetailView: View {
 
 // MARK: - Views
 private extension TaskDetailView {
+
     var backgroundView: some View {
         Group {
             if viewModel.profile.theme.colorScheme == .light || (viewModel.profile.theme == .system && systemColorScheme == .light) {
@@ -64,7 +66,7 @@ private extension TaskDetailView {
             print("🔔 TaskDetailView: backgroundView rendered, theme = \(viewModel.profile.theme), systemColorScheme = \(systemColorScheme)")
         }
     }
-    
+
     var contentView: some View {
         VStack(spacing: 20) {
             if let task = viewModel.currentTask {
@@ -86,22 +88,24 @@ private extension TaskDetailView {
             print("🔔 TaskDetailView: contentView rendered, showContent = \(showContent)")
         }
     }
-    
+
     var acceptSheetContent: some View {
         VStack {
             Image(systemName: "questionmark.app")
                 .font(.system(size: 100))
                 .foregroundColor(Color("AppRed"))
-            
+
             Spacer()
-            
+
             Text("Вы уверены?")
                 .font(.system(size: 24, weight: .semibold))
                 .padding(.horizontal, 50)
-            
+
             Spacer()
-            
+
             Button {
+                // Начисление очков и отметка урока только при полном завершении
+                viewModel.completeLessonIfFinished()
                 dismiss()
             } label: {
                 Text("Выйти")
@@ -110,9 +114,9 @@ private extension TaskDetailView {
                     .frame(minWidth: 300, minHeight: 55)
             }
             .buttonStyle(PrimaryButtonStyle())
-            
+
             Spacer()
-            
+
             Button {
                 showAcceptSheet.toggle()
             } label: {
@@ -126,7 +130,7 @@ private extension TaskDetailView {
         .presentationDetents([.height(300)])
         .presentationCornerRadius(20)
     }
-    
+
     // MARK: - Header
     var headerView: some View {
         HStack {
@@ -149,7 +153,7 @@ private extension TaskDetailView {
         }
         .padding()
     }
-    
+
     // MARK: - Task Content
     func taskContentView(task: AppTask) -> some View {
         VStack {
@@ -172,6 +176,7 @@ private extension TaskDetailView {
                 .scaleEffect(y: viewModel.showResult ? 1 : 0, anchor: .bottom)
                 .animation(.spring(response: 0.3), value: viewModel.showResult)
                 .padding(.top)
+
             Button(action: viewModel.actionButtonTapped) {
                 Text(viewModel.actionButtonTitle)
                     .font(.system(.title3))
@@ -182,7 +187,7 @@ private extension TaskDetailView {
             .padding(.bottom, 4)
         }
     }
-    
+
     var resultOverlay: some View {
         VStack(alignment: .leading) {
             Text("\(Image(systemName: viewModel.isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")) \(viewModel.resultText)")
@@ -203,7 +208,7 @@ private extension TaskDetailView {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     // MARK: - No Task
     var noTaskView: some View {
         VStack(spacing: 14) {
@@ -211,7 +216,7 @@ private extension TaskDetailView {
                 .font(.system(size: 25))
                 .foregroundColor(Color("AppRed"))
                 .padding(.top, 60)
-                
+
             RoundedRectangle(cornerRadius: 30)
                 .stroke(Color("AppRed"), lineWidth: 1)
                 .frame(width: 310, height: 395)
@@ -232,15 +237,18 @@ private extension TaskDetailView {
                     }
                 }
                 .padding(.top, 40)
+
             Button("Отключить рекламу") {
                 print("🔔 TaskDetailView: Отключить рекламу tapped")
             }
             .font(.system(size: 13, weight: .medium))
             .underline()
             .foregroundColor(.primary)
-            
+
             Spacer()
+
             Button {
+                viewModel.completeLessonIfFinished() // начисляем прогресс при полном завершении
                 dismiss()
             } label: {
                 Label("Продолжить", systemImage: "shippingbox.fill")
@@ -269,7 +277,7 @@ private extension TaskDetailView {
                 .animation(.easeIn(duration: 0.3), value: progress)
         }
     }
-    
+
     func taskQuestion(task: AppTask) -> some View {
         Text(task.question)
             .font(.system(.title3, design: .monospaced))
@@ -279,7 +287,7 @@ private extension TaskDetailView {
             .foregroundColor(.primary)
             .cornerRadius(16)
     }
-    
+
     @ViewBuilder
     func taskOptions(task: AppTask) -> some View {
         let options = task.options ?? []
