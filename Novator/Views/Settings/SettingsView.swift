@@ -59,11 +59,11 @@ struct SettingsView: View {
                     }
                 }
             } label: {
-                Text(viewModel.selectedTheme.displayName)
+                Text("\(viewModel.selectedTheme.displayName) \(Image(systemName: "chevron.down"))")
                     .font(.body)
                     .foregroundColor(.gray)
-                //            }
             }
+            
         }
     }
 
