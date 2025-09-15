@@ -211,19 +211,24 @@ private extension TaskDetailView {
 
     // MARK: - No Task
     var noTaskView: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 8) {
             Text("Урок выполнен!")
                 .font(.system(size: 25))
                 .foregroundColor(Color("AppRed"))
                 .padding(.top, 60)
-
+            
+            Text(viewModel.mistakeCount == 0 ? "Поздравляю, вы прошли этот урок без ошибок!" : "Вы прошли этот урок, допустив \(viewModel.mistakeCount) \(viewModel.mistakeCount.pluralForm(with: ["ошибок", "ошибку", "ошибки"]))")                .font(.system(size: 15))
+                .foregroundColor(.primary)
+                .frame(width: 214, height: 65)
+                .multilineTextAlignment(.center)
+            
             RoundedRectangle(cornerRadius: 30)
-                .stroke(Color("AppRed"), lineWidth: 1)
-                .frame(width: 310, height: 395)
+                .stroke(Color("AppRed"), lineWidth: 2)
+                .frame(width: 310, height: 385)
                 .overlay {
                     VStack(spacing: 0) {
-                        Color("AppRed") // Тут надо убрать нижние радиусы
-                            .cornerRadius(30, corners: [.topLeft, .topRight]) // только верхние углы
+                        Color("AppRed")
+                            .cornerRadius(30, corners: [.topLeft, .topRight])
                             .frame(width: 310, height: 96)
                             .overlay {
                                 Text("NOVATOR\nPREMIUM")
@@ -236,7 +241,7 @@ private extension TaskDetailView {
                             .padding(.bottom, 20)
                     }
                 }
-                .padding(.top, 40)
+                .padding(.top, 20)
 
             Button("Отключить рекламу") {
                 print("🔔 TaskDetailView: Отключить рекламу tapped")
@@ -261,7 +266,7 @@ private extension TaskDetailView {
         .opacity(showNoTaskView ? 1 : 0) // Плавное появление
         .animation(.spring(response: 0.6).delay(0.6), value: showNoTaskView) // Плавная анимация
         .onAppear {
-            print("🔔 TaskDetailView: noTaskView rendered, showNoTaskView = \(showNoTaskView)")
+            print("🔔 TaskDetailView: noTaskView rendered, showNoTaskView = \(showNoTaskView), mistakeCount = \(viewModel.mistakeCount)")
         }
     }
 }
@@ -319,5 +324,23 @@ private extension TaskDetailView {
 extension Color {
     static func invertedPrimary(_ systemColorScheme: ColorScheme) -> Color {
         systemColorScheme == .light ? .white : .black
+    }
+}
+
+extension Int {
+    func pluralForm(with forms: [String]) -> String {
+        // forms: [именительный падеж (0 ошибок), винительный падеж (1 ошибку), родительный падеж (2-4 ошибки)]
+        let n = abs(self) % 100
+        let n1 = n % 10
+        
+        if n > 10 && n < 20 {
+            return forms[0] // 11–14: ошибок
+        } else if n1 > 1 && n1 < 5 {
+            return forms[2] // 2–4, 22–24: ошибки
+        } else if n1 == 1 {
+            return forms[1] // 1, 21, 31: ошибку
+        } else {
+            return forms[0] // 0, 5–10, 15–20: ошибок
+        }
     }
 }

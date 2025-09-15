@@ -7,6 +7,7 @@ class TasksViewModel: ObservableObject {
     @Published var selectedAnswer: String?
     @Published var showResult: Bool = false
     @Published var isCorrect: Bool = false
+    @Published var mistakeCount: Int = 0
     let profile: UserProfileViewModel
 
     // Новые свойства для отложенного начисления
@@ -82,6 +83,9 @@ class TasksViewModel: ObservableObject {
             completedTaskIds.append(task.id)
             accumulatedStars += task.stars
             accumulatedRaitingPoints += task.raitingPoints
+        } else {
+            mistakeCount += 1
+            print("🔔 TasksViewModel: Ошибка зафиксирована, текущий mistakeCount = \(mistakeCount)")
         }
     }
 
@@ -123,6 +127,7 @@ class TasksViewModel: ObservableObject {
             accumulatedStars = 0
             accumulatedRaitingPoints = 0
             completedTaskIds = []
+            mistakeCount = 0
 
             print("✅ Lesson \(lessonId) полностью завершён. Начислены все очки и проверены достижения.")
         }
