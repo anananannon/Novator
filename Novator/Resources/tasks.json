@@ -2171,7 +2171,7 @@
             "name": "Урок 4: Тестовый уровень",
             "tasks": [
                 {
-                    "id": "66666666-6666-6462-6666-666666666665",
+                    "id": "32f42f48-0645-41da-9257-6a4f6e0b804e",
                     "category": "math",
                     "question": "Найдите x: x² - 4 = 0",
                     "options": ["1", "2", "3", "4"],
@@ -2182,7 +2182,1099 @@
                     "isLogicalTrick": false
                 },
                 {
-                    "id": "77777777-7777-6463-7777-777777777776",
+                    "id": "f930a006-2990-49e7-bec2-580993c3f1d7",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "22",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "b06d1475-82dd-42c0-b0c6-03a7d6046eeb",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "f0c3a84d-c67b-4996-9d56-86e07412fbb7",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "23",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "f59ac003-f3f4-4590-851c-97b391b0d6fc",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "30fef2c0-cd41-4b88-8e7a-979d012e27d5",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "24",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "997f2297-6cf4-4c03-9e37-bc7e35f8d8f8",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "a5280f93-325f-4c74-92e4-f101ee2578cb",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "25",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "f59e64b8-0100-47ad-8b6e-58e47cf3f35d",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "80c74cf0-9e59-4665-b107-6d70330a9325",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "26",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "f272f26f-47e5-4ff2-8961-9c70bfc7600a",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "a316e7f0-c8e5-43c1-a173-25dbf86fc024",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "27",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "0cc1e516-9e72-4b5f-a7af-0a823af8f265",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "d1877e1f-3958-47d4-8fa0-12c6db7cf442",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "28",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "c0745f92-36d4-4760-802a-3498417601af",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "a40278f3-d9d8-4b34-b2c2-02479e865d1d",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "29",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "c47ef44a-11e4-414a-9fe6-6e48c92fcf7b",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "40007bb0-888b-45a1-a016-496afc98a6b2",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "30",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "f8b92e16-98c4-46ea-bb08-325e16bb1261",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "5b2da10d-fc36-45a0-8e71-836fd115e3a0",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "31",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "a367db52-0468-4dcb-96a2-85d7b8694305",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "640d034f-06e1-4797-872f-f8e7e8c92ae2",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "32",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "a917c9f3-9f7e-4b8c-b6a9-29d5a28939e1",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "9cf52a2c-905c-4992-8333-405ff8b694b6",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "33",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "ee5f77e2-6f84-44e8-83c9-d9c6e96d63be",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "b6835c44-bdf8-4149-8a50-372793bdb9a2",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "34",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "038b7bb1-c124-4f59-8a58-01b861f4ff6d",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "59787e0c-ea49-462a-bac0-88579886fa26",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "35",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "055758c6-ef5e-4b57-a9a9-01ff49c2b6b9",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "7e10ee45-7a02-4908-b787-d63f77af87c1",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "36",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "bca1d0c9-c112-47a6-a790-4eaf39ea7d3c",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "e4bb0b07-bf28-4c94-b405-47e4fbe940d4",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "37",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "4e9437a6-6aa5-41c0-b480-fbc568512a1e",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "f63b1388-0124-46ed-9e71-34544acfd087",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "38",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "d153c100-2202-4cde-98cd-37bfcbd57a24",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "78b219c5-2e7a-46cb-8d34-f544b2996d26",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "39",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "03150e07-1441-437f-b621-6585e2b22059",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "e0b87510-dbf0-4dd9-9f6d-78f95d46a313",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "40",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "a81cb357-cc93-437d-900d-19320fdc71f2",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "cb8ef5ad-d2d7-439f-bc7d-20728c82ea1d",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "41",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "7f8a1d21-0036-4eac-9644-50e9fef8b2c5",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "f93b14ae-619a-4a37-b6cf-48c4b5f6cfeb",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "42",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "ba9ce8d4-c255-42d9-8f87-6cd8d6f51416",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "6498e12c-e45a-4442-8a21-91b33209f899",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "43",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "7b482e4a-e87d-40d6-b960-3bb394567c83",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "bcb6e2e3-5b20-4398-b0dd-d1677ec6eb79",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "44",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "9940de3c-38a0-4e94-b4ed-656c108530f1",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "c2de0cdb-5f72-4214-a3c5-f5c02d1d0797",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "45",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "5658c417-223d-44f5-b6e9-4a2952ce19cc",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "6c5f6f87-fd83-463c-97b4-0a0c5fa38f6d",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "46",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "a5d2fc9c-c4a3-40fb-924f-62ea75aeb524",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "4c54ddf3-0ca3-4a83-b6bb-f0d707ed89b4",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "47",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "d5671ee6-75e7-4e5a-8d9d-0f84d8463b7a",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "c19ac6ec-13f8-42d5-9469-6c5b4ae7a60b",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "48",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "b5c4bfe4-4f32-4f7e-8707-b2fa94c985d7",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "bcbb5c63-2d3f-47dd-ae2c-b52d497d1a8b",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "49",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "b2e3b029-0a09-4298-99b0-1668a2666d17",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "ac5ebee6-87ec-4ed9-8c07-cfa7f1888b60",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "50",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "a60eaf6a-cc5e-4679-9881-63e73b4d8413",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "5b56e164-8ec9-4230-bb53-8a4028f6239b",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "51",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "0b2d1de6-7d37-4a3f-b08f-6485d47dc809",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "8c9b68aa-1602-4b02-bd3d-4b4d8cf15e52",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "52",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "ed16e43d-81e8-4643-a8ef-4e97d43e474f",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "a66b84e5-1b26-4067-915c-2313a48998db",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "53",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "4cfd7c4d-cb36-47ef-b0a3-69d87ee47c5a",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "f86b0c47-57e1-4191-9ea1-2f9fcbfdb6d7",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "54",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "8ffdf9c9-6ed8-4da1-8fa1-0bbfbcb03cdd",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "678ef7f1-51a5-429c-b122-5cbadbbacb18",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "55",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "9d12f07f-0539-40a7-ae50-332d90a399f3",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "4ed6a206-b0f1-4211-9527-e5a2e6d3c9b0",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "56",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "7c1ec08e-ecfd-48d4-97a4-5249a58b2f86",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "ccda3f88-6c59-46ff-872c-43dc2c8f489b",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "57",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "a88595cb-5e7f-45a4-92a6-2b74da55da48",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "1429ec9f-1703-4406-9e87-8001290414a3",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "58",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "eddd672c-9367-44bb-bd50-41c8002e1913",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "ce9dbd7b-f052-4d53-b1de-5b84675dff5d",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "59",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "8e1d0ed7-520d-4e1a-93fc-4188cd2fcd9b",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "a92a2d1b-139c-4b16-bd27-676680c94dbd",
+                    "category": "logic",
+                    "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
+                    "options": ["А", "Б", "Оба", "Никто"],
+                    "correctAnswer": "А",
+                    "explanation": "Если А прав, то Б лжёт, но тогда Б не может говорить 'А прав'. Значит, А лжёт.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": true
+                }
+            ]
+        },
+        {
+            "id": "60",
+            "name": "Урок 4: Тестовый уровень",
+            "tasks": [
+                {
+                    "id": "02f25816-2aa4-4d4b-9628-08da5579823a",
+                    "category": "math",
+                    "question": "Найдите x: x² - 4 = 0",
+                    "options": ["1", "2", "3", "4"],
+                    "correctAnswer": "2",
+                    "explanation": "Решите x² - 4 = 0: x² = 4, x = ±2. Из вариантов подходит 2.",
+                    "stars": 50,
+                    "raitingPoints": 30,
+                    "isLogicalTrick": false
+                },
+                {
+                    "id": "aa1d451d-dba1-487f-8ff7-b8fc90ab52c1",
                     "category": "logic",
                     "question": "Если А говорит: 'Б лжёт', а Б говорит: 'А прав', кто лжёт?",
                     "options": ["А", "Б", "Оба", "Никто"],

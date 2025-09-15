@@ -95,6 +95,14 @@ class StudyViewModel: ObservableObject {
             currentPage -= 1
         }
     }
+    
+    func progress(for pageIndex: Int) -> (completed: Int, total: Int) {
+        guard pageIndex < lessonsByPage.count else { return (0, 0) }
+        let lessonsOnPage = lessonsByPage[pageIndex]
+        let completed = lessonsOnPage.filter { profile.isLessonCompleted($0.id) }.count
+        return (completed, lessonsOnPage.count)
+    }
+
 }
 
 // MARK: - Helpers

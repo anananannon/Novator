@@ -41,7 +41,7 @@ struct StudyView: View {
                                                        .foregroundColor(.secondary)
                                             }
                                             Spacer()
-                                            Image("rocketSV")
+                                            Image(viewModel.currentPage == 0 ? "rocketSV" : "backpackSV")
                                                 .frame(width: 35, height: 35)
                                             
                                         }
@@ -110,6 +110,8 @@ struct StudyView: View {
                         .scrollIndicators(.hidden)
                         .sheet(isPresented: $showingPage) {
                             showingPages(viewModel: viewModel)
+                                .presentationDetents([.height(310)])
+                                .presentationCornerRadius(15)
                         }
                     }
                     .contentShape(Rectangle())
@@ -342,46 +344,101 @@ private struct LessonSquare: View {
 private struct showingPages: View {
     
     @ObservedObject var viewModel: StudyViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
-        VStack {
-            Text("123")
-            Spacer()
-            HStack {
+        NavigationStack {
+            VStack(spacing: 10) {
+                Spacer()
                 Button {
-                    viewModel.goToPreviousPage()
+                    viewModel.currentPage = 1
+                    dismiss()
                 } label: {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(viewModel.currentPage == 0 ? Color(.systemGray4) : Color("AppRed"))
+                        .fill(.thinMaterial)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 50)
+                        .frame(height: 120)
                         .overlay {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
+                            VStack(alignment: .leading) {
+                                let progress = viewModel.progress(for: 1)
+                                
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("\(progress.completed)/50")
+                                            .font(.system(size: 16, design: .monospaced))
+                                            .foregroundColor(.primary)
+                                        
+                                        Text("Вторая стадия")
+                                            .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Spacer()
+                                    Image("backpackSV")
+                                        .frame(width: 35, height: 35)
+                                }
+                                
+                                ProgressView(
+                                    value: Double(progress.completed),
+                                    total: Double(progress.total)
+                                )
+                                .frame(maxWidth: .infinity)
+                                .scaleEffect(y: 2.5)
+                            }
+                            .padding(.horizontal, 20)
                         }
                 }
-                .disabled(viewModel.currentPage == 0)
+                .buttonStyle(.plain)
+                .disabled(viewModel.progress(for: 0).completed < viewModel.progress(for: 0).total)
+                .opacity(viewModel.progress(for: 0).completed < viewModel.progress(for: 0).total ? 0.5 : 1.0)
+                
                 Button {
-                    viewModel.goToNextPage()
+                    viewModel.currentPage = 0
+                    dismiss()
                 } label: {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(viewModel.currentPage + 1 >= viewModel.lessonsByPage.count ? Color(.systemGray4) : Color("AppRed"))
+                        .fill(.thinMaterial)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 50)
+                        .frame(height: 120)
                         .overlay {
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
+                            VStack(alignment: .leading) {
+                                let progress = viewModel.progress(for: 0)
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("\(progress.completed)/50")
+                                            .font(.system(size: 16, design: .monospaced))
+                                            .foregroundColor(.primary)
+                                        
+                                        Text("Первая стадия")
+                                            .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Spacer()
+                                    Image("rocketSV")
+                                        .frame(width: 35, height: 35)
+                                }
+                                
+                                ProgressView(
+                                    value: Double(progress.completed),
+                                    total: Double(progress.total)
+                                )
+                                .frame(maxWidth: .infinity)
+                                .scaleEffect(y: 2.5)
+                            }
+                            .padding(.horizontal, 20)
                         }
                 }
-                .disabled(viewModel.currentPage + 1 >= viewModel.lessonsByPage.count)
+                .buttonStyle(.plain)
             }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Отмена") {
+                        dismiss()
+                    }
+                }
+            }
+            .padding(.horizontal, 15)
         }
-        .padding(.horizontal, 30)
-        .presentationDetents([.height(500)])
-        .presentationCornerRadius(20)
     }
 }
 
