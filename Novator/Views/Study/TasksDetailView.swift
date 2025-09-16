@@ -218,7 +218,7 @@ private extension TaskDetailView {
                 .padding(.top, 60)
             
             Text(viewModel.mistakeCount == 0 ? "Поздравляю, вы прошли этот урок без ошибок!" : "Вы прошли этот урок, допустив \(viewModel.mistakeCount) \(viewModel.mistakeCount.pluralForm(with: ["ошибок", "ошибку", "ошибки"]))")                .font(.system(size: 15))
-                .foregroundColor(.primary)
+                .foregroundColor(.secondary)
                 .frame(width: 214, height: 65)
                 .multilineTextAlignment(.center)
             
