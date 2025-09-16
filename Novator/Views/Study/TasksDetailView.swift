@@ -211,54 +211,32 @@ private extension TaskDetailView {
 
     // MARK: - No Task
     var noTaskView: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
+            
+                                                                                                                                
+            Spacer()
+            
+            Image("rocketNoTaskView")
+                .frame(width: 248, height: 248)
+            
+            
             Text("Урок выполнен!")
                 .font(.system(size: 25))
                 .foregroundColor(Color("AppRed"))
-                .padding(.top, 60)
+                .padding(.top, 50)
             
-            Text(viewModel.mistakeCount == 0 ? "Поздравляю, вы прошли этот урок без ошибок!" : "Вы прошли этот урок, допустив \(viewModel.mistakeCount) \(viewModel.mistakeCount.pluralForm(with: ["ошибок", "ошибку", "ошибки"]))")                .font(.system(size: 15))
+            Text(viewModel.mistakeCount == 0 ? "Поздравляю, вы прошли этот урок без ошибок!" : "Вы прошли этот урок, допустив \(viewModel.mistakeCount) \(viewModel.mistakeCount.pluralForm(with: ["ошибок", "ошибку", "ошибки"])).")                .font(.system(size: 15))
                 .foregroundColor(.secondary)
-                .frame(width: 214, height: 65)
+                .frame(width: 214, height: 55)
                 .multilineTextAlignment(.center)
-            
-            RoundedRectangle(cornerRadius: 30)
-                .stroke(Color("AppRed"), lineWidth: 2)
-                .frame(width: 310, height: 385)
-                .overlay {
-                    VStack(spacing: 0) {
-                        Color("AppRed")
-                            .cornerRadius(30, corners: [.topLeft, .topRight])
-                            .frame(width: 310, height: 96)
-                            .overlay {
-                                Text("NOVATOR\nPREMIUM")
-                                    .font(.system(size: 26, weight: .heavy))
-                                    .foregroundColor(Color.invertedPrimary(systemColorScheme))
-                            }
-                        Spacer()
-                        Image("rocketNoTaskView")
-                            .frame(width: 248, height: 248)
-                            .padding(.bottom, 20)
-                    }
-                }
-                .padding(.top, 20)
-
-            Button("Отключить рекламу") {
-                print("🔔 TaskDetailView: Отключить рекламу tapped")
-            }
-            .font(.system(size: 13, weight: .medium))
-            .underline()
-            .foregroundColor(.primary)
-
             Spacer()
-
             Button {
                 viewModel.completeLessonIfFinished() // начисляем прогресс при полном завершении
                 dismiss()
             } label: {
-                Label("Продолжить", systemImage: "shippingbox.fill")
+                Label("Продолжить", systemImage: "")
                     .font(.system(.title2))
-                    .frame(maxWidth: 250, maxHeight: 50)
+                    .frame(maxWidth: 330, maxHeight: 50)
             }
             .buttonStyle(PrimaryButtonStyle())
             .padding(.bottom, 20)
