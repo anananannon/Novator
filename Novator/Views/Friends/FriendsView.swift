@@ -84,7 +84,6 @@ struct FriendsView: View {
                 viewModel.setupFriends()
             }) {
                 FriendRequestsView()
-                    .presentationDetents([.height(500)])
                     .presentationCornerRadius(15)
                     .environmentObject(userProfileViewModel)
             }
