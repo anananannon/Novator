@@ -8,11 +8,13 @@ struct StudyView: View {
     @Binding var selectedTab: Int
     
     @State var showingPage = false
+    let notificationManager: NotificationManager // Добавляем NotificationManager
     
     // MARK: - Init
-    init(profile: UserProfileViewModel, selectedTab: Binding<Int>) {
+    init(profile: UserProfileViewModel, selectedTab: Binding<Int>, notificationManager: NotificationManager = NotificationManager()) {
         self._viewModel = StateObject(wrappedValue: StudyViewModel(profile: profile))
         self._selectedTab = selectedTab
+        self.notificationManager = notificationManager
     }
     
     // MARK: - Body
@@ -156,7 +158,8 @@ struct StudyView: View {
                 profile: viewModel.profile,
                 lessonId: lesson.id,
                 lessonStars: lesson.lessonStars,
-                lessonRaitingPoints: lesson.lessonRaitingPoints
+                lessonRaitingPoints: lesson.lessonRaitingPoints,
+                notificationManager: notificationManager // Передаём notificationManager
             )
             .onDisappear {
                 viewModel.resetActiveButtons()

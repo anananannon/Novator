@@ -123,7 +123,7 @@ private struct SectionRow: View {
                 if item.destinationType == .friends {
                     if profile.profile.incomingFriendRequests.count >= 1 {
                         Spacer()
-                        Text("\(profile.profile.incomingFriendRequests.count)") 
+                        Text("\(profile.profile.incomingFriendRequests.count)")
                             .font(.system(size: 12))
                             .foregroundColor(.secondary)
                             .frame(width: 20, height: 20)

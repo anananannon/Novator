@@ -1,7 +1,7 @@
-import Foundation
 import SwiftUI
 import Combine
 
+// MARK: - ViewModel друзей
 final class FriendsViewModel: ObservableObject {
     // MARK: - Input
     @Published var profile: UserProfileViewModel? // Изменено на @Published для реактивности

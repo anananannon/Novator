@@ -27,7 +27,7 @@ struct AchievementManager {
         "Test3" : { $0.completedLessons.count >= 15 }
     ]
 
-    static func checkAchievements(for profile: UserProfileViewModel) {
+    static func checkAchievements(for profile: UserProfileViewModel, notificationManager: NotificationManager) {
         for achievement in achievements {
             guard !profile.profile.achievements.contains(achievement.name),
                   let criteria = achievementCriteria[achievement.name],
@@ -36,6 +36,7 @@ struct AchievementManager {
 
             profile.profile.achievements.append(achievement.name)
             profile.saveProfile()
+            notificationManager.addNotification(for: achievement) // Добавляем уведомление
         }
     }
 }

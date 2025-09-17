@@ -9,16 +9,18 @@ struct TaskDetailView: View {
     @State private var showContent = false
     @State private var showAcceptSheet = false
     @State private var showNoTaskView = false // Состояние для анимации noTaskView
+    let notificationManager: NotificationManager // Добавляем NotificationManager
     
     let lessonId: String
     let lessonStars: Int
     let lessonRaitingPoints: Int
 
-    init(profile: UserProfileViewModel, lessonId: String, lessonStars: Int, lessonRaitingPoints: Int) {
+    init(profile: UserProfileViewModel, lessonId: String, lessonStars: Int, lessonRaitingPoints: Int, notificationManager: NotificationManager = NotificationManager()) {
         self.lessonId = lessonId
         self.lessonStars = lessonStars
         self.lessonRaitingPoints = lessonRaitingPoints
-        self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile, lessonId: lessonId))
+        self.notificationManager = notificationManager
+        self._viewModel = StateObject(wrappedValue: TasksViewModel(profile: profile, lessonId: lessonId, notificationManager: notificationManager))
     }
 
     var body: some View {

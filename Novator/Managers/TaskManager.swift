@@ -42,18 +42,18 @@ class TaskManager {
             print("Error: Failed to decode tasks.json")
             return []
         }
-        print("TaskManager: Loaded (wrapper.lessons.count) lessons from tasks.json")
+        print("TaskManager: Loaded \(wrapper.lessons.count) lessons from tasks.json")
         return wrapper.lessons
     }()
     static func createLearningProgram(for lessonId: String, completedTasks: [UUID]) -> LearningProgram {
         guard let lesson = lessons.first(where: { $0.id == lessonId }) else {
-            print("TaskManager: No lesson found for id (lessonId)")
+            print("TaskManager: No lesson found for id \(lessonId)")
             return LearningProgram(tasks: [], lessonId: lessonId)
         }
         let filteredTasks = lesson.tasks.filter { !completedTasks.contains($0.id) }
-        print("TaskManager: Creating LearningProgram for lesson: (lessonId), Available tasks: (filteredTasks.count)")
+        print("TaskManager: Creating LearningProgram for lesson: \(lessonId), Available tasks: \(filteredTasks.count)")
         if filteredTasks.isEmpty {
-            print("TaskManager: No tasks for lesson (lessonId)")
+            print("TaskManager: No tasks for lesson \(lessonId)")
         }
         return LearningProgram(tasks: filteredTasks, lessonId: lessonId)
     }

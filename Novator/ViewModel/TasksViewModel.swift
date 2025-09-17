@@ -9,14 +9,16 @@ class TasksViewModel: ObservableObject {
     @Published var isCorrect: Bool = false
     @Published var mistakeCount: Int = 0
     let profile: UserProfileViewModel
+    let notificationManager: NotificationManager // Добавляем NotificationManager
 
     // Новые свойства для отложенного начисления
     private var completedTaskIds: [UUID] = []
     private var accumulatedStars = 0
     private var accumulatedRaitingPoints = 0
 
-    init(profile: UserProfileViewModel, lessonId: String) {
+    init(profile: UserProfileViewModel, lessonId: String, notificationManager: NotificationManager = NotificationManager()) {
         self.profile = profile
+        self.notificationManager = notificationManager
         self.program = TaskManager.createLearningProgram(
             for: lessonId,
             completedTasks: profile.profile.completedTasks
@@ -120,8 +122,8 @@ class TasksViewModel: ObservableObject {
             completedTaskIds.forEach { profile.completeTask($0) }
             profile.completeLesson(lessonId)
 
-            // Проверяем достижения
-            AchievementManager.checkAchievements(for: profile)
+            // Проверяем достижения и отправляем уведомления
+            AchievementManager.checkAchievements(for: profile, notificationManager: notificationManager)
 
             // Сброс локальных накопителей
             accumulatedStars = 0

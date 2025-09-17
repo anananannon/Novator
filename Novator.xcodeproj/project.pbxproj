@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AB0E5E332E6863690057D2E5 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E322E6863690057D2E5 /* StoreView.swift */; };
 		AB0E5E372E698F5B0057D2E5 /* ProfileLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */; };
+		AB14003A2E799E5E00B2802B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1400392E799E5E00B2802B /* Notification.swift */; };
+		AB14003C2E799E8200B2802B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14003B2E799E8200B2802B /* NotificationManager.swift */; };
+		AB14003E2E799ECC00B2802B /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14003D2E799ECC00B2802B /* NotificationView.swift */; };
 		AB1AFD0A2E6F077C00DDD19D /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AFD092E6F077C00DDD19D /* UserDataSource.swift */; };
 		AB1AFD112E6F09EA00DDD19D /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1AFD102E6F09EA00DDD19D /* FriendsView.swift */; };
 		AB35A8F12E609C4200942C3E /* StudyDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8F02E609C4200942C3E /* StudyDestination.swift */; };
@@ -74,6 +77,9 @@
 /* Begin PBXFileReference section */
 		AB0E5E322E6863690057D2E5 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLookView.swift; sourceTree = "<group>"; };
+		AB1400392E799E5E00B2802B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		AB14003B2E799E8200B2802B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		AB14003D2E799ECC00B2802B /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		AB1AFD092E6F077C00DDD19D /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
 		AB1AFD102E6F09EA00DDD19D /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		AB35A8F02E609C4200942C3E /* StudyDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyDestination.swift; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 				ABE0801A2E54D874007B9113 /* Task.swift */,
 				ABE0801C2E54D898007B9113 /* UserProfile.swift */,
 				ABAAA5A52E6C7819006E7DA4 /* Achievement.swift */,
+				AB1400392E799E5E00B2802B /* Notification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -331,6 +338,7 @@
 				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				ABE5C1282E647023009B2E0A /* Raiting */,
 				AB35A8EE2E609BC900942C3E /* Components */,
+				AB14003D2E799ECC00B2802B /* NotificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,6 +348,7 @@
 			children = (
 				ABE080202E54D8DD007B9113 /* TaskManager.swift */,
 				ABE080222E54D902007B9113 /* AchievementManager.swift */,
+				AB14003B2E799E8200B2802B /* NotificationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -512,8 +521,10 @@
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
 				AB35A8F32E609C5400942C3E /* StatView.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,
+				AB14003C2E799E8200B2802B /* NotificationManager.swift in Sources */,
 				AB7497DA2E6F250500B4051F /* FriendRequestsView.swift in Sources */,
 				ABAAA5A82E6C90A2006E7DA4 /* AchievementsViewModel.swift in Sources */,
+				AB14003E2E799ECC00B2802B /* NotificationView.swift in Sources */,
 				ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */,
 				ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */,
 				AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */,
@@ -528,6 +539,7 @@
 				AB907F032E549FA2005592E3 /* TasksDetailView.swift in Sources */,
 				ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */,
 				ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */,
+				AB14003A2E799E5E00B2802B /* Notification.swift in Sources */,
 				AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */,
 				AB7497DC2E71E02700B4051F /* MyProfileView.swift in Sources */,
 				ABE5C12A2E647048009B2E0A /* RaitingRow.swift in Sources */,
