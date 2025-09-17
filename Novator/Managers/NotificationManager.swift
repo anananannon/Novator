@@ -5,8 +5,8 @@ class NotificationManager: ObservableObject {
 
     func addNotification(for achievement: Achievement) {
         let notification = Notification(
-            title: "Новое достижение!",
-            message: "\(achievement.name): \(achievement.description)",
+            title: "\(achievement.name)",
+            message: "\(achievement.description)",
             icon: achievement.icon,
             timestamp: Date()
         )
