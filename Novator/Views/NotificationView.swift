@@ -31,7 +31,7 @@ struct NotificationView: View {
         .padding(.vertical, 15)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(systemColorScheme == .light ? .white : .black)
+                .fill(systemColorScheme == .light ? .white : .sectionBackground)
                 .shadow(radius: 2)
         )
         .padding(.horizontal, 12)
