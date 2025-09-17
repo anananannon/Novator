@@ -74,110 +74,60 @@ struct ProfileLookView: View {
     // MARK: - Buttons
     private var actionButtons: some View {
         HStack(spacing: 12) {
-            if hasIncomingRequest && !isFriend {
-                Button {
-                    userProfileViewModel.acceptFriendRequest(from: user.id)
-                    updateStates() // Обновляем состояния после принятия
-                } label: {
-                    VStack(spacing: 5) {
-                        Image(systemName: "person.fill.checkmark")
-                            .font(.system(size: 21))
-                            .foregroundColor(Color("AppRed"))
-                        Text("Принять заявку")
-                            .foregroundColor(Color("AppRed"))
-                            .font(.system(size: 11))
-                    }
-                    .frame(maxWidth: .infinity, minHeight: 70)
-                    .background(Color("SectionBackground"))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                }
-            } else {
-                Group {
-                    if isFriend {
-                        // Меню для "Ваш друг"
-                        Menu {
-                            Button {
-                                showConfirmationDialog.toggle()
-                            } label: {
-                                Label("Удалить из друзей", systemImage: "person.fill.xmark")
-                            }
-                        } label: {
-                            VStack(spacing: 5) {
-                                Image(systemName: "person.fill")
-                                    .font(.system(size: 21))
-                                    .foregroundColor(Color("AppRed"))
-                                Text("Ваш друг")
-                                    .foregroundColor(Color("AppRed"))
-                                    .font(.system(size: 11))
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .background(Color("SectionBackground"))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                    } else if isFriendRequestSent {
-                        // Меню для "Заявка отправлена"
-                        Menu {
-                            Button {
-                                userProfileViewModel.cancelFriendRequest(to: user.id)
-                                updateStates() // Обновляем состояния после отмены
-                            } label: {
-                                Label("Отклонить заявку", systemImage: "person.fill.xmark")
-                            }
-                        } label: {
-                            VStack(spacing: 5) {
-                                Image(systemName: "person.fill.checkmark")
-                                    .font(.system(size: 21))
-                                    .foregroundColor(Color.gray)
-                                Text("Заявка отправлена")
-                                    .foregroundColor(Color.gray)
-                                    .font(.system(size: 11))
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .background(Color.gray.opacity(0.5))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                    } else {
-                        // Кнопка для отправки заявки в один клик
-                        Button {
-                            userProfileViewModel.sendFriendRequest(to: user.id)
-                            isFriendRequestSent = true // Обновляем локально
-                        } label: {
-                            VStack(spacing: 5) {
-                                Image(systemName: "person.fill.badge.plus")
-                                    .font(.system(size: 21))
-                                    .foregroundColor(Color("AppRed"))
-                                Text("Добавить")
-                                    .foregroundColor(Color("AppRed"))
-                                    .font(.system(size: 11))
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 70)
-                            .background(Color("SectionBackground"))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                        .disabled(hasIncomingRequest)
-                    }
-                }
-                .confirmationDialog(
-                    "Вы точно хотите удалить этого человека из друзей?",
-                    isPresented: $showConfirmationDialog,
-                    titleVisibility: .visible, // Явно указываем SwiftUI.Visibility
-                    actions: {
-                        Button("Удалить", role: .destructive) {
-                            userProfileViewModel.removeFriend(user.id)
-                            updateStates() // Обновляем состояния после удаления
-                        }
-                        Button("Отмена", role: .cancel) {}
-                    }
-                )
-            }
-
+            // Единая кнопка для управления дружбой
             Button {
-                // chat action
+                if hasIncomingRequest && !isFriend {
+                    userProfileViewModel.acceptFriendRequest(from: user.id)
+                } else if isFriend {
+                    showConfirmationDialog.toggle()
+                } else if isFriendRequestSent {
+                    userProfileViewModel.cancelFriendRequest(to: user.id)
+                } else {
+                    userProfileViewModel.sendFriendRequest(to: user.id)
+                    isFriendRequestSent = true
+                }
+                updateStates()
+            } label: {
+                VStack(spacing: 5) {
+                    HStack {
+                        Spacer()
+                        Image(systemName: friendButtonIcon)
+                            .font(.system(size: 21))
+                            .foregroundColor(friendButtonColor)
+                            .contentTransition(.symbolEffect(.replace)) // Анимация смены символа
+                        Spacer()
+                    }
+                    Text(friendButtonText)
+                        .foregroundColor(friendButtonColor)
+                        .font(.system(size: 11))
+                }
+                .frame(maxWidth: .infinity, minHeight: 70)
+                .background(friendButtonBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .disabled(hasIncomingRequest && isFriend)
+            .confirmationDialog(
+                "Вы точно хотите удалить этого человека из друзей?",
+                isPresented: $showConfirmationDialog,
+                titleVisibility: .visible,
+                actions: {
+                    Button("Удалить", role: .destructive) {
+                        userProfileViewModel.removeFriend(user.id)
+                        updateStates()
+                    }
+                    Button("Отмена", role: .cancel) {}
+                }
+            )
+
+            // Кнопка чата
+            Button {
+                // Chat action
             } label: {
                 VStack(spacing: 5) {
                     Image(systemName: "message.fill")
                         .font(.system(size: 19))
                         .foregroundColor(Color("AppRed"))
+                        .contentTransition(.symbolEffect(.replace))
                     Text("Чат")
                         .font(.system(size: 11))
                         .foregroundColor(Color("AppRed"))
@@ -188,6 +138,50 @@ struct ProfileLookView: View {
             }
         }
         .padding(.horizontal, sidePadding)
+        .animation(.spring(response: 0.2), value: isFriend)
+        .animation(.spring(response: 0.2), value: isFriendRequestSent)
+        .animation(.spring(response: 0.2), value: hasIncomingRequest)
+    }
+
+    // Вычисляемые свойства для управления иконкой, текстом и цветом кнопки
+    private var friendButtonIcon: String {
+        if hasIncomingRequest && !isFriend {
+            return "person.fill.checkmark"
+        } else if isFriend {
+            return "person.fill"
+        } else if isFriendRequestSent {
+            return "person.fill.checkmark"
+        } else {
+            return "person.fill.badge.plus"
+        }
+    }
+
+    private var friendButtonText: String {
+        if hasIncomingRequest && !isFriend {
+            return "Принять заявку"
+        } else if isFriend {
+            return "Ваш друг"
+        } else if isFriendRequestSent {
+            return "Заявка отправлена"
+        } else {
+            return "Добавить"
+        }
+    }
+
+    private var friendButtonColor: Color {
+        if isFriendRequestSent {
+            return Color.gray
+        } else {
+            return Color("AppRed")
+        }
+    }
+
+    private var friendButtonBackground: Color {
+        if isFriendRequestSent {
+            return Color.gray.opacity(0.5)
+        } else {
+            return Color("SectionBackground")
+        }
     }
 
     // MARK: - User Info
