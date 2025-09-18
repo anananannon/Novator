@@ -4,8 +4,6 @@ struct StoreView: View {
     
     @ObservedObject var profile: UserProfileViewModel
     @State private var showPopover = false
-    @State private var showAlert = false
-    @State private var alertMessage = ""
 
     private let gridSpacing: CGFloat = 7
     private let sidePadding: CGFloat = 12
@@ -57,9 +55,6 @@ struct StoreView: View {
                     }
                 }
             }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Результат"), message: Text(alertMessage), dismissButton: .default(Text("ОК")))
-            }
         }
     }
 
@@ -72,20 +67,8 @@ struct StoreView: View {
                 AccessorySquare(
                     accessory: accessory,
                     profile: profile,
-                    onBuy: {
-                        print("🛒 Кнопка 'Купить' нажата для: \(accessory.name)")
-                        if profile.profile.inventory.contains(accessory.name) {
-                            alertMessage = "Этот аксессуар уже куплен!"
-                            showAlert = true
-                        } else if profile.profile.stars < accessory.price {
-                            alertMessage = "Недостаточно звезд! Нужно: \(accessory.price), у вас: \(profile.profile.stars)"
-                            showAlert = true
-                        } else {
-                            profile.buyAccessory(accessory)
-                            alertMessage = "Аксессуар \(accessory.name) успешно куплен! Инвентарь: \(profile.profile.inventory.count) предметов."
-                            showAlert = true
-                        }
-                    }
+                    onBuy: { profile.buyAccessory(accessory) },
+                    size: itemSize
                 )
             }
         }
