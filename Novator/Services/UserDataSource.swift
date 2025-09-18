@@ -34,10 +34,13 @@ class UserDataSource: UserDataSourceProtocol {
                 friendsCount: 10,
                 friends: [elonId, ivanId],
                 pendingFriendRequests: [],
+                incomingFriendRequests: [],
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-                privacySettings: PrivacySettings(showAchievements: false)
+                privacySettings: PrivacySettings(showAchievements: false),
+                inventory: [],
+                equippedAccessories: []
             ),
             UserProfile(
                 id: elonId,
@@ -51,10 +54,13 @@ class UserDataSource: UserDataSourceProtocol {
                 friendsCount: 8,
                 friends: [pavelId],
                 pendingFriendRequests: [],
+                incomingFriendRequests: [],
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6"],
-                privacySettings: PrivacySettings()
+                privacySettings: PrivacySettings(),
+                inventory: [],
+                equippedAccessories: []
             ),
             UserProfile(
                 id: ivanId,
@@ -68,10 +74,13 @@ class UserDataSource: UserDataSourceProtocol {
                 friendsCount: 12,
                 friends: [pavelId],
                 pendingFriendRequests: [],
+                incomingFriendRequests: [],
                 completedTasks: [],
                 achievements: [],
                 completedLessons: [],
-                privacySettings: PrivacySettings()
+                privacySettings: PrivacySettings(),
+                inventory: [],
+                equippedAccessories: []
             ),
             UserProfile(
                 id: jackId,
@@ -85,10 +94,13 @@ class UserDataSource: UserDataSourceProtocol {
                 friendsCount: 5,
                 friends: [],
                 pendingFriendRequests: [],
+                incomingFriendRequests: [],
                 completedTasks: [],
                 achievements: [],
                 completedLessons: [],
-                privacySettings: PrivacySettings()
+                privacySettings: PrivacySettings(),
+                inventory: [],
+                equippedAccessories: []
             )
         ]
     }

@@ -16,12 +16,14 @@ struct UserProfile: Codable, Identifiable {
     var achievements: [String]
     var completedLessons: [String]
     var privacySettings: PrivacySettings // Вложенная структура
+    var inventory: [String] // Names of owned (but not necessarily equipped) accessories
+    var equippedAccessories: [String] // Names of currently equipped accessories (subset of inventory)
     
     var fullName: String {
         "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
     }
 
-    init(id: UUID = UUID(), firstName: String = "Имя", lastName: String = "", username: String = "@username", avatar: Data? = nil, stars: Int = 0, raitingPoints: Int = 0, streak: Int = 0, friendsCount: Int = 0, friends: [UUID] = [], pendingFriendRequests: [UUID] = [], incomingFriendRequests: [UUID] = [], completedTasks: [UUID] = [], achievements: [String] = [], completedLessons: [String] = [], privacySettings: PrivacySettings = PrivacySettings()) {
+    init(id: UUID = UUID(), firstName: String = "Имя", lastName: String = "", username: String = "@username", avatar: Data? = nil, stars: Int = 0, raitingPoints: Int = 0, streak: Int = 0, friendsCount: Int = 0, friends: [UUID] = [], pendingFriendRequests: [UUID] = [], incomingFriendRequests: [UUID] = [], completedTasks: [UUID] = [], achievements: [String] = [], completedLessons: [String] = [], privacySettings: PrivacySettings = PrivacySettings(), inventory: [String] = [], equippedAccessories: [String] = []) {
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
@@ -37,6 +39,8 @@ struct UserProfile: Codable, Identifiable {
         self.completedTasks = completedTasks
         self.achievements = achievements
         self.completedLessons = completedLessons
-        self.privacySettings = privacySettings // Инициализация
+        self.privacySettings = privacySettings
+        self.inventory = inventory
+        self.equippedAccessories = equippedAccessories
     }
 }

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		AB0E5E332E6863690057D2E5 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E322E6863690057D2E5 /* StoreView.swift */; };
 		AB0E5E372E698F5B0057D2E5 /* ProfileLookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */; };
+		AB0ED8692E7B19B100191776 /* Accessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0ED8682E7B19B100191776 /* Accessory.swift */; };
+		AB0ED86B2E7B19C400191776 /* AccessoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0ED86A2E7B19C400191776 /* AccessoryManager.swift */; };
+		AB0ED86D2E7B19D500191776 /* AccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0ED86C2E7B19D500191776 /* AccessoryViewModel.swift */; };
+		AB0ED86F2E7B19EB00191776 /* AccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0ED86E2E7B19EB00191776 /* AccessoryView.swift */; };
+		AB0ED8712E7B1A1000191776 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0ED8702E7B1A1000191776 /* InventoryView.swift */; };
 		AB14003A2E799E5E00B2802B /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1400392E799E5E00B2802B /* Notification.swift */; };
 		AB14003C2E799E8200B2802B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14003B2E799E8200B2802B /* NotificationManager.swift */; };
 		AB14003E2E799ECC00B2802B /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14003D2E799ECC00B2802B /* NotificationView.swift */; };
@@ -77,6 +82,11 @@
 /* Begin PBXFileReference section */
 		AB0E5E322E6863690057D2E5 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		AB0E5E362E698F5B0057D2E5 /* ProfileLookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLookView.swift; sourceTree = "<group>"; };
+		AB0ED8682E7B19B100191776 /* Accessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessory.swift; sourceTree = "<group>"; };
+		AB0ED86A2E7B19C400191776 /* AccessoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryManager.swift; sourceTree = "<group>"; };
+		AB0ED86C2E7B19D500191776 /* AccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewModel.swift; sourceTree = "<group>"; };
+		AB0ED86E2E7B19EB00191776 /* AccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryView.swift; sourceTree = "<group>"; };
+		AB0ED8702E7B1A1000191776 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		AB1400392E799E5E00B2802B /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		AB14003B2E799E8200B2802B /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		AB14003D2E799ECC00B2802B /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -289,6 +299,7 @@
 				ABAAA5A72E6C90A2006E7DA4 /* AchievementsViewModel.swift */,
 				AB7497D52E6F1C8A00B4051F /* FriendsViewModel.swift */,
 				AB7497DF2E73215500B4051F /* StudyViewModel.swift */,
+				AB0ED86C2E7B19D500191776 /* AccessoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -321,6 +332,7 @@
 				ABE0801C2E54D898007B9113 /* UserProfile.swift */,
 				ABAAA5A52E6C7819006E7DA4 /* Achievement.swift */,
 				AB1400392E799E5E00B2802B /* Notification.swift */,
+				AB0ED8682E7B19B100191776 /* Accessory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -339,6 +351,8 @@
 				ABE5C1282E647023009B2E0A /* Raiting */,
 				AB35A8EE2E609BC900942C3E /* Components */,
 				AB14003D2E799ECC00B2802B /* NotificationView.swift */,
+				AB0ED86E2E7B19EB00191776 /* AccessoryView.swift */,
+				AB0ED8702E7B1A1000191776 /* InventoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -349,6 +363,7 @@
 				ABE080202E54D8DD007B9113 /* TaskManager.swift */,
 				ABE080222E54D902007B9113 /* AchievementManager.swift */,
 				AB14003B2E799E8200B2802B /* NotificationManager.swift */,
+				AB0ED86A2E7B19C400191776 /* AccessoryManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -509,6 +524,7 @@
 				AB7497DE2E73188400B4051F /* CustomCornerRadius.swift in Sources */,
 				AB7497D62E6F1C8A00B4051F /* FriendsViewModel.swift in Sources */,
 				ABEEB0952E75B74F00B5B47C /* SearchUsersSheet.swift in Sources */,
+				AB0ED86B2E7B19C400191776 /* AccessoryManager.swift in Sources */,
 				AB8899922E5C9BBE00502FFF /* RatingView.swift in Sources */,
 				AB96B2A72E6068A900E65362 /* RatingViewModel.swift in Sources */,
 				AB35A8F52E609C6900942C3E /* PrimaryButton.swift in Sources */,
@@ -520,12 +536,14 @@
 				AB82E7E52E759D9F0061DE27 /* PrivacyView.swift in Sources */,
 				ABE080192E54D73E007B9113 /* ProfileNavigation.swift in Sources */,
 				AB35A8F32E609C5400942C3E /* StatView.swift in Sources */,
+				AB0ED8692E7B19B100191776 /* Accessory.swift in Sources */,
 				ABE0801D2E54D898007B9113 /* UserProfile.swift in Sources */,
 				AB14003C2E799E8200B2802B /* NotificationManager.swift in Sources */,
 				AB7497DA2E6F250500B4051F /* FriendRequestsView.swift in Sources */,
 				ABAAA5A82E6C90A2006E7DA4 /* AchievementsViewModel.swift in Sources */,
 				AB14003E2E799ECC00B2802B /* NotificationView.swift in Sources */,
 				ABC0ECA22E5CDF6A00534E0A /* StudyView.swift in Sources */,
+				AB0ED86F2E7B19EB00191776 /* AccessoryView.swift in Sources */,
 				ABA0F9212E55E9D20059D84D /* UserProfileViewModel.swift in Sources */,
 				AB907ED32E549B8C005592E3 /* NovatorApp.swift in Sources */,
 				AB907F052E54A0BE005592E3 /* ProfileView.swift in Sources */,
@@ -539,9 +557,11 @@
 				AB907F032E549FA2005592E3 /* TasksDetailView.swift in Sources */,
 				ABE080272E54DCD0007B9113 /* ProfileEditView.swift in Sources */,
 				ABE080232E54D902007B9113 /* AchievementManager.swift in Sources */,
+				AB0ED8712E7B1A1000191776 /* InventoryView.swift in Sources */,
 				AB14003A2E799E5E00B2802B /* Notification.swift in Sources */,
 				AB9EEE0F2E57AB51002AECF7 /* SettingsViewModel.swift in Sources */,
 				AB7497DC2E71E02700B4051F /* MyProfileView.swift in Sources */,
+				AB0ED86D2E7B19D500191776 /* AccessoryViewModel.swift in Sources */,
 				ABE5C12A2E647048009B2E0A /* RaitingRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

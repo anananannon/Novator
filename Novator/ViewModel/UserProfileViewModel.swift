@@ -31,8 +31,9 @@ class UserProfileViewModel: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: "userProfile"),
            let savedProfile = try? JSONDecoder().decode(UserProfile.self, from: data) {
             self.profile = savedProfile
-            print("✅ Загружен профиль: \(savedProfile.pendingFriendRequests), друзья: \(savedProfile.friends), входящие заявки: \(savedProfile.incomingFriendRequests)")
+            print("✅ Профиль загружен from UserDefaults: inventory = \(savedProfile.inventory), equipped = \(savedProfile.equippedAccessories)")
         } else {
+            // Default profile
             self.profile = UserProfile(
                 firstName: "Имя",
                 lastName: "",
@@ -53,8 +54,10 @@ class UserProfileViewModel: ObservableObject {
                 ],
                 completedTasks: [],
                 achievements: [],
-                completedLessons: []
-//                 privacySettings автоматически = PrivacySettings() из init UserProfile
+                completedLessons: [],
+                privacySettings: PrivacySettings(),
+                inventory: [],
+                equippedAccessories: []
             )
             print("🆕 Создан новый профиль с друзьями: \(self.profile.friends), входящими заявками: \(self.profile.incomingFriendRequests)")
             saveProfile()
@@ -64,7 +67,7 @@ class UserProfileViewModel: ObservableObject {
     func saveProfile() {
         if let data = try? JSONEncoder().encode(profile) {
             UserDefaults.standard.set(data, forKey: "userProfile")
-            print("✅ Профиль сохранён в UserDefaults: \(profile.pendingFriendRequests), друзья: \(profile.friends), входящие заявки: \(profile.incomingFriendRequests)")
+            print("💾 Профиль сохранен в UserDefaults: inventory = \(profile.inventory), equipped = \(profile.equippedAccessories)")
         } else {
             print("❌ Ошибка кодирования профиля")
         }
@@ -191,5 +194,29 @@ class UserProfileViewModel: ObservableObject {
         profile.privacySettings.showAchievements.toggle()
         saveProfile()
         print("🔒 Достижения теперь \(profile.privacySettings.showAchievements ? "видны" : "скрыты")")
+    }
+
+    func buyAccessory(_ accessory: Accessory) {
+        let accessoryVM = AccessoryViewModel(profile: profile)
+        accessoryVM.buyAccessory(accessory)
+        profile = accessoryVM.profile
+        saveProfile()
+        print("🛒 Bought accessory: \(accessory.name), inventory: \(profile.inventory)")
+    }
+    
+    func applyAccessory(_ accessory: Accessory) {
+        let accessoryVM = AccessoryViewModel(profile: profile)
+        accessoryVM.applyAccessory(accessory)
+        profile = accessoryVM.profile
+        saveProfile()
+        print("✅ Applied accessory: \(accessory.name), equipped: \(profile.equippedAccessories)")
+    }
+    
+    func removeAccessory(_ accessory: Accessory) {
+        let accessoryVM = AccessoryViewModel(profile: profile)
+        accessoryVM.removeAccessory(accessory)
+        profile = accessoryVM.profile
+        saveProfile()
+        print("❌ Removed accessory: \(accessory.name), equipped: \(profile.equippedAccessories)")
     }
 }

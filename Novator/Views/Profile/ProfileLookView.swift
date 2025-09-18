@@ -25,6 +25,11 @@ struct ProfileLookView: View {
         AchievementManager.achievements.filter { user.achievements.contains($0.name) }
     }
 
+    // Computed: Equipped accessories with details
+    private var equippedAccessoryDetails: [Accessory] {
+        user.equippedAccessories.compactMap { AccessoryManager.accessory(forName: $0) }
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: 14) {
@@ -232,6 +237,11 @@ private struct TopProfileHeader: View {
     private let minScaleDown: CGFloat = 0.7
     private let animationDistance: CGFloat = 120
 
+    // Computed: Equipped accessories with details
+    private var equippedAccessoryDetails: [Accessory] {
+        user.equippedAccessories.compactMap { AccessoryManager.accessory(forName: $0) }
+    }
+
     var body: some View {
         GeometryReader { proxy in
             let minY = proxy.frame(in: .global).minY
@@ -249,18 +259,29 @@ private struct TopProfileHeader: View {
             }()
 
             VStack(spacing: 5) {
-                if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .clipShape(Circle())
-                } else {
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(Color("AppRed"))
+                ZStack(alignment: .center) {
+                    // Avatar base
+                    if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(Color("AppRed"))
+                    }
+                    
+                    // Overlay equipped accessories in ZStack (stack them with fixed offsets for better positioning)
+                    ForEach(Array(equippedAccessoryDetails.enumerated()), id: \.offset) { index, accessory in
+                        Image(systemName: accessory.icon)
+                            .font(.system(size: 110)) // Smaller for overlay
+                            .foregroundColor(.white) // Or adjust as needed
+                            .shadow(color: .black.opacity(0.3), radius: 2)
+                    }
                 }
 
                 Text(user.fullName)
@@ -279,6 +300,8 @@ private struct TopProfileHeader: View {
     }
 }
 
+
+// MARK: - Toolbar
 private extension ProfileLookView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {

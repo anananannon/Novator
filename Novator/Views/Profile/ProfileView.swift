@@ -143,6 +143,9 @@ private struct SectionRow: View {
             SettingsView(profile: profile)
         case .store:
             StoreView(profile: profile)
+        case .inventory:
+            InventoryView()
+                .environmentObject(profile)
         case .friends:
             FriendsView()
         case .privacy: // Новое: PrivacyView
