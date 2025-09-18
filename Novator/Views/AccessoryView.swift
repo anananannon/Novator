@@ -165,36 +165,23 @@ struct AccessoryDetailView: View {
 struct InventoryAccessorySquare: View {
     let accessory: Accessory
     let isEquipped: Bool
+    let size: CGFloat
     @EnvironmentObject var profile: UserProfileViewModel
 
     @State private var showingSheet = false
 
     var body: some View {
         VStack {
-            ZStack {
-                Image(systemName: accessory.icon)
-                    .font(.system(size: 40))
-                    .foregroundColor(Color("AppRed"))
-                if isEquipped {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 20))
-                        .foregroundColor(.green)
-                        .offset(x: 15, y: -15)
-                }
-            }
-            Text(accessory.name)
-                .font(.caption)
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
+            Image(systemName: accessory.icon)
+                .font(.system(size: 40))
+                .foregroundColor(Color("AppRed"))
         }
-        .frame(width: 80, height: 100)
+        .frame(width: size, height: size)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color("SectionBackground"))
         )
-        .onTapGesture {
-            showingSheet.toggle()
-        }
+        .onTapGesture { showingSheet.toggle() }
         .sheet(isPresented: $showingSheet) {
             InventoryAccessorySheet(
                 accessory: accessory,
@@ -218,8 +205,9 @@ struct InventoryAccessorySheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
+                Spacer()
                 Image(systemName: accessory.icon)
-                    .font(.system(size: 100))
+                    .font(.system(size: 150))
                     .foregroundColor(Color("AppRed"))
                 Text(accessory.name)
                     .font(.title)
@@ -230,27 +218,22 @@ struct InventoryAccessorySheet: View {
                         .multilineTextAlignment(.center)
                 }
                 Spacer()
-                if isEquipped {
-                    Button("Снять") {
+                Button {
+                    if isEquipped {
                         onRemove()
                         onDismiss()
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.red)
-                    .frame(minWidth: 200, minHeight: 50)
-                } else {
-                    Button("Применить") {
-                        onApply()  // Это вызовет логику замены в applyAccessory
+                    } else {
+                        onApply()
                         onDismiss()
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(Color("AppRed"))
-                    .frame(minWidth: 200, minHeight: 50)
+                } label: {
+                    Text(isEquipped ? "Снять" : "Применить")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .frame(minWidth: 300, minHeight: 55)
                 }
-                Button("Отмена") {
-                    onDismiss()
-                }
-                .frame(minWidth: 200, minHeight: 50)
+                .buttonStyle(PrimaryButtonStyle())
+                
             }
             .padding()
             .toolbar {
@@ -261,10 +244,11 @@ struct InventoryAccessorySheet: View {
                             .frame(width: 25, height: 25)
                             .foregroundStyle(.secondary)
                     }
+                    .buttonStyle(.plain)
                 }
             }
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.height(500)])
         .presentationCornerRadius(20)
     }
 }

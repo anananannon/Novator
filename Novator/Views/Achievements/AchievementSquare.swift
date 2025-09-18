@@ -49,6 +49,7 @@ private struct AchievementDetailView: View {
                 Text(achievement.description)
                     .font(.headline)
                     .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
                 Spacer()
                 Button(action: onDismiss) {
                     Text("ОК")

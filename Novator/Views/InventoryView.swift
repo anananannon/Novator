@@ -64,6 +64,7 @@ struct InventoryView: View {
                 InventoryAccessorySquare(
                     accessory: accessory,
                     isEquipped: isEquipped,
+                    size: itemSize,
                     profile: _userProfileViewModel
                 )
             }
