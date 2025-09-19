@@ -136,6 +136,8 @@ struct InventoryAccessorySquare: View {
     let accessory: Accessory
     let isEquipped: Bool
     let size: CGFloat
+    let isOwnProfile: Bool // Новый параметр
+
     @EnvironmentObject var profile: UserProfileViewModel
 
     @State private var showingSheet = false
@@ -151,12 +153,14 @@ struct InventoryAccessorySquare: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color("SectionBackground"))
         )
-//        .opacity(isEquipped ? 0.5 : 1.0) // Прозрачность для надетых аксессуаров
-        .onTapGesture { showingSheet.toggle() }
+        .onTapGesture {
+            showingSheet.toggle()
+        }
         .sheet(isPresented: $showingSheet) {
             InventoryAccessorySheet(
                 accessory: accessory,
                 isEquipped: isEquipped,
+                isOwnProfile: isOwnProfile, // Передаем параметр
                 onApply: { profile.applyAccessory(accessory) },
                 onRemove: { profile.removeAccessory(accessory) },
                 onDismiss: { showingSheet.toggle() }
@@ -169,6 +173,7 @@ struct InventoryAccessorySquare: View {
 struct InventoryAccessorySheet: View {
     let accessory: Accessory
     let isEquipped: Bool
+    let isOwnProfile: Bool // Новый параметр
     let onApply: () -> Void
     let onRemove: () -> Void
     let onDismiss: () -> Void
@@ -191,21 +196,21 @@ struct InventoryAccessorySheet: View {
                 }
                 Spacer()
                 Button {
-                    if isEquipped {
-                        onRemove()
-                        onDismiss()
-                    } else {
-                        onApply()
-                        onDismiss()
+                    if isOwnProfile {
+                        if isEquipped {
+                            onRemove()
+                        } else {
+                            onApply()
+                        }
                     }
+                    onDismiss()
                 } label: {
-                    Text(isEquipped ? "Снять" : "Применить")
+                    Text(isOwnProfile ? (isEquipped ? "Снять" : "Применить") : "ОК")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
                         .frame(minWidth: 300, minHeight: 55)
                 }
                 .buttonStyle(PrimaryButtonStyle())
-                
             }
             .padding()
             .toolbar {

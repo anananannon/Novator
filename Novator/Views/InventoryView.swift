@@ -55,6 +55,7 @@ struct InventoryView: View {
                     accessory: accessory,
                     isEquipped: userProfileViewModel.profile.equippedAccessories.contains(accessory.name),
                     size: itemSize,
+                    isOwnProfile: true,
                     profile: _userProfileViewModel
                 )
             }

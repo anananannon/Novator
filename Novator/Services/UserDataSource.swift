@@ -39,8 +39,8 @@ class UserDataSource: UserDataSourceProtocol {
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
                 privacySettings: PrivacySettings(showAchievements: false),
-                inventory: [],
-                equippedAccessories: []
+                inventory: ["Ушки", "Медаль"],
+                equippedAccessories: ["Ушки"]
             ),
             UserProfile(
                 id: elonId,
@@ -59,7 +59,7 @@ class UserDataSource: UserDataSourceProtocol {
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6"],
                 privacySettings: PrivacySettings(),
-                inventory: [],
+                inventory: ["Ушки", "Медаль"],
                 equippedAccessories: []
             ),
             UserProfile(
@@ -79,7 +79,7 @@ class UserDataSource: UserDataSourceProtocol {
                 achievements: [],
                 completedLessons: [],
                 privacySettings: PrivacySettings(),
-                inventory: [],
+                inventory: ["Медаль"],
                 equippedAccessories: []
             ),
             UserProfile(

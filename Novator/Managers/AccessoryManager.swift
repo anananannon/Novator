@@ -3,15 +3,15 @@ import Foundation
 
 enum AccessoryManager {
     static let availableAccessories: [Accessory] = [
-//        Accessory(
-//            id: UUID(),
-//            icon: "medal",
-//            iconView: "medal",
-//            name: "Медаль",
-//            price: 50,
-//            description: "Золотая медаль за достижения",
-//            category: .other
-//        ),
+        Accessory(
+            id: UUID(),
+            icon: "medal",
+            iconView: "medal",
+            name: "Медаль",
+            price: 50,
+            description: "Золотая медаль за достижения",
+            category: .other
+        ),
         Accessory(
             id: UUID(),
             icon: "yshki",
