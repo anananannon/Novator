@@ -49,6 +49,7 @@ struct FriendRequestsView: View {
                                         
                                         Spacer()
                                     }
+                                    .background(Color(.black).opacity(0.00000001))
                                 }
                                 .buttonStyle(.plain)
                                 

@@ -220,7 +220,7 @@ private extension TaskDetailView {
             
             Image("rocketNoTaskView")
                 .frame(width: 248, height: 248)
-            
+                .padding(.top, 100)
             
             Text("Урок выполнен!")
                 .font(.system(size: 25))
@@ -231,6 +231,7 @@ private extension TaskDetailView {
                 .foregroundColor(.secondary)
                 .frame(width: 214, height: 55)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 40)
             Spacer()
             Button {
                 viewModel.completeLessonIfFinished() // начисляем прогресс при полном завершении
