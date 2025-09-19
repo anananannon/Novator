@@ -195,6 +195,13 @@ class UserProfileViewModel: ObservableObject {
         saveProfile()
         print("🔒 Достижения теперь \(profile.privacySettings.showAchievements ? "видны" : "скрыты")")
     }
+    
+    // Новое: для аксессуаров
+    func toggleShowAccessories() {
+        profile.privacySettings.showAccessories.toggle()
+        saveProfile()
+        print("🔒 Аксессуары теперь \(profile.privacySettings.showAccessories ? "видны" : "скрыты")")
+    }
 
     func buyAccessory(_ accessory: Accessory) {
         let accessoryVM = AccessoryViewModel(profile: profile)

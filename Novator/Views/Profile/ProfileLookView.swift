@@ -53,6 +53,7 @@ struct ProfileLookView: View {
                     allAccessories: allAccessories,
                     equippedAccessories: user.equippedAccessories,
                     showAchievements: user.privacySettings.showAchievements,
+                    showAccessories: user.privacySettings.showAccessories,  // Новое: для грида
                     itemSize: itemSize,
                     columns: columns,
                     gridSpacing: gridSpacing,
@@ -271,13 +272,14 @@ struct ProfileLookView: View {
     }
 }
 
-// MARK: - Grid Content View
+// MARK: - Grid Content View (обновлён: showAccessories только для грида)
 private struct GridContentView: View {
     let selectedTab: ProfileLookView.Tab
     let unlockedAchievements: [Achievement]
     let allAccessories: [Accessory]
     let equippedAccessories: [String]
     let showAchievements: Bool
+    let showAccessories: Bool  // Для грида аксессуаров
     let itemSize: CGFloat
     let columns: Int
     let gridSpacing: CGFloat
@@ -297,10 +299,12 @@ private struct GridContentView: View {
                     emptyContentView(title: "Достижения скрыты")
                 }
             } else {
-                if !allAccessories.isEmpty {
+                if showAccessories && !allAccessories.isEmpty {
                     accessoriesGrid
-                } else {
+                } else if showAccessories {
                     emptyContentView(title: "Нет аксессуаров")
+                } else {
+                    emptyContentView(title: "Аксессуары скрыты")
                 }
             }
         }

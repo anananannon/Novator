@@ -38,7 +38,7 @@ class UserDataSource: UserDataSourceProtocol {
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-                privacySettings: PrivacySettings(showAchievements: false),
+                privacySettings: PrivacySettings(showAchievements: false),  // Изменено: скрыто
                 inventory: ["Ушки", "Медаль"],
                 equippedAccessories: ["Ушки"]
             ),
@@ -58,9 +58,9 @@ class UserDataSource: UserDataSourceProtocol {
                 completedTasks: [],
                 achievements: ["Test", "Test2", "Test3"],
                 completedLessons: ["1", "2", "3", "4", "5", "6"],
-                privacySettings: PrivacySettings(),
+                privacySettings: PrivacySettings(showAccessories: false),
                 inventory: ["Ушки", "Медаль"],
-                equippedAccessories: []
+                equippedAccessories: ["Ушки"]
             ),
             UserProfile(
                 id: ivanId,

@@ -45,6 +45,7 @@ struct MyProfileView: View {
                     allAccessories: allAccessories,
                     equippedAccessories: userProfileViewModel.profile.equippedAccessories,
                     showAchievements: true, // Всегда показываем достижения для своего профиля
+                    showAccessories: true,  // Новое: всегда видно для своего профиля (грид)
                     itemSize: itemSize,
                     columns: columns,
                     gridSpacing: gridSpacing,
@@ -136,13 +137,14 @@ struct MyProfileView: View {
     }
 }
 
-// MARK: - Grid Content View
+// MARK: - Grid Content View (обновлён: showAccessories только для грида, для своего профиля true)
 private struct GridContentView: View {
     let selectedTab: MyProfileView.Tab
     let unlockedAchievements: [Achievement]
     let allAccessories: [Accessory]
     let equippedAccessories: [String]
     let showAchievements: Bool
+    let showAccessories: Bool  // Для грида аксессуаров
     let itemSize: CGFloat
     let columns: Int
     let gridSpacing: CGFloat
@@ -162,10 +164,12 @@ private struct GridContentView: View {
                     emptyContentView(title: "Достижения скрыты")
                 }
             } else {
-                if !allAccessories.isEmpty {
+                if showAccessories && !allAccessories.isEmpty {
                     accessoriesGrid
-                } else {
+                } else if showAccessories {
                     emptyContentView(title: "Инвентарь пуст")
+                } else {
+                    emptyContentView(title: "Аксессуары скрыты")
                 }
             }
         }
@@ -218,14 +222,14 @@ private struct GridContentView: View {
     }
 }
 
-// MARK: - TopProfileHeader
+// MARK: - TopProfileHeader (дубликат для MyProfileView, обновлён аналогично)
 private struct TopProfileHeader: View {
     let user: UserProfile
     private let maxScaleUp: CGFloat = 1.1
     private let minScaleDown: CGFloat = 0.7
     private let animationDistance: CGFloat = 120
 
-    // Computed: Equipped accessories with details
+    // Computed: Equipped accessories with details (всегда, без проверки privacy)
     private var equippedAccessoryDetails: [Accessory] {
         user.equippedAccessories.compactMap { AccessoryManager.accessory(forName: $0) }
     }

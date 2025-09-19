@@ -58,6 +58,10 @@ struct InventoryView: View {
                     isOwnProfile: true,
                     profile: _userProfileViewModel
                 )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(userProfileViewModel.profile.equippedAccessories.contains(accessory.name) ? Color("AppRed") : Color.clear, lineWidth: 1)
+                )
             }
         }
         .padding(.horizontal, sidePadding)
