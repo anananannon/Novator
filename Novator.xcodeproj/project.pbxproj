@@ -324,6 +324,22 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		ABDF727E2E7DC54E00000363 /* Inventory */ = {
+			isa = PBXGroup;
+			children = (
+				AB0ED8702E7B1A1000191776 /* InventoryView.swift */,
+			);
+			path = Inventory;
+			sourceTree = "<group>";
+		};
+		ABDF727F2E7DC56100000363 /* Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				AB0ED86E2E7B19EB00191776 /* AccessoryView.swift */,
+			);
+			path = Accessory;
+			sourceTree = "<group>";
+		};
 		ABE080162E54D66C007B9113 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				AB907ED42E549B8C005592E3 /* ContentView.swift */,
+				AB14003D2E799ECC00B2802B /* NotificationView.swift */,
 				AB82E7E12E759C720061DE27 /* Privacy */,
 				AB35A8EF2E609C0700942C3E /* Study */,
 				AB1AFD0C2E6F090400DDD19D /* Store */,
@@ -350,9 +367,8 @@
 				ABC0ECA32E5DBD5400534E0A /* Achievements */,
 				ABE5C1282E647023009B2E0A /* Raiting */,
 				AB35A8EE2E609BC900942C3E /* Components */,
-				AB14003D2E799ECC00B2802B /* NotificationView.swift */,
-				AB0ED86E2E7B19EB00191776 /* AccessoryView.swift */,
-				AB0ED8702E7B1A1000191776 /* InventoryView.swift */,
+				ABDF727F2E7DC56100000363 /* Accessory */,
+				ABDF727E2E7DC54E00000363 /* Inventory */,
 			);
 			path = Views;
 			sourceTree = "<group>";
