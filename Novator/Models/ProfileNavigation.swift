@@ -46,7 +46,7 @@ enum ProfileNavigation {
     ]
     
     static let section4: [ProfileNavigationItem] = [
-        ProfileNavigationItem(title: "Помощь", imageName: "questionmark.app", imageSize:21, destinationType: .help)
+        ProfileNavigationItem(title: "Помощь", imageName: "questionmark.app.fill", imageSize:21, destinationType: .help)
     ]
 }
 

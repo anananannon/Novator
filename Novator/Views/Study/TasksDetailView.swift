@@ -182,7 +182,7 @@ private extension TaskDetailView {
             Button(action: viewModel.actionButtonTapped) {
                 Text(viewModel.actionButtonTitle)
                     .font(.system(.title3))
-                    .frame(maxWidth: 333.63, maxHeight: 47)
+                    .frame(maxWidth: 333.63, maxHeight: 50)
                     .animation(nil, value: viewModel.actionButtonTitle)
             }
             .buttonStyle(PrimaryButtonStyle())

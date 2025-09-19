@@ -4,6 +4,7 @@ import Foundation
 struct Accessory: Codable, Identifiable {
     let id: UUID
     let icon: String // System name or custom image name
+    let iconView: String
     let name: String
     let price: Int // Cost in stars
     let description: String?

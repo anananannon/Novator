@@ -260,6 +260,15 @@ private struct TopProfileHeader: View {
 
             VStack(spacing: 5) {
                 ZStack(alignment: .center) {
+                    // Overlay equipped accessories in ZStack (stack them with fixed offsets for better positioning)
+                    ForEach(Array(equippedAccessoryDetails.enumerated()), id: \.offset) { index, accessory in
+                        Image(accessory.icon)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                    }
+
+                    
                     // Avatar base
                     if let avatarData = user.avatar, let uiImage = UIImage(data: avatarData) {
                         Image(uiImage: uiImage)
@@ -273,14 +282,6 @@ private struct TopProfileHeader: View {
                             .scaledToFill()
                             .frame(width: 100, height: 100)
                             .foregroundColor(Color("AppRed"))
-                    }
-                    
-                    // Overlay equipped accessories in ZStack (stack them with fixed offsets for better positioning)
-                    ForEach(Array(equippedAccessoryDetails.enumerated()), id: \.offset) { index, accessory in
-                        Image(systemName: accessory.icon)
-                            .font(.system(size: 110)) // Smaller for overlay
-                            .foregroundColor(.white) // Or adjust as needed
-                            .shadow(color: .black.opacity(0.3), radius: 2)
                     }
                 }
 

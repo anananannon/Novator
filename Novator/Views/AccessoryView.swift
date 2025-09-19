@@ -12,10 +12,13 @@ struct AccessorySquare: View {
     @State private var showingSheet = false
 
     var body: some View {
-        VStack {
-            Image(systemName: accessory.icon)
-                .font(.system(size: 40))
+        VStack(spacing: 3) {
+            Image(accessory.iconView)
+                .resizable()
+                .frame(width: 100, height: 100)
                 .foregroundColor(Color("AppRed"))
+            
+            
             if !profile.profile.inventory.contains(accessory.name) {
                 HStack(spacing: 6) {
                     Image(systemName: "star.fill")
@@ -28,9 +31,10 @@ struct AccessorySquare: View {
                 .padding(.vertical, 6)
                 .padding(.horizontal, 10)
                 .background(.thinMaterial, in: Capsule())
+                .padding(.bottom, 7)
             }
         }
-        .frame(width: size, height: size)
+        .frame(width: size, height: 140)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color("SectionBackground"))
@@ -58,11 +62,13 @@ struct AccessoryDetailSheet: View {
     let onBuy: () -> Void
     let onDismiss: () -> Void
 
+    @State private var showAlert = false
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
                 Spacer()
-                Image(systemName: accessory.icon)
+                Image(accessory.iconView)
                     .font(.system(size: 150))
                     .foregroundColor(Color("AppRed"))
                 Text(accessory.name)
@@ -76,8 +82,9 @@ struct AccessoryDetailSheet: View {
                 Spacer()
                 if !isOwned {
                     Button {
-                        onBuy()
-                        onDismiss()
+//                        onBuy()
+//                        onDismiss()
+                        showAlert.toggle()
                     } label: {
                         Text("Купить за \(Image(systemName: "star.fill")) \(accessory.price)")
                             .font(.system(size: 16))
@@ -88,6 +95,19 @@ struct AccessoryDetailSheet: View {
                     .buttonStyle(.plain)
                     .foregroundColor(.white)
                     .cornerRadius(16)
+                    .alert("",
+                           isPresented: $showAlert,
+                           actions: {
+                               Button("Купить", role: .destructive) {
+                                   onBuy()
+                                   onDismiss()
+                               }
+                               Button("Отмена", role: .cancel) { }
+                           },
+                           message: {
+                               Text("Вы уверены что хотите купить за \(accessory.price) очков?")
+                           }
+                    )
                     .disabled(!canAfford)
                 }
             }
@@ -122,7 +142,7 @@ struct InventoryAccessorySquare: View {
 
     var body: some View {
         VStack {
-            Image(systemName: accessory.icon)
+            Image(accessory.iconView)
                 .font(.system(size: 40))
                 .foregroundColor(Color("AppRed"))
         }
@@ -157,8 +177,9 @@ struct InventoryAccessorySheet: View {
         NavigationStack {
             VStack(spacing: 20) {
                 Spacer()
-                Image(systemName: accessory.icon)
-                    .font(.system(size: 150))
+                Image(accessory.iconView)
+                    .resizable()
+                    .frame(width: 150, height: 150)
                     .foregroundColor(Color("AppRed"))
                 Text(accessory.name)
                     .font(.title)

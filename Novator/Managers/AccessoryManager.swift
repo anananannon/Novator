@@ -3,30 +3,33 @@ import Foundation
 
 enum AccessoryManager {
     static let availableAccessories: [Accessory] = [
+//        Accessory(
+//            id: UUID(),
+//            icon: "medal",
+//            iconView: "medal",
+//            name: "Медаль",
+//            price: 50,
+//            description: "Золотая медаль за достижения",
+//            category: .other
+//        ),
         Accessory(
             id: UUID(),
-            icon: "medal",
-            name: "Медаль",
-            price: 50,
-            description: "Золотая медаль за достижения",
-            category: .other
-        ),
-        Accessory(
-            id: UUID(),
-            icon: "rocketSV",
-            name: "Ракета",
-            price: 100,
-            description: "Ракета для амбициозных умов",
+            icon: "yshki",
+            iconView: "yshkiView",
+            name: "Ушки",
+            price: 0,
+            description: "Пусть ваша аватарка будет слышать, а не только существовать.",
             category: .head
-        ),
-        Accessory(
-            id: UUID(),
-            icon: "transmission",
-            name: "Антенна",
-            price: 75,
-            description: "Антенна для связи с космосом",
-            category: .head
-        ),
+        )
+//        Accessory(
+//            id: UUID(),
+//            icon: "transmission",
+//            iconView: "transView",
+//            name: "Антенна",
+//            price: 75,
+//            description: "Антенна для связи с космосом",
+//            category: .head
+//        ),
         // Add more as needed, e.g., Accessory(id: ..., icon: "rocketSV", ...) if "rocketSV" is a custom asset
     ]
     
